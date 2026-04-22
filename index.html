@@ -265,6 +265,7 @@
     }
     .nav-drawer-link:hover { color: #fff; background: rgba(255,255,255,0.06); }
     @media (max-width: 740px) {
+      #nav { display: none; }
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
       #nav-inner { border-radius: 18px; }
@@ -364,7 +365,7 @@
 
     .hero-kicker {
       display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
-      gap: 8px; margin-bottom: 24px;
+      gap: 8px; margin-bottom: 40px;
       font-size: clamp(20px, 2.5vw, 26px); font-weight: 500; color: rgba(255,255,255,0.45);
       letter-spacing: -0.01em;
     }
@@ -972,36 +973,118 @@
       .testimonials-grid { grid-template-columns: 1fr; gap: 10px; }
     }
     @media (max-width: 680px) {
-      #hero { padding: 86px 20px 52px; min-height: auto; }
-      .hero-h1 { font-size: clamp(42px, 12vw, 72px); }
-      .hero-badge { margin-bottom: 20px; }
-      .hero-ctas { margin-bottom: 32px; }
-      .hero-ctas .btn { width: 100%; justify-content: center; }
-      .hero-zero-risk { font-size: 12px; margin-bottom: 22px; }
-      .hero-kicker { font-size: 17px; }
-      .section { padding: 64px 18px; }
-      .pain-grid { grid-template-columns: 1fr; gap: 10px; }
+      /* ─── Global ─── */
+      html, body { overflow-x: hidden; max-width: 100%; }
+
+      /* ─── Hero ─── */
+      #hero { padding: 48px 24px 68px; min-height: 100svh; }
+      .hero-badge { margin-bottom: 28px; }
+      .hero-h1 { font-size: clamp(60px, 16vw, 92px); line-height: 0.93; margin-bottom: 20px; }
+      .hero-kicker { font-size: 15px; gap: 6px; margin-bottom: 24px; line-height: 1.55; }
+
+      .hero-ctas {
+        flex-direction: column; align-items: stretch;
+        gap: 10px; margin-bottom: 48px;
+      }
+      .hero-ctas .btn {
+        width: 100%; justify-content: center;
+        padding: 17px 24px; font-size: 15px;
+      }
+
+      /* ─── Sections ─── */
+      .section { padding: 76px 30px; }
+
+      /* ─── Problema ─── */
+      .pain-grid { grid-template-columns: 1fr; gap: 12px; }
+
+      /* ─── Come funziona ─── */
       .steps-list::before { display: none; }
-      .step-row { flex-direction: column; gap: 10px; padding-bottom: 32px; }
+      .step-row { flex-direction: column; gap: 12px; padding-bottom: 36px; }
       .step-marker { flex-direction: row; }
-      .price-card { padding: 28px 22px; }
-      .about-text { padding: 30px 24px; }
-      .about-photo { min-height: 260px; }
-      .about-photo-placeholder { min-height: 260px; }
-      .faq-trigger { padding: 17px 18px; }
-      .faq-a { padding: 2px 18px 18px; }
-      .faq-contact { flex-direction: column; align-items: flex-start; gap: 14px; padding: 20px 20px; }
+
+      /* ─── Soluzione ─── */
+      .price-card { padding: 32px 24px; }
+
+      /* ─── Chi sono — flatten card → plain section ─── */
+      .about-card {
+        background: transparent; border: none;
+        border-radius: 0; overflow: visible;
+      }
+      .about-photo { min-height: 280px; border-radius: 18px; overflow: hidden; }
+      .about-photo-overlay { display: none; }
+      .about-photo-placeholder { min-height: 280px; border-radius: 18px; }
+      .about-text { padding: 32px 0 0; }
+
+      /* ─── FAQ ─── */
+      .faq-trigger { padding: 18px 20px; }
+      .faq-a { padding: 2px 20px 20px; }
+      .faq-contact {
+        flex-direction: column; align-items: flex-start;
+        gap: 14px; padding: 22px;
+      }
       .faq-contact .btn { width: 100%; justify-content: center; }
-      .cta-box { padding: 52px 20px 44px; border-radius: 20px; }
+
+      /* ─── CTA finale ─── */
+      .cta-box { padding: 56px 24px 48px; border-radius: 22px; }
       .cta-trust { gap: 14px; }
-      .cta-buttons { flex-direction: column; align-items: stretch; }
-      .cta-buttons .btn { justify-content: center; }
-      #sticky-wa { display: block; }
-      body { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
+      .cta-buttons { flex-direction: column; align-items: stretch; gap: 10px; }
+      .cta-buttons .btn { justify-content: center; padding: 17px 24px !important; font-size: 15px !important; width: 100% !important; }
+
+      /* ─── Sticky bar ─── */
+      #sticky-wa { display: none; }
+      body { padding-bottom: 0; }
     }
     @media (max-width: 400px) {
-      .hero-h1 { font-size: 38px; }
-      .h2 { font-size: 27px; }
+      .hero-h1 { font-size: 52px; }
+      .h2 { font-size: 28px; }
+    }
+
+    /* ══ COMPARE MOBILE CARDS ══ */
+    .compare-mobile { display: none; }
+    .cmc-card {
+      border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+      background: var(--card);
+    }
+    .cmc-card.cmc-me {
+      border-color: rgba(255,44,50,0.35);
+      background: rgba(255,44,50,0.03);
+    }
+    .cmc-head {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .cmc-card.cmc-me .cmc-head {
+      background: rgba(255,44,50,0.07);
+      border-bottom-color: rgba(255,44,50,0.15);
+    }
+    .cmc-title { font-weight: 700; font-size: 15px; color: #fff; }
+    .cmc-badge {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: var(--grad); color: #fff;
+      padding: 2px 8px; border-radius: 100px;
+    }
+    .cmc-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 11px 18px; gap: 12px;
+    }
+    .cmc-row:not(:last-child) { border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .cmc-label {
+      font-size: 12px; font-weight: 600;
+      color: rgba(255,255,255,0.40);
+      text-transform: uppercase; letter-spacing: 0.05em;
+      flex-shrink: 0; min-width: 76px;
+    }
+    .cmc-val { font-size: 14px; color: rgba(255,255,255,0.65); text-align: right; }
+    .cmc-card.cmc-me .cmc-val { color: rgba(255,255,255,0.88); }
+    .cmc-check { color: #25d366; margin-right: 3px; }
+    .cmc-cross { color: rgba(255,80,80,0.70); margin-right: 3px; }
+
+    @media (max-width: 680px) {
+      .compare-wrap { display: none; }
+      .compare-mobile { display: flex; flex-direction: column; gap: 12px; }
     }
     @media (hover: none) {
       .btn-wa:hover, .btn-ghost:hover { transform: none; filter: none; }
@@ -1071,11 +1154,6 @@
       <span class="hero-kicker-price">197€</span>
       <span class="hero-kicker-sep">·</span>
       <span>Paghi solo se ti piace</span>
-    </div>
-
-    <div class="hero-zero-risk">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-      Zero rischio · Vedi il risultato prima di pagare qualsiasi cosa
     </div>
 
     <div class="hero-ctas">
@@ -1420,6 +1498,106 @@
 
       </div>
     </div>
+
+    <!-- ═══ COMPARE MOBILE CARDS (solo mobile, nascosto su desktop) ═══ -->
+    <div class="compare-mobile">
+
+      <!-- Giacomo Studio -->
+      <div class="cmc-card cmc-me">
+        <div class="cmc-head">
+          <span class="cmc-title">Giacomo Studio</span>
+          <span class="cmc-badge">consigliato</span>
+        </div>
+        <div class="cmc-row">
+          <span class="cmc-label">Prezzo</span>
+          <span class="cmc-val"><span class="cmc-check">✓</span>197€ fisso</span>
+        </div>
+        <div class="cmc-row">
+          <span class="cmc-label">Tempi</span>
+          <span class="cmc-val"><span class="cmc-check">✓</span>5 giorni</span>
+        </div>
+        <div class="cmc-row">
+          <span class="cmc-label">Rischio</span>
+          <span class="cmc-val"><span class="cmc-check">✓</span>Paghi solo se piace</span>
+        </div>
+        <div class="cmc-row">
+          <span class="cmc-label">Design</span>
+          <span class="cmc-val"><span class="cmc-check">✓</span>Personalizzato</span>
+        </div>
+        <div class="cmc-row">
+          <span class="cmc-label">Assistenza</span>
+          <span class="cmc-val"><span class="cmc-check">✓</span>Diretta con me</span>
+        </div>
+        <div class="cmc-row">
+          <span class="cmc-label">Hosting</span>
+          <span class="cmc-val"><span class="cmc-check">✓</span>Incluso 1 anno</span>
+        </div>
+      </div>
+
+      <!-- Agenzia web -->
+      <div class="cmc-card">
+        <div class="cmc-head">
+          <span class="cmc-title">Agenzia web</span>
+        </div>
+        <div class="cmc-row">
+          <span class="cmc-label">Prezzo</span>
+          <span class="cmc-val">1.500 – 8.000€</span>
+        </div>
+        <div class="cmc-row">
+          <span class="cmc-label">Tempi</span>
+          <span class="cmc-val">4 – 12 settimane</span>
+        </div>
+        <div class="cmc-row">
+          <span class="cmc-label">Rischio</span>
+          <span class="cmc-val"><span class="cmc-cross">✗</span>Anticipo richiesto</span>
+        </div>
+        <div class="cmc-row">
+          <span class="cmc-label">Design</span>
+          <span class="cmc-val">Personalizzato</span>
+        </div>
+        <div class="cmc-row">
+          <span class="cmc-label">Assistenza</span>
+          <span class="cmc-val">Ticket / agenzia</span>
+        </div>
+        <div class="cmc-row">
+          <span class="cmc-label">Hosting</span>
+          <span class="cmc-val"><span class="cmc-cross">✗</span>Solitamente escluso</span>
+        </div>
+      </div>
+
+      <!-- Builder (Wix) -->
+      <div class="cmc-card">
+        <div class="cmc-head">
+          <span class="cmc-title">Builder (Wix)</span>
+        </div>
+        <div class="cmc-row">
+          <span class="cmc-label">Prezzo</span>
+          <span class="cmc-val">15 – 30€/mese</span>
+        </div>
+        <div class="cmc-row">
+          <span class="cmc-label">Tempi</span>
+          <span class="cmc-val">Fai da te</span>
+        </div>
+        <div class="cmc-row">
+          <span class="cmc-label">Rischio</span>
+          <span class="cmc-val"><span class="cmc-cross">✗</span>Perdi tempo</span>
+        </div>
+        <div class="cmc-row">
+          <span class="cmc-label">Design</span>
+          <span class="cmc-val"><span class="cmc-cross">✗</span>Template generico</span>
+        </div>
+        <div class="cmc-row">
+          <span class="cmc-label">Assistenza</span>
+          <span class="cmc-val"><span class="cmc-cross">✗</span>Nessuna</span>
+        </div>
+        <div class="cmc-row">
+          <span class="cmc-label">Hosting</span>
+          <span class="cmc-val">A pagamento</span>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 </section>
 
