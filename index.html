@@ -1,0 +1,1758 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giacomo Studio | Sito professionale 197€, chiavi in mano.</title>
+  <meta name="description" content="Sito web professionale a 197€, chiavi in mano. Solo 5 posti disponibili. Paghi solo se ti piace. Scrivimi su WhatsApp.">
+  <link rel="icon" href="logo-mark.svg" type="image/svg+xml">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Giacomo Studio — Sito professionale 197€, chiavi in mano.">
+  <meta property="og:description" content="Sito web professionale a 197€. Paghi solo se ti piace. Solo 5 posti disponibili. Rispondo entro 1 ora.">
+  <meta property="og:image" content="https://giacomostudio.it/og-image.jpg">
+  <meta property="og:url" content="https://giacomostudio.it">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="it_IT">
+  <meta property="og:site_name" content="Giacomo Studio">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Giacomo Studio — Sito professionale 197€, chiavi in mano.">
+  <meta name="twitter:description" content="Sito web professionale a 197€. Paghi solo se ti piace. Solo 5 posti disponibili.">
+  <meta name="twitter:image" content="https://giacomostudio.it/og-image.jpg">
+
+  <!-- Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Giacomo Studio",
+    "description": "Siti web professionali a 197€ chiavi in mano. Paghi solo se ti piace.",
+    "url": "https://giacomostudio.it",
+    "priceRange": "€",
+    "telephone": "+393493457558",
+    "email": "giacomo.abbracciaventoo@gmail.com",
+    "areaServed": "IT",
+    "availableLanguage": "Italian",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+393493457558",
+      "contactType": "customer service",
+      "availableLanguage": "Italian"
+    },
+    "offers": {
+      "@type": "Offer",
+      "name": "Sito web professionale chiavi in mano",
+      "price": "197",
+      "priceCurrency": "EUR",
+      "availability": "https://schema.org/LimitedAvailability",
+      "description": "Sito completo, veloce e mobile-ottimizzato. SEO base + Google Analytics. Form contatti + bottone WhatsApp. Dominio + hosting primo anno incluso. Revisione gratuita dopo 30 giorni."
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    @import url('https://fonts.cdnfonts.com/css/clash-display');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:    #ff2c32;
+      --orange: #fa6800;
+      --green:  #25d366;
+      --bg:     #050505;
+      --card:   #0c0c0c;
+      --border: rgba(255,255,255,0.07);
+      --text:   rgba(255,255,255,0.50);
+      --grad:   linear-gradient(90deg, #ff2c32 0%, #fa6800 100%);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: #fff;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      background-image: radial-gradient(ellipse 100% 60% at 50% 0%, #111 0%, #060606 50%, #000 100%);
+      background-attachment: fixed;
+    }
+
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 9999;
+      pointer-events: none; opacity: 0.022;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px;
+    }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
+
+    /* ─── Utility ─── */
+    .gradient-text {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .section {
+      padding: 96px 24px;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .label {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin-bottom: 18px;
+    }
+    .label-line { width: 22px; height: 1px; background: var(--red); }
+    .label-text {
+      font-size: 12px; font-weight: 600;
+      letter-spacing: 0.10em; text-transform: uppercase;
+      color: var(--red);
+    }
+    .h2 {
+      font-family: 'Clash Display', sans-serif;
+      font-size: clamp(30px, 5vw, 56px);
+      font-weight: 700; line-height: 1.06;
+      letter-spacing: -0.03em;
+    }
+
+    /* ─── Fade-up ─── */
+    .fade-up {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.60s cubic-bezier(0.25,0.46,0.45,0.94),
+                  transform 0.60s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up.d1 { transition-delay: 0.08s; }
+    .fade-up.d2 { transition-delay: 0.16s; }
+    .fade-up.d3 { transition-delay: 0.24s; }
+    .fade-row {
+      opacity: 0; transform: translateY(12px);
+      transition: opacity 0.40s ease, transform 0.40s ease;
+    }
+    .fade-row.visible { opacity: 1; transform: translateY(0); }
+    .fade-row:nth-child(2) { transition-delay: 0.05s; }
+    .fade-row:nth-child(3) { transition-delay: 0.10s; }
+    .fade-row:nth-child(4) { transition-delay: 0.15s; }
+    .fade-row:nth-child(5) { transition-delay: 0.20s; }
+    .fade-row:nth-child(6) { transition-delay: 0.25s; }
+    .fade-row:nth-child(7) { transition-delay: 0.30s; }
+
+    /* ─── Buttons ─── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 15px 28px;
+      font-size: 15px; font-weight: 600;
+      border-radius: 100px;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+      white-space: nowrap; letter-spacing: -0.01em;
+      position: relative; overflow: hidden;
+    }
+    .btn:active { transform: translateY(1px) !important; }
+    .btn-wa {
+      background: var(--green); color: #fff;
+      box-shadow: 0 6px 28px rgba(37,211,102,0.28);
+    }
+    .btn-wa:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(37,211,102,0.45);
+      filter: brightness(1.07);
+    }
+    .btn-ghost {
+      background: transparent; color: rgba(255,255,255,0.65);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .btn-ghost:hover {
+      border-color: rgba(255,255,255,0.28);
+      background: rgba(255,255,255,0.05);
+      transform: translateY(-1px);
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       NAV
+    ══════════════════════════════════════════════════════════════ */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100; padding: 14px 20px;
+      transition: padding 0.35s ease;
+    }
+    #nav.scrolled { padding: 9px 20px; }
+    #nav-inner {
+      max-width: 1080px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 10px 10px 10px 22px;
+      border-radius: 100px;
+      background: rgba(8,8,8,0.72);
+      backdrop-filter: blur(24px) saturate(1.5);
+      -webkit-backdrop-filter: blur(24px) saturate(1.5);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.09);
+    }
+    .nav-logo {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 18px; font-weight: 700;
+      color: #fff; text-decoration: none;
+      letter-spacing: -0.02em; flex-shrink: 0;
+    }
+    .nav-logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-wa {
+      display: flex; align-items: center; gap: 7px;
+      padding: 9px 18px;
+      background: rgba(37,211,102,0.10);
+      border: 1px solid rgba(37,211,102,0.28);
+      color: #25d366;
+      font-size: 13px; font-weight: 600;
+      border-radius: 100px; text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+      white-space: nowrap; letter-spacing: -0.01em;
+    }
+    .nav-wa:hover { background: rgba(37,211,102,0.20); border-color: rgba(37,211,102,0.55); }
+
+    /* Nav links centrati */
+    #nav-inner { position: relative; }
+    .nav-links {
+      display: flex; align-items: center; gap: 4px;
+      list-style: none;
+      position: absolute; left: 50%; transform: translateX(-50%);
+    }
+    .nav-link {
+      font-size: 13px; font-weight: 500;
+      color: rgba(255,255,255,0.52);
+      text-decoration: none; letter-spacing: -0.01em;
+      padding: 7px 13px; border-radius: 100px;
+      transition: color 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+    .nav-link:hover { color: rgba(255,255,255,0.90); background: rgba(255,255,255,0.06); }
+    .nav-link.active { color: #fff; background: rgba(255,255,255,0.07); }
+    .nav-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .nav-hamburger {
+      display: none; flex-direction: column; justify-content: center; align-items: center;
+      gap: 5px; width: 38px; height: 38px; padding: 0;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 100px; cursor: pointer;
+    }
+    .nav-hamburger span {
+      display: block; width: 16px; height: 1.5px;
+      background: rgba(255,255,255,0.70); border-radius: 2px;
+      transition: transform 0.28s ease, opacity 0.2s ease;
+    }
+    #nav.menu-open .nav-hamburger span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    #nav.menu-open .nav-hamburger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    #nav.menu-open .nav-hamburger span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .nav-drawer {
+      max-width: 1080px; margin: 0 auto;
+      overflow: hidden; max-height: 0;
+      transition: max-height 0.38s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.28s ease;
+      opacity: 0;
+    }
+    #nav.menu-open .nav-drawer { max-height: 260px; opacity: 1; }
+    .nav-drawer ul { list-style: none; padding: 10px 22px 14px; display: flex; flex-direction: column; gap: 2px; }
+    .nav-drawer-link {
+      display: block; font-size: 17px; font-weight: 500;
+      color: rgba(255,255,255,0.70); text-decoration: none;
+      letter-spacing: -0.02em; padding: 11px 14px; border-radius: 12px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-drawer-link:hover { color: #fff; background: rgba(255,255,255,0.06); }
+    @media (max-width: 740px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      #nav-inner { border-radius: 18px; }
+      #nav.menu-open #nav-inner { border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .nav-drawer {
+        background: rgba(8,8,8,0.90); backdrop-filter: blur(24px) saturate(1.5);
+        -webkit-backdrop-filter: blur(24px) saturate(1.5);
+        border: 1px solid rgba(255,255,255,0.08); border-top: none;
+        border-radius: 0 0 18px 18px; padding: 0 10px;
+      }
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       HERO
+    ══════════════════════════════════════════════════════════════ */
+    #hero {
+      min-height: 100dvh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 120px 24px 72px;
+      position: relative; overflow: hidden;
+    }
+    .hero-orb {
+      position: absolute; top: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 560px;
+      background: radial-gradient(55% 94% at 48.7% 6.5%, #fa6800 0%, #c00000 46%, #0f0f0f 100%);
+      opacity: 0.45; border-radius: 50%;
+      filter: blur(6px); pointer-events: none;
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+    }
+    .hero-grid::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 30%, #050505 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 760px; width: 100%;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,165,0,0.07);
+      border: 1px solid rgba(255,165,0,0.28);
+      border-radius: 100px;
+      padding: 6px 14px; margin-bottom: 28px;
+      animation: badge-glow 3s ease-in-out infinite;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #fa6800;
+      box-shadow: 0 0 6px rgba(250,104,0,0.8);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.7)} }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-6px); }
+    }
+    @keyframes shimmer {
+      0%   { transform: translateX(-100%) skewX(-12deg); }
+      100% { transform: translateX(250%) skewX(-12deg); }
+    }
+    @keyframes badge-glow {
+      0%,100% { box-shadow: none; border-color: rgba(255,165,0,0.28); }
+      50%     { box-shadow: 0 0 12px 2px rgba(250,104,0,0.18); border-color: rgba(255,165,0,0.52); }
+    }
+    .btn-wa::after {
+      content: ''; position: absolute; top: 0; left: 0;
+      width: 40%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+      animation: shimmer 3.2s ease-in-out infinite;
+      animation-delay: 1.5s; pointer-events: none;
+    }
+    .hero-badge-text {
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: rgba(255,165,0,0.85);
+    }
+
+    .hero-h1 {
+      font-family: 'Clash Display', sans-serif;
+      font-size: clamp(52px, 11vw, 108px);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      margin-bottom: 20px;
+    }
+
+    .hero-kicker {
+      display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+      gap: 8px; margin-bottom: 24px;
+      font-size: clamp(20px, 2.5vw, 26px); font-weight: 500; color: rgba(255,255,255,0.45);
+      letter-spacing: -0.01em;
+    }
+    .hero-kicker-price {
+      font-family: 'Clash Display', sans-serif;
+      font-size: clamp(24px, 3vw, 30px); font-weight: 700; letter-spacing: -0.02em;
+      background: var(--grad);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-kicker-sep { color: rgba(255,255,255,0.20); }
+
+    .hero-zero-risk {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 13px; font-weight: 500;
+      color: rgba(255,255,255,0.38);
+      margin-bottom: 28px;
+      letter-spacing: -0.01em;
+    }
+    .hero-zero-risk svg { color: var(--green); flex-shrink: 0; }
+
+    .hero-ctas {
+      display: flex; align-items: center; justify-content: center;
+      gap: 12px; flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+
+    .vsl-wrap {
+      position: relative; width: 100%; max-width: 680px;
+      margin: 0 auto;
+      border-radius: 18px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 28px 72px rgba(0,0,0,0.60), 0 0 0 1px rgba(255,44,50,0.06);
+      background: #111;
+    }
+    .vsl-ratio { position: relative; padding-top: 56.25%; }
+    .vsl-ratio iframe {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; border: none;
+    }
+    .vsl-placeholder {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 14px;
+      background: linear-gradient(160deg, #111 0%, #1c0505 100%);
+      color: rgba(255,255,255,0.30);
+      font-size: 14px; cursor: pointer;
+      letter-spacing: -0.01em;
+    }
+    .vsl-play-btn {
+      width: 68px; height: 68px; border-radius: 50%;
+      background: rgba(255,44,50,0.10);
+      border: 1px solid rgba(255,44,50,0.30);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--red);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .vsl-placeholder:hover .vsl-play-btn {
+      background: rgba(255,44,50,0.20);
+      transform: scale(1.08);
+      box-shadow: 0 0 28px rgba(255,44,50,0.25);
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       PROBLEMA
+    ══════════════════════════════════════════════════════════════ */
+    .problem-intro { text-align: center; margin-bottom: 52px; }
+    .problem-intro .h2 { margin-bottom: 14px; }
+    .problem-sub { font-size: clamp(18px, 2vw, 21px); color: var(--text); line-height: 1.72; max-width: 460px; margin: 0 auto; }
+
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .pain-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px; padding: 30px 22px;
+      transition: border-color 0.3s;
+    }
+    .pain-card:hover { border-color: rgba(255,44,50,0.20); }
+    .pain-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: rgba(255,44,50,0.08);
+      border: 1px solid rgba(255,44,50,0.15);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px; color: var(--red);
+    }
+    .pain-title {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 18px; font-weight: 600;
+      letter-spacing: -0.02em; margin-bottom: 10px;
+    }
+    .pain-desc { font-size: 14px; color: var(--text); line-height: 1.70; }
+
+    /* ══════════════════════════════════════════════════════════════
+       SOLUZIONE / PREZZO
+    ══════════════════════════════════════════════════════════════ */
+    .solution-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 52px; align-items: center;
+    }
+
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .checklist li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 15px; color: rgba(255,255,255,0.70); line-height: 1.5;
+      letter-spacing: -0.01em;
+    }
+    .check-icon {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: rgba(255,44,50,0.08);
+      border: 1px solid rgba(255,44,50,0.20);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px; color: var(--red);
+    }
+    .check-icon svg { width: 10px; height: 10px; }
+
+    .price-card {
+      background: var(--card);
+      border: 1px solid rgba(255,44,50,0.22);
+      border-radius: 24px;
+      padding: 36px 32px;
+      position: relative; overflow: hidden;
+      box-shadow: 0 0 60px rgba(255,44,50,0.05), 0 28px 60px rgba(0,0,0,0.45);
+      animation: float 5s ease-in-out infinite;
+    }
+    .price-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 85% 50% at 50% 0%, rgba(255,44,50,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .price-spots {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 18px; position: relative;
+    }
+    .price-spots-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #fa6800;
+      animation: pulse 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    .price-spots-text {
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.10em; text-transform: uppercase;
+      color: rgba(255,165,0,0.85);
+    }
+    .price-label {
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,44,50,0.70);
+      margin-bottom: 12px; position: relative;
+    }
+    .price-number {
+      font-family: 'Clash Display', sans-serif;
+      font-size: clamp(52px, 8vw, 84px);
+      font-weight: 700; letter-spacing: -0.04em; line-height: 1;
+      margin-bottom: 4px; position: relative;
+    }
+    .price-orig {
+      font-size: 18px; font-weight: 600;
+      color: rgba(255,255,255,0.20);
+      text-decoration: line-through;
+      margin-left: 8px;
+    }
+    .price-sub {
+      font-size: 13px; color: rgba(255,255,255,0.28);
+      margin-bottom: 24px; position: relative;
+      letter-spacing: 0.01em;
+    }
+    .price-zero-risk {
+      background: rgba(37,211,102,0.07);
+      border: 1px solid rgba(37,211,102,0.18);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 22px; position: relative;
+      display: flex; align-items: flex-start; gap: 12px;
+    }
+    .price-zero-risk-icon { color: var(--green); flex-shrink: 0; margin-top: 1px; }
+    .price-zero-risk-text {
+      font-size: 14px; font-weight: 600;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.5; letter-spacing: -0.01em;
+    }
+    .price-zero-risk-text small {
+      display: block; font-weight: 400;
+      font-size: 13px; color: rgba(255,255,255,0.32);
+      margin-top: 3px;
+    }
+    .price-cta-btn {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; width: 100%;
+      padding: 16px 24px;
+      background: var(--green); color: #fff;
+      font-size: 16px; font-weight: 700;
+      letter-spacing: -0.01em;
+      border-radius: 14px; text-decoration: none; border: none; cursor: pointer;
+      box-shadow: 0 6px 28px rgba(37,211,102,0.28);
+      transition: filter 0.2s, box-shadow 0.2s, transform 0.2s;
+      position: relative;
+    }
+    .price-cta-btn:hover {
+      filter: brightness(1.07);
+      box-shadow: 0 12px 40px rgba(37,211,102,0.42);
+      transform: translateY(-2px);
+    }
+    .price-note {
+      font-size: 13px; color: rgba(255,255,255,0.20);
+      text-align: center; margin-top: 12px; position: relative;
+      letter-spacing: 0.01em;
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       COME FUNZIONA
+    ══════════════════════════════════════════════════════════════ */
+    .steps-intro { text-align: center; margin-bottom: 68px; }
+    .steps-intro .h2 { margin-bottom: 12px; }
+
+    .steps-list { max-width: 800px; margin: 0 auto; position: relative; }
+    .steps-list::before {
+      content: '';
+      position: absolute;
+      left: 27px; top: 20px; bottom: 20px; width: 1px;
+      background: linear-gradient(to bottom,
+        transparent 0%, rgba(255,44,50,0.30) 15%,
+        rgba(255,44,50,0.30) 85%, transparent 100%);
+      transform-origin: top center;
+      transform: scaleY(0);
+      transition: transform 1.1s cubic-bezier(0.25,0.46,0.45,0.94) 0.15s;
+    }
+    .steps-list.timeline-visible::before { transform: scaleY(1); }
+    .step-circle {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--card);
+      border: 1px solid rgba(255,44,50,0.28);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 4px rgba(255,44,50,0.04);
+      opacity: 0; transform: scale(0.4);
+      transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .step-body {
+      flex: 1; padding-top: 12px;
+      opacity: 0; transform: translateX(22px);
+      transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .step-row:nth-child(1) .step-circle { transition-delay: 0.20s; }
+    .step-row:nth-child(1) .step-body   { transition-delay: 0.28s; }
+    .step-row:nth-child(2) .step-circle { transition-delay: 0.44s; }
+    .step-row:nth-child(2) .step-body   { transition-delay: 0.52s; }
+    .step-row:nth-child(3) .step-circle { transition-delay: 0.68s; }
+    .step-row:nth-child(3) .step-body   { transition-delay: 0.76s; }
+    .steps-list.timeline-visible .step-circle,
+    .steps-list.timeline-visible .step-body { opacity: 1; transform: none; }
+    .step-row { display: flex; gap: 36px; padding: 0 0 52px; position: relative; }
+    .step-row:last-child { padding-bottom: 0; }
+    .step-marker { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+    .step-circle-num {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 20px; font-weight: 700;
+      background: var(--grad);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .step-time-pill {
+      display: inline-block;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.10em; text-transform: uppercase;
+      color: rgba(255,44,50,0.60);
+      background: rgba(255,44,50,0.07);
+      border: 1px solid rgba(255,44,50,0.13);
+      border-radius: 100px; padding: 3px 10px;
+      margin-bottom: 10px;
+    }
+    .step-title {
+      font-family: 'Clash Display', sans-serif;
+      font-size: clamp(21px, 3vw, 28px); font-weight: 700;
+      letter-spacing: -0.025em; line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .step-desc { font-size: 15px; color: var(--text); line-height: 1.70; max-width: 520px; }
+    .step-highlight {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 14px; padding: 10px 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      font-size: 13px; color: rgba(255,255,255,0.50);
+      letter-spacing: -0.01em;
+    }
+    .step-highlight strong { color: rgba(255,255,255,0.80); font-weight: 600; }
+
+    /* ══════════════════════════════════════════════════════════════
+       CHI SONO
+    ══════════════════════════════════════════════════════════════ */
+    .about-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 28px; overflow: hidden;
+      display: grid; grid-template-columns: 1fr 1fr;
+    }
+    .about-photo { position: relative; min-height: 440px; background: #111; overflow: hidden; }
+    .about-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top center; display: block;
+      filter: grayscale(20%); transition: filter 0.4s ease;
+    }
+    .about-photo:hover img { filter: grayscale(0%); }
+    .about-photo-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, transparent 60%, var(--card) 100%),
+                  linear-gradient(135deg, rgba(255,44,50,0.08), transparent 60%);
+      pointer-events: none;
+    }
+    .about-photo-placeholder {
+      width: 100%; height: 100%; min-height: 440px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 14px;
+      background: linear-gradient(135deg, #111 0%, #1a0505 100%);
+      color: rgba(255,255,255,0.18);
+      font-size: 13px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .about-photo-placeholder-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: rgba(255,44,50,0.08); border: 1px solid rgba(255,44,50,0.20);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .about-text { padding: 52px 48px; display: flex; flex-direction: column; justify-content: center; }
+    .about-text .label { margin-bottom: 16px; }
+    .about-name {
+      font-family: 'Clash Display', sans-serif;
+      font-size: clamp(26px, 3.5vw, 42px);
+      font-weight: 700; letter-spacing: -0.03em; margin-bottom: 6px;
+    }
+    .about-role {
+      font-size: 13px; font-weight: 600;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      color: rgba(255,44,50,0.70); margin-bottom: 22px;
+    }
+    .about-bio { font-size: 15px; color: var(--text); line-height: 1.78; margin-bottom: 28px; }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 28px; }
+    .about-stat {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 16px 18px;
+    }
+    .about-stat-num {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 28px; font-weight: 700; letter-spacing: -0.03em;
+      background: var(--grad);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .about-stat-label { font-size: 13px; color: var(--text); margin-top: 3px; letter-spacing: -0.01em; }
+
+    /* ══════════════════════════════════════════════════════════════
+       CONFRONTO
+    ══════════════════════════════════════════════════════════════ */
+    .compare-intro { text-align: center; margin-bottom: 52px; }
+    .compare-intro .h2 { margin-bottom: 10px; }
+    .compare-intro p { font-size: 17px; color: var(--text); margin-top: 12px; line-height: 1.7; }
+
+    .compare-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .compare-table {
+      min-width: 560px;
+      border: 1px solid var(--border);
+      border-radius: 20px; overflow: hidden;
+    }
+    .compare-row {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    }
+    .compare-row:not(:last-child) { border-bottom: 1px solid var(--border); }
+    .compare-cell {
+      padding: 16px 20px;
+      font-size: 14px; color: var(--text);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .compare-feature {
+      font-weight: 600; font-size: 13px;
+      color: rgba(255,255,255,0.60);
+    }
+    .compare-me {
+      background: rgba(255,44,50,0.04);
+      border-left: 1px solid rgba(255,44,50,0.15);
+      border-right: 1px solid rgba(255,44,50,0.15);
+      color: #fff; align-items: center; gap: 6px;
+    }
+    .compare-header .compare-me {
+      flex-direction: column; align-items: flex-start; gap: 2px;
+    }
+    .compare-header { background: rgba(255,255,255,0.025); }
+    .compare-header .compare-cell { padding: 18px 20px; }
+    .compare-me-label {
+      font-family: 'Clash Display', sans-serif;
+      font-weight: 700; font-size: 14px; color: #fff; letter-spacing: -0.01em;
+    }
+    .compare-me-sub {
+      font-size: 11px; color: var(--red); font-weight: 700;
+      letter-spacing: 0.07em; text-transform: uppercase;
+    }
+    .compare-check { color: var(--green); font-weight: 700; flex-shrink: 0; }
+    .compare-cross { color: rgba(255,80,80,0.55); font-weight: 700; flex-shrink: 0; }
+    .compare-val-me { font-size: 14px; color: rgba(255,255,255,0.90); font-weight: 500; }
+    .compare-val { font-size: 13px; color: rgba(255,255,255,0.38); }
+    .compare-col-head { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.42); }
+
+    /* ══════════════════════════════════════════════════════════════
+       TESTIMONIANZE
+    ══════════════════════════════════════════════════════════════ */
+    .testimonials-intro { text-align: center; margin-bottom: 40px; }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .testimonial-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 28px 24px;
+      transition: border-color 0.3s;
+    }
+    .testimonial-card:hover { border-color: rgba(255,255,255,0.12); }
+    .testimonial-stars { display: flex; gap: 3px; margin-bottom: 14px; color: #fa6800; font-size: 14px; }
+    .testimonial-quote {
+      font-size: 14px; color: rgba(255,255,255,0.58);
+      line-height: 1.75; margin-bottom: 20px; font-style: italic;
+    }
+    .testimonial-author { display: flex; align-items: center; gap: 11px; }
+    .testimonial-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,44,50,0.10); border: 1px solid rgba(255,44,50,0.20);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; color: var(--red);
+      flex-shrink: 0;
+    }
+    .testimonial-name { font-weight: 600; font-size: 14px; margin-bottom: 2px; }
+    .testimonial-role { font-size: 13px; color: var(--text); }
+
+    /* ══════════════════════════════════════════════════════════════
+       FAQ
+    ══════════════════════════════════════════════════════════════ */
+    .faq-intro { text-align: center; margin-bottom: 44px; }
+    .faq-list {
+      max-width: 740px; margin: 0 auto;
+      border: 1px solid var(--border);
+      border-radius: 20px; overflow: hidden;
+    }
+    .faq-item { border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-trigger {
+      width: 100%;
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+      padding: 20px 24px; background: transparent; border: none;
+      cursor: pointer; text-align: left;
+      transition: background 0.2s;
+    }
+    .faq-trigger:hover { background: rgba(255,255,255,0.02); }
+    .faq-item.open .faq-trigger { background: rgba(255,44,50,0.04); }
+    .faq-q {
+      font-size: 15px; font-weight: 500; color: #fff;
+      line-height: 1.4; flex: 1; letter-spacing: -0.01em;
+    }
+    .faq-item.open .faq-q { color: var(--red); }
+    .faq-chevron { flex-shrink: 0; color: var(--red); transition: transform 0.35s ease; }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+    .faq-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.38s ease; }
+    .faq-item.open .faq-body { grid-template-rows: 1fr; }
+    .faq-body-inner { overflow: hidden; }
+    .faq-a { padding: 2px 24px 20px; font-size: 14px; line-height: 1.73; color: var(--text); }
+    .faq-a strong { color: rgba(255,255,255,0.80); font-weight: 600; }
+
+    .faq-contact {
+      max-width: 740px; margin: 24px auto 0;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 26px 30px;
+      display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    }
+    .faq-contact-left { display: flex; align-items: center; gap: 16px; flex: 1; min-width: 180px; }
+    .faq-contact-avatar-wrap { position: relative; flex-shrink: 0; }
+    .faq-contact-avatar-img {
+      width: 54px; height: 54px; border-radius: 50%;
+      background: linear-gradient(135deg, rgba(255,44,50,0.10), rgba(250,104,0,0.10));
+      border: 1.5px solid rgba(255,44,50,0.22);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; font-weight: 700; color: var(--red);
+      overflow: hidden;
+    }
+    .faq-contact-avatar-img img { width: 100%; height: 100%; object-fit: cover; object-position: top; filter: grayscale(15%); }
+    .faq-contact-status {
+      position: absolute; bottom: 2px; right: 2px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--green); border: 2px solid var(--card);
+    }
+    .faq-contact-title {
+      font-size: 19px; font-weight: 700;
+      letter-spacing: -0.02em; margin-bottom: 3px;
+    }
+    .faq-contact-sub { font-size: 14px; color: var(--text); line-height: 1.5; }
+
+    /* ══════════════════════════════════════════════════════════════
+       CTA FINALE
+    ══════════════════════════════════════════════════════════════ */
+    .cta-box {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 28px; padding: 88px 40px 72px;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-box::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 90% 60% at 50% 0%, rgba(255,44,50,0.14) 0%, transparent 68%);
+      pointer-events: none;
+    }
+    .cta-box::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(250,104,0,0.25), transparent);
+      pointer-events: none;
+    }
+    .cta-box .h2 { margin-bottom: 16px; position: relative; }
+    .cta-sub {
+      font-size: clamp(17px, 1.9vw, 20px); color: rgba(255,255,255,0.40);
+      max-width: 380px; margin: 0 auto 40px;
+      line-height: 1.68; position: relative;
+      letter-spacing: -0.01em;
+    }
+    .cta-buttons {
+      display: flex; align-items: center; justify-content: center;
+      gap: 12px; flex-wrap: wrap; position: relative;
+    }
+    .cta-trust {
+      display: flex; align-items: center; justify-content: center;
+      gap: 24px; flex-wrap: wrap;
+      margin-top: 28px; position: relative;
+    }
+    .cta-trust-item {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 13px; color: rgba(255,255,255,0.30);
+      font-weight: 500; letter-spacing: -0.01em;
+    }
+    .cta-trust-item svg { color: var(--green); flex-shrink: 0; }
+
+    /* ══════════════════════════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════════════════════════ */
+    footer {
+      background: #030303;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 30px 24px;
+    }
+    .footer-inner {
+      max-width: 1080px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 14px;
+    }
+    .footer-logo {
+      font-family: 'Clash Display', sans-serif;
+      font-size: 16px; font-weight: 700;
+      color: rgba(255,255,255,0.40); text-decoration: none;
+    }
+    .footer-logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .footer-links { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .footer-link {
+      font-size: 12px; color: rgba(255,255,255,0.18);
+      text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .footer-link:hover { color: rgba(255,255,255,0.42); }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.14); }
+
+    /* ══════════════════════════════════════════════════════════════
+       STICKY BOTTOM BAR — mobile
+    ══════════════════════════════════════════════════════════════ */
+    #sticky-wa {
+      display: none;
+      position: fixed; bottom: 0; left: 0; right: 0;
+      z-index: 9000;
+      background: rgba(5,5,5,0.97);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(37,211,102,0.14);
+      padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    }
+    #sticky-wa a {
+      display: flex; align-items: center; justify-content: center;
+      gap: 9px; width: 100%;
+      padding: 14px;
+      background: var(--green); color: #fff;
+      font-size: 15px; font-weight: 700;
+      letter-spacing: -0.01em;
+      border-radius: 13px; text-decoration: none;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.28);
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════════════════════════ */
+    @media (max-width: 860px) {
+      .solution-grid { grid-template-columns: 1fr; gap: 28px; }
+      .about-card { grid-template-columns: 1fr; }
+      .about-photo { min-height: 320px; }
+      .about-photo-placeholder { min-height: 320px; }
+      .testimonials-grid { grid-template-columns: 1fr; gap: 10px; }
+    }
+    @media (max-width: 680px) {
+      #hero { padding: 86px 20px 52px; min-height: auto; }
+      .hero-h1 { font-size: clamp(42px, 12vw, 72px); }
+      .hero-badge { margin-bottom: 20px; }
+      .hero-ctas { margin-bottom: 32px; }
+      .hero-ctas .btn { width: 100%; justify-content: center; }
+      .hero-zero-risk { font-size: 12px; margin-bottom: 22px; }
+      .hero-kicker { font-size: 17px; }
+      .section { padding: 64px 18px; }
+      .pain-grid { grid-template-columns: 1fr; gap: 10px; }
+      .steps-list::before { display: none; }
+      .step-row { flex-direction: column; gap: 10px; padding-bottom: 32px; }
+      .step-marker { flex-direction: row; }
+      .price-card { padding: 28px 22px; }
+      .about-text { padding: 30px 24px; }
+      .about-photo { min-height: 260px; }
+      .about-photo-placeholder { min-height: 260px; }
+      .faq-trigger { padding: 17px 18px; }
+      .faq-a { padding: 2px 18px 18px; }
+      .faq-contact { flex-direction: column; align-items: flex-start; gap: 14px; padding: 20px 20px; }
+      .faq-contact .btn { width: 100%; justify-content: center; }
+      .cta-box { padding: 52px 20px 44px; border-radius: 20px; }
+      .cta-trust { gap: 14px; }
+      .cta-buttons { flex-direction: column; align-items: stretch; }
+      .cta-buttons .btn { justify-content: center; }
+      #sticky-wa { display: block; }
+      body { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
+    }
+    @media (max-width: 400px) {
+      .hero-h1 { font-size: 38px; }
+      .h2 { font-size: 27px; }
+    }
+    @media (hover: none) {
+      .btn-wa:hover, .btn-ghost:hover { transform: none; filter: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .price-card { animation: none; }
+      .hero-badge { animation: none; }
+      .btn-wa::after { animation: none; }
+      .step-circle, .step-body { transition: none !important; }
+      .steps-list::before { transition: none !important; transform: scaleY(1); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav id="nav">
+  <div id="nav-inner">
+    <a href="/" class="nav-logo">giacomo<span>studio</span></a>
+
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#chi-sono"      class="nav-link">Chi sono</a></li>
+      <li><a href="#come-funziona" class="nav-link">Come funziona</a></li>
+      <li><a href="#soluzione"     class="nav-link">Prezzi</a></li>
+      <li><a href="#faq"           class="nav-link">FAQ</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="https://wa.me/3493457558?text=Ciao%20Giacomo%2C%20vorrei%20sapere%20di%20pi%C3%B9%20sul%20pacchetto%20197%E2%82%AC" class="nav-wa" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.463 3.488C18.219.742 15.039-.06 11.892 0 6.555.074 2.226 4.582 2.206 10.053c-.006 1.784.468 3.533 1.364 5.064L2.05 23.394l5.653-1.483c1.475.804 3.14 1.227 4.782 1.23 5.338 0 9.667-4.508 9.687-10.043.009-2.686-1.046-5.213-2.955-7.112z"/></svg>
+        Scrivimi
+      </a>
+    </div>
+  </div>
+
+  <div class="nav-drawer" id="nav-drawer" aria-hidden="true">
+    <ul>
+      <li><a href="#chi-sono"      class="nav-drawer-link">Chi sono</a></li>
+      <li><a href="#come-funziona" class="nav-drawer-link">Come funziona</a></li>
+      <li><a href="#soluzione"     class="nav-drawer-link">Prezzi</a></li>
+      <li><a href="#faq"           class="nav-drawer-link">FAQ</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section id="hero">
+  <div class="hero-orb"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-content">
+
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      <span class="hero-badge-text">Offerta lancio · solo 5 posti</span>
+    </div>
+
+    <h1 class="hero-h1">
+      Il sito che<br>
+      <span class="gradient-text">ti porta clienti.</span>
+    </h1>
+
+    <div class="hero-kicker">
+      <span class="hero-kicker-price">197€</span>
+      <span class="hero-kicker-sep">·</span>
+      <span>Paghi solo se ti piace</span>
+    </div>
+
+    <div class="hero-zero-risk">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      Zero rischio · Vedi il risultato prima di pagare qualsiasi cosa
+    </div>
+
+    <div class="hero-ctas">
+      <a href="https://wa.me/3493457558?text=Ciao%20Giacomo%2C%20voglio%20il%20mio%20sito%20a%20197%E2%82%AC" class="btn btn-wa" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.463 3.488C18.219.742 15.039-.06 11.892 0 6.555.074 2.226 4.582 2.206 10.053c-.006 1.784.468 3.533 1.364 5.064L2.05 23.394l5.653-1.483c1.475.804 3.14 1.227 4.782 1.23 5.338 0 9.667-4.508 9.687-10.043.009-2.686-1.046-5.213-2.955-7.112zM11.892 20.5c-1.497 0-2.966-.395-4.247-1.139l-.304-.18-3.155.828.84-3.065-.197-.314c-.842-1.34-1.286-2.89-1.281-4.467.034-4.423 3.599-8.027 7.991-8.027 2.138.01 4.147.839 5.657 2.334 1.511 1.495 2.343 3.48 2.335 5.584-.035 4.423-3.6 8.026-7.991 8.027z"/></svg>
+        Scrivimi su WhatsApp
+      </a>
+      <a href="#come-funziona" class="btn btn-ghost">Come funziona</a>
+    </div>
+
+    <!-- VSL — sostituisci VIDEO_ID con l'ID del tuo video YouTube -->
+    <div class="vsl-wrap fade-up">
+      <div class="vsl-ratio">
+        <!--
+          OPZIONE A — video YouTube:
+          <iframe src="https://www.youtube.com/embed/VIDEO_ID?rel=0&modestbranding=1"
+            title="Come funziona" allowfullscreen
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+          </iframe>
+        -->
+        <div class="vsl-placeholder">
+          <div class="vsl-play-btn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <span>Guarda come funziona · 2 minuti</span>
+          <span style="font-size:11px;color:rgba(255,255,255,0.12);">[ Inserisci il tuo VSL qui ]</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ PROBLEMA ═══════════ -->
+<section id="problema">
+  <div class="section">
+    <div class="problem-intro fade-up">
+      <div class="label" style="justify-content:center;">
+        <div class="label-line"></div>
+        <span class="label-text">Il problema</span>
+        <div class="label-line"></div>
+      </div>
+      <h2 class="h2" style="margin-bottom:14px;">
+        Senza un sito professionale<br>
+        perdi clienti <span class="gradient-text">ogni giorno.</span>
+      </h2>
+      <p class="problem-sub">
+        Mentre aspetti, i tuoi competitor prendono i clienti che avrebbero scelto te.
+      </p>
+    </div>
+
+    <div class="pain-grid">
+      <div class="pain-card fade-up">
+        <div class="pain-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <div class="pain-title">Non ti trovano online</div>
+        <p class="pain-desc">Chi cerca i tuoi servizi su Google finisce dai tuoi competitor. Senza sito, non esisti.</p>
+      </div>
+      <div class="pain-card fade-up d1">
+        <div class="pain-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="pain-title">Perdi tempo prezioso</div>
+        <p class="pain-desc">Spiegare il tuo lavoro da zero ogni volta costa ore. Un sito lavora per te 24/7, anche di notte.</p>
+      </div>
+      <div class="pain-card fade-up d2">
+        <div class="pain-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="pain-title">Non sembri affidabile</div>
+        <p class="pain-desc">Il 75% delle persone giudica la credibilità di un'azienda dal suo sito. Senza, perdi ogni trattativa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SOLUZIONE / PREZZO ═══════════ -->
+<section id="soluzione">
+  <div class="section">
+    <div class="solution-grid">
+
+      <!-- Sinistra: checklist -->
+      <div class="fade-up">
+        <div class="label" style="margin-bottom:18px;">
+          <div class="label-line"></div>
+          <span class="label-text">Cosa ottieni</span>
+        </div>
+        <h2 class="h2" style="margin-bottom:14px;">
+          Tutto quello che ti serve.<br>
+          <span class="gradient-text">Subito online.</span>
+        </h2>
+        <p style="font-size:15px;color:var(--text);line-height:1.72;margin-bottom:24px;letter-spacing:-0.01em;">
+          Prezzo fisso, nessun extra, nessuna sorpresa. In 5 giorni sei online con tutto il necessario.
+        </p>
+        <ul class="checklist">
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>
+            Sito web completo, veloce e ottimizzato mobile
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>
+            SEO base e Google Analytics configurati
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>
+            Form contatto e pulsante WhatsApp
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>
+            Dominio e hosting primo anno inclusi
+          </li>
+          <li>
+            <span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>
+            Revisione gratuita dopo 30 giorni
+          </li>
+        </ul>
+      </div>
+
+      <!-- Destra: price card -->
+      <div class="fade-up d2">
+        <div class="price-card">
+
+          <div class="price-spots">
+            <div class="price-spots-dot"></div>
+            <span class="price-spots-text">Solo 5 posti · offerta lancio</span>
+          </div>
+
+          <div class="price-label">Sito chiavi in mano</div>
+          <div class="price-number gradient-text">197€ <span class="price-orig">570€</span></div>
+          <div class="price-sub">Prezzo fisso · tutto incluso · nessuna sorpresa</div>
+
+          <div class="price-zero-risk">
+            <svg class="price-zero-risk-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <div class="price-zero-risk-text">
+              Paghi solo se ti piace
+              <small>Vedi il risultato completo prima di pagare qualsiasi cosa. Zero rischio.</small>
+            </div>
+          </div>
+
+          <a href="https://wa.me/3493457558?text=Ciao%20Giacomo%2C%20voglio%20il%20mio%20sito%20a%20197%E2%82%AC" class="price-cta-btn" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.463 3.488C18.219.742 15.039-.06 11.892 0 6.555.074 2.226 4.582 2.206 10.053c-.006 1.784.468 3.533 1.364 5.064L2.05 23.394l5.653-1.483c1.475.804 3.14 1.227 4.782 1.23 5.338 0 9.667-4.508 9.687-10.043.009-2.686-1.046-5.213-2.955-7.112zM11.892 20.5c-1.497 0-2.966-.395-4.247-1.139l-.304-.18-3.155.828.84-3.065-.197-.314c-.842-1.34-1.286-2.89-1.281-4.467.034-4.423 3.599-8.027 7.991-8.027 2.138.01 4.147.839 5.657 2.334 1.511 1.495 2.343 3.48 2.335 5.584-.035 4.423-3.6 8.026-7.991 8.027z"/></svg>
+            Scrivimi · 197€
+          </a>
+          <p class="price-note">✦ Rispondo entro 1 ora · Posti limitati</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ COME FUNZIONA ═══════════ -->
+<section id="come-funziona">
+  <div class="section">
+    <div class="steps-intro fade-up">
+      <div class="label" style="justify-content:center;">
+        <div class="label-line"></div>
+        <span class="label-text">Come funziona</span>
+        <div class="label-line"></div>
+      </div>
+      <h2 class="h2" style="margin-bottom:12px;">
+        Semplice come deve essere.
+      </h2>
+      <p style="font-size:clamp(16px,1.8vw,18px);color:var(--text);line-height:1.68;max-width:400px;margin:0 auto;letter-spacing:-0.01em;">
+        Non devi capire niente di tecnologia. Penso a tutto io, dall'inizio alla fine.
+      </p>
+    </div>
+
+    <div class="steps-list">
+
+      <div class="step-row">
+        <div class="step-marker">
+          <div class="step-circle"><span class="step-circle-num">1</span></div>
+        </div>
+        <div class="step-body">
+          <span class="step-time-pill">Giorno 1</span>
+          <div class="step-title">Mi scrivi su WhatsApp</div>
+          <p class="step-desc">
+            Niente moduli, niente riunioni infinite. Mi mandi un messaggio, mi racconti cosa fai e cosa ti serve. In 15 minuti ho tutto quello che mi serve per iniziare.
+          </p>
+          <div class="step-highlight">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.463 3.488C18.219.742 15.039-.06 11.892 0 6.555.074 2.226 4.582 2.206 10.053c-.006 1.784.468 3.533 1.364 5.064L2.05 23.394l5.653-1.483c1.475.804 3.14 1.227 4.782 1.23 5.338 0 9.667-4.508 9.687-10.043.009-2.686-1.046-5.213-2.955-7.112z"/></svg>
+            <span><strong>Rispondo entro 1 ora.</strong> Anche la sera.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <div class="step-marker">
+          <div class="step-circle"><span class="step-circle-num">2</span></div>
+        </div>
+        <div class="step-body">
+          <span class="step-time-pill">Giorni 1–5</span>
+          <div class="step-title">Costruisco il tuo sito</div>
+          <p class="step-desc">
+            Inizia il lavoro. Design, sviluppo, contenuti, SEO. Ti aggiorno ogni giorno sui progressi. Tu non devi fare nulla.
+          </p>
+          <div class="step-highlight">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Nessun anticipo richiesto. <strong>Parti senza rischio.</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <div class="step-marker">
+          <div class="step-circle"><span class="step-circle-num">3</span></div>
+        </div>
+        <div class="step-body">
+          <span class="step-time-pill">Giorno 5</span>
+          <div class="step-title">Vedi il risultato. Poi decidi.</div>
+          <p class="step-desc">
+            Ti mostro il sito completo. Se ti piace, lo mettiamo online e paghi i 197€. Se non ti piace al 100%, lo miglioriamo insieme finché non sei soddisfatto. Niente va online senza il tuo ok.
+          </p>
+          <div class="step-highlight" style="border-color:rgba(37,211,102,0.20);background:rgba(37,211,102,0.05);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span style="color:rgba(37,211,102,0.75);"><strong style="color:#25d366;">Paghi solo se ti piace.</strong> Zero rischio garantito.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CHI SONO ═══════════ -->
+<section id="chi-sono">
+  <div class="section">
+    <div class="about-card fade-up">
+
+      <div class="about-photo">
+        <img src="giacomo-brand-designer-developer-freelance.webp" alt="Giacomo, Brand Designer e Developer Freelance" loading="lazy">
+        <div class="about-photo-overlay"></div>
+      </div>
+
+      <div class="about-text">
+        <div class="label">
+          <div class="label-line"></div>
+          <span class="label-text">Chi sono</span>
+        </div>
+        <div class="about-name">Ciao, sono Giacomo.</div>
+        <div class="about-role">Brand Designer &amp; Developer Freelance</div>
+        <p class="about-bio">
+          Lavoro con imprenditori e professionisti ambiziosi, trasformando la loro presenza online in un sistema di crescita reale, pensato per distinguerli dalla massa.<br><br>
+          Non mi limito a fare le cose belle: le faccio funzionare meglio, restare impresse e portare clienti. Dalla strategia al codice, gestisco tutto in prima persona. Niente reparti, niente intermediari.
+        </p>
+        <div class="about-stats">
+          <div class="about-stat">
+            <div class="about-stat-num" data-count="47" data-suffix="+">47+</div>
+            <div class="about-stat-label">Siti e progetti consegnati</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-num" data-count="3" data-suffix="×">3×</div>
+            <div class="about-stat-label">ROI medio dei clienti</div>
+          </div>
+        </div>
+        <a href="https://wa.me/3493457558?text=Ciao%20Giacomo%2C%20voglio%20saperne%20di%20pi%C3%B9" class="btn btn-wa" style="width:fit-content;" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.463 3.488C18.219.742 15.039-.06 11.892 0 6.555.074 2.226 4.582 2.206 10.053c-.006 1.784.468 3.533 1.364 5.064L2.05 23.394l5.653-1.483c1.475.804 3.14 1.227 4.782 1.23 5.338 0 9.667-4.508 9.687-10.043.009-2.686-1.046-5.213-2.955-7.112zM11.892 20.5c-1.497 0-2.966-.395-4.247-1.139l-.304-.18-3.155.828.84-3.065-.197-.314c-.842-1.34-1.286-2.89-1.281-4.467.034-4.423 3.599-8.027 7.991-8.027 2.138.01 4.147.839 5.657 2.334 1.511 1.495 2.343 3.48 2.335 5.584-.035 4.423-3.6 8.026-7.991 8.027z"/></svg>
+          Scrivimi
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CONFRONTO ═══════════ -->
+<section id="confronto">
+  <div class="section">
+    <div class="compare-intro fade-up">
+      <div class="label" style="justify-content:center;">
+        <div class="label-line"></div>
+        <span class="label-text">Perché scegliermi</span>
+        <div class="label-line"></div>
+      </div>
+      <h2 class="h2">La scelta <span class="gradient-text">più intelligente.</span></h2>
+      <p>Prima di scegliere, confronta.</p>
+    </div>
+
+    <div class="compare-wrap fade-up d1">
+      <div class="compare-table">
+
+        <!-- Header -->
+        <div class="compare-row compare-header">
+          <div class="compare-cell compare-feature"></div>
+          <div class="compare-cell compare-me">
+            <div class="compare-me-label">Giacomo Studio</div>
+            <div class="compare-me-sub">consigliato</div>
+          </div>
+          <div class="compare-cell"><span class="compare-col-head">Agenzia web</span></div>
+          <div class="compare-cell"><span class="compare-col-head">Builder (Wix)</span></div>
+        </div>
+
+        <!-- Prezzo -->
+        <div class="compare-row fade-row">
+          <div class="compare-cell compare-feature">Prezzo</div>
+          <div class="compare-cell compare-me"><span class="compare-val-me">197€ fisso</span></div>
+          <div class="compare-cell"><span class="compare-val">1.500 – 8.000€</span></div>
+          <div class="compare-cell"><span class="compare-val">15 – 30€/mese</span></div>
+        </div>
+
+        <!-- Tempi -->
+        <div class="compare-row fade-row">
+          <div class="compare-cell compare-feature">Tempi</div>
+          <div class="compare-cell compare-me"><span class="compare-val-me">5 giorni</span></div>
+          <div class="compare-cell"><span class="compare-val">4 – 12 settimane</span></div>
+          <div class="compare-cell"><span class="compare-val">Fai da te</span></div>
+        </div>
+
+        <!-- Rischio -->
+        <div class="compare-row fade-row">
+          <div class="compare-cell compare-feature">Rischio</div>
+          <div class="compare-cell compare-me"><span class="compare-check">✓</span><span class="compare-val-me">Paghi solo se piace</span></div>
+          <div class="compare-cell"><span class="compare-cross">✗</span><span class="compare-val">Anticipo richiesto</span></div>
+          <div class="compare-cell"><span class="compare-cross">✗</span><span class="compare-val">Perdi tempo</span></div>
+        </div>
+
+        <!-- Design -->
+        <div class="compare-row fade-row">
+          <div class="compare-cell compare-feature">Design</div>
+          <div class="compare-cell compare-me"><span class="compare-check">✓</span><span class="compare-val-me">Personalizzato</span></div>
+          <div class="compare-cell"><span class="compare-check" style="color:rgba(255,255,255,0.28);">✓</span><span class="compare-val">Personalizzato</span></div>
+          <div class="compare-cell"><span class="compare-cross">✗</span><span class="compare-val">Template generico</span></div>
+        </div>
+
+        <!-- Assistenza -->
+        <div class="compare-row fade-row">
+          <div class="compare-cell compare-feature">Assistenza</div>
+          <div class="compare-cell compare-me"><span class="compare-check">✓</span><span class="compare-val-me">Diretta con me</span></div>
+          <div class="compare-cell"><span class="compare-val">Ticket / agenzia</span></div>
+          <div class="compare-cell"><span class="compare-cross">✗</span><span class="compare-val">Nessuna</span></div>
+        </div>
+
+        <!-- Hosting -->
+        <div class="compare-row fade-row">
+          <div class="compare-cell compare-feature">Hosting</div>
+          <div class="compare-cell compare-me"><span class="compare-check">✓</span><span class="compare-val-me">Incluso 1 anno</span></div>
+          <div class="compare-cell"><span class="compare-cross">✗</span><span class="compare-val">Solitamente escluso</span></div>
+          <div class="compare-cell"><span class="compare-val">A pagamento</span></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TESTIMONIANZE ═══════════ -->
+<section id="testimonianze">
+  <div class="section">
+    <div class="testimonials-intro fade-up">
+      <div class="label" style="justify-content:center;">
+        <div class="label-line"></div>
+        <span class="label-text">Chi ha già scelto Giacomo</span>
+        <div class="label-line"></div>
+      </div>
+      <h2 class="h2">
+        Non fidarti di me.<br>
+        <span class="gradient-text">Fidati di loro.</span>
+      </h2>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card fade-up">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"In 5 giorni avevo il sito online. Ha capito subito cosa volevo e non mi ha fatto perdere tempo. Vale ogni centesimo."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">M</div>
+          <div>
+            <div class="testimonial-name">Marco B.</div>
+            <div class="testimonial-role">Architetto freelance</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-up d1">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"Prima avevo un sito fai-da-te che mi faceva vergognare. Ora mando il link con orgoglio. Le richieste di preventivo sono triplicate."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">L</div>
+          <div>
+            <div class="testimonial-name">Laura E.</div>
+            <div class="testimonial-role">Wedding planner</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card fade-up d2">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">"Non capisco nulla di tecnologia ma Giacomo ha gestito tutto. Il sito è esattamente come lo volevo, e ho pagato solo quando ero soddisfatto."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">L</div>
+          <div>
+            <div class="testimonial-name">Luca P.</div>
+            <div class="testimonial-role">Elettricista, Padova</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FAQ ═══════════ -->
+<section id="faq">
+  <div class="section">
+    <div class="faq-intro fade-up">
+      <div class="label" style="justify-content:center;">
+        <div class="label-line"></div>
+        <span class="label-text">Domande frequenti</span>
+        <div class="label-line"></div>
+      </div>
+      <h2 class="h2">
+        Tutto quello che<br>
+        vuoi <span class="gradient-text">sapere.</span>
+      </h2>
+    </div>
+
+    <div class="faq-list fade-up d1">
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-q">Davvero paghi solo se ti piace? Come funziona?</span>
+          <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body"><div class="faq-body-inner">
+          <p class="faq-a"><strong>Sì, è esattamente così.</strong> Non chiedo nessun anticipo. Costruisco il tuo sito, te lo mostro completo, e solo se ti piace al 100% lo mettiamo online e paghi i 197€. Se qualcosa non va, lo sistemiamo insieme prima. Zero rischio per te.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-q">Davvero in 5 giorni? Non è troppo poco?</span>
+          <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body"><div class="faq-body-inner">
+          <p class="faq-a">Sì, davvero. <strong>Lavoro io direttamente,</strong> nessun reparto, nessun passaggio di consegne. 5 giorni lavorativi dalla prima chat al sito pronto. L'unica cosa che ti chiedo è di rispondere velocemente quando ho bisogno di informazioni.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-q">Cosa include esattamente il pacchetto da 197€?</span>
+          <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body"><div class="faq-body-inner">
+          <p class="faq-a">Sito web completo e ottimizzato per mobile, SEO base, Google Analytics, form contatto, link WhatsApp. <strong>Dominio e hosting del primo anno inclusi.</strong> Il prezzo che vedi è quello che paghi. Niente extra.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-q">Devo capire qualcosa di tecnologia?</span>
+          <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body"><div class="faq-body-inner">
+          <p class="faq-a">Per niente. <strong>Mi bastano le informazioni sulla tua attività, qualche foto e le tue preferenze.</strong> Penso a tutto io mentre tu vai avanti con la tua giornata.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-q">Chi gestisce il sito dopo la consegna?</span>
+          <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body"><div class="faq-body-inner">
+          <p class="faq-a"><strong>Il sito è tuo al 100%.</strong> Vuoi gestirlo da solo? Ti lascio una guida pratica. Preferisci che mi occupi io degli aggiornamenti ogni mese? Possiamo concordare un piano mensile senza vincoli, cancelli quando vuoi.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-q">197€ è davvero il prezzo finale? Perché così poco?</span>
+          <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body"><div class="faq-body-inner">
+          <p class="faq-a"><strong>È un prezzo di lancio riservato ai primi 5 clienti.</strong> Voglio costruire un portfolio di casi di successo reali e raccogliere le prime testimonianze. In cambio, tu ottieni un lavoro professionale a un prezzo che normalmente non trovi sotto i 1.500€. Nessuna fregatura, nessun costo nascosto.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-q">Perché non farmelo da solo con un builder?</span>
+          <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-body"><div class="faq-body-inner">
+          <p class="faq-a">Potresti. Ma il tempo che perdi a imparare, litigare con i template e ottenere un risultato mediocre non vale la pena. <strong>In 5 giorni ti consegno qualcosa di professionale che porta clienti.</strong> Paghi solo se ti piace. Il tuo tempo vale più di 197€.</p>
+        </div></div>
+      </div>
+
+    </div>
+
+    <!-- Hai altre domande? -->
+    <div class="faq-contact fade-up d2">
+      <div class="faq-contact-left">
+        <div class="faq-contact-avatar-wrap">
+          <div class="faq-contact-avatar-img">
+            <img src="face.webp" alt="Giacomo">
+          </div>
+          <div class="faq-contact-status"></div>
+        </div>
+        <div>
+          <div class="faq-contact-title">Hai altre domande?</div>
+          <div class="faq-contact-sub">Scrivimi direttamente. Rispondo entro 1 ora.</div>
+        </div>
+      </div>
+      <a href="https://wa.me/3493457558?text=Ciao%20Giacomo%2C%20ho%20una%20domanda%20sul%20pacchetto%20197%E2%82%AC" class="btn btn-wa" target="_blank" rel="noopener">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.463 3.488C18.219.742 15.039-.06 11.892 0 6.555.074 2.226 4.582 2.206 10.053c-.006 1.784.468 3.533 1.364 5.064L2.05 23.394l5.653-1.483c1.475.804 3.14 1.227 4.782 1.23 5.338 0 9.667-4.508 9.687-10.043.009-2.686-1.046-5.213-2.955-7.112zM11.892 20.5c-1.497 0-2.966-.395-4.247-1.139l-.304-.18-3.155.828.84-3.065-.197-.314c-.842-1.34-1.286-2.89-1.281-4.467.034-4.423 3.599-8.027 7.991-8.027 2.138.01 4.147.839 5.657 2.334 1.511 1.495 2.343 3.48 2.335 5.584-.035 4.423-3.6 8.026-7.991 8.027z"/></svg>
+        Scrivimi
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ CTA FINALE ═══════════ -->
+<section id="contatto">
+  <div class="section" style="padding-bottom:96px;">
+    <div class="cta-box fade-up">
+      <h2 class="h2" style="margin-bottom:16px;">
+        Il tuo sito, chiavi in mano.<br>
+        <span class="gradient-text">197€.</span>
+      </h2>
+      <p class="cta-sub">
+        Vedi il sito prima di pagare.<br>Solo se ti piace, lo metti online.
+      </p>
+      <div class="cta-buttons">
+        <a href="https://wa.me/3493457558?text=Ciao%20Giacomo%2C%20voglio%20il%20mio%20sito%20a%20197%E2%82%AC" class="btn btn-wa" style="padding:17px 40px;font-size:17px;" target="_blank" rel="noopener">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.463 3.488C18.219.742 15.039-.06 11.892 0 6.555.074 2.226 4.582 2.206 10.053c-.006 1.784.468 3.533 1.364 5.064L2.05 23.394l5.653-1.483c1.475.804 3.14 1.227 4.782 1.23 5.338 0 9.667-4.508 9.687-10.043.009-2.686-1.046-5.213-2.955-7.112zM11.892 20.5c-1.497 0-2.966-.395-4.247-1.139l-.304-.18-3.155.828.84-3.065-.197-.314c-.842-1.34-1.286-2.89-1.281-4.467.034-4.423 3.599-8.027 7.991-8.027 2.138.01 4.147.839 5.657 2.334 1.511 1.495 2.343 3.48 2.335 5.584-.035 4.423-3.6 8.026-7.991 8.027z"/></svg>
+          Scrivimi su WhatsApp
+        </a>
+      </div>
+      <div class="cta-trust">
+        <span class="cta-trust-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Zero rischio
+        </span>
+        <span class="cta-trust-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Rispondo entro 1 ora
+        </span>
+        <span class="cta-trust-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          5 posti disponibili
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">giacomo<span>studio</span></a>
+    <div class="footer-links">
+      <a href="mailto:abbracciaventogiacomo17@gmail.com" class="footer-link">Email</a>
+      <a href="privacy.html" class="footer-link">Privacy Policy</a>
+      <span class="footer-link" style="cursor:default;">P.IVA in attesa</span>
+    </div>
+    <span class="footer-copy">© <span id="yr"></span> Giacomo Studio</span>
+  </div>
+</footer>
+
+<!-- ═══════════ STICKY BOTTOM BAR — mobile ═══════════ -->
+<div id="sticky-wa">
+  <a href="https://wa.me/3493457558?text=Ciao%20Giacomo%2C%20voglio%20il%20mio%20sito%20a%20197%E2%82%AC" target="_blank" rel="noopener">
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M20.463 3.488C18.219.742 15.039-.06 11.892 0 6.555.074 2.226 4.582 2.206 10.053c-.006 1.784.468 3.533 1.364 5.064L2.05 23.394l5.653-1.483c1.475.804 3.14 1.227 4.782 1.23 5.338 0 9.667-4.508 9.687-10.043.009-2.686-1.046-5.213-2.955-7.112zM11.892 20.5c-1.497 0-2.966-.395-4.247-1.139l-.304-.18-3.155.828.84-3.065-.197-.314c-.842-1.34-1.286-2.89-1.281-4.467.034-4.423 3.599-8.027 7.991-8.027 2.138.01 4.147.839 5.657 2.334 1.511 1.495 2.343 3.48 2.335 5.584-.035 4.423-3.6 8.026-7.991 8.027z"/></svg>
+    Scrivimi · rispondo entro 1 ora
+  </a>
+</div>
+
+<!-- ═══════════ JS ═══════════ -->
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -16px 0px' });
+  document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+  document.querySelectorAll('.fade-row').forEach(el => io.observe(el));
+
+  document.querySelectorAll('.faq-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item   = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(el => {
+        el.classList.remove('open');
+        el.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) { item.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+    });
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+
+  // Hamburger toggle
+  const hamburger = document.getElementById('nav-hamburger');
+  const drawer = document.getElementById('nav-drawer');
+  if (hamburger) {
+    hamburger.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('menu-open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+      drawer.setAttribute('aria-hidden', !isOpen);
+    });
+    drawer.querySelectorAll('.nav-drawer-link').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('menu-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        drawer.setAttribute('aria-hidden', 'true');
+      });
+    });
+    document.addEventListener('click', (e) => {
+      if (nav.classList.contains('menu-open') && !nav.contains(e.target)) {
+        nav.classList.remove('menu-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        drawer.setAttribute('aria-hidden', 'true');
+      }
+    });
+  }
+
+  // Active nav link on scroll
+  const navSections = ['chi-sono','come-funziona','soluzione','faq'];
+  const navLinkEls = document.querySelectorAll('.nav-link');
+  const activateNavLink = () => {
+    let current = '';
+    navSections.forEach(id => {
+      const sec = document.getElementById(id);
+      if (sec && window.scrollY >= sec.offsetTop - 120) current = id;
+    });
+    navLinkEls.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+    });
+  };
+  window.addEventListener('scroll', activateNavLink, { passive: true });
+  activateNavLink();
+
+  // Timeline reveal
+  const stepsEl = document.querySelector('.steps-list');
+  if (stepsEl) {
+    const timelineIO = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('timeline-visible'); timelineIO.unobserve(e.target); }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    timelineIO.observe(stepsEl);
+  }
+
+  // Counter animation
+  function animateCounter(el, target, suffix, duration) {
+    duration = duration || 1400;
+    const start = performance.now();
+    const update = (now) => {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(eased * target) + suffix;
+      if (p < 1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  }
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      animateCounter(e.target, +e.target.dataset.count, e.target.dataset.suffix || '');
+      counterIO.unobserve(e.target);
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-count]').forEach(el => counterIO.observe(el));
+</script>
+
+</body>
+</html>
