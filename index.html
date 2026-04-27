@@ -1943,6 +1943,22 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     });
   }, { threshold: 0.5 });
   document.querySelectorAll('[data-count]').forEach(el => counterIO.observe(el));
+
+  // WhatsApp click tracking — GA4 + Meta Pixel
+  document.querySelectorAll('a[href*="wa.me"]').forEach(function(link) {
+    link.addEventListener('click', function() {
+      var loc = 'other';
+      if (link.closest('#sticky-wa'))          loc = 'sticky';
+      else if (link.classList.contains('nav-wa')) loc = 'nav';
+      else if (link.classList.contains('price-cta-btn')) loc = 'pricing';
+      else {
+        var section = link.closest('section') || link.closest('[id]');
+        if (section) loc = section.id || 'unknown';
+      }
+      if (typeof gtag !== 'undefined') gtag('event', 'whatsapp_click', { button_location: loc });
+      if (typeof fbq !== 'undefined')  fbq('trackCustom', 'WhatsAppClick', { button_location: loc });
+    });
+  });
 </script>
 
 </body>
