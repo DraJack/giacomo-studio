@@ -126,6 +126,7 @@
     }
 
     .privacy-wrap ul li { margin-bottom: 6px; }
+    .privacy-wrap ul ul { margin: 6px 0 0 20px; }
 
     .privacy-wrap a {
       color: var(--orange);
@@ -171,7 +172,7 @@
 <div class="privacy-wrap">
 
   <h1>Privacy Policy</h1>
-  <p class="privacy-date">Ultimo aggiornamento: aprile 2026</p>
+  <p class="privacy-date">Ultimo aggiornamento: ottobre 2026</p>
 
   <div class="privacy-highlight">
     <p>Questa pagina descrive come Giacomo Studio raccoglie, usa e protegge i tuoi dati personali, ai sensi del Regolamento (UE) 2016/679 (GDPR) e del D.Lgs. 196/2003 come modificato dal D.Lgs. 101/2018.</p>
@@ -192,11 +193,13 @@
   <ul>
     <li><strong>WhatsApp:</strong> nome, numero di telefono e contenuto del messaggio inviato</li>
     <li><strong>Email:</strong> indirizzo email e contenuto del messaggio</li>
+    <li><strong>Modulo "Check-up" in pagina:</strong> indirizzo email e tipo di attività selezionato (ristorazione, ospitalità, servizi alla persona)</li>
   </ul>
   <p>Tali dati vengono trattati per le seguenti finalità:</p>
   <ul>
     <li>Rispondere alle richieste di informazioni e preventivi</li>
     <li>Gestire il rapporto contrattuale per la fornitura dei servizi richiesti</li>
+    <li>Solo per chi compila il modulo "Check-up": inviarti via email l'esempio di sito richiesto e un numero limitato di email informative sul servizio (al massimo quattro). Niente newsletter periodica, nessuna telefonata.</li>
     <li>Adempiere agli obblighi di legge (fiscali, amministrativi)</li>
   </ul>
 
@@ -204,6 +207,7 @@
   <p>Il trattamento dei dati si basa su:</p>
   <ul>
     <li><strong>Esecuzione di un contratto</strong> (art. 6, par. 1, lett. b GDPR): per fornire i servizi richiesti</li>
+    <li><strong>Consenso</strong> (art. 6, par. 1, lett. a GDPR): per le email inviate a chi compila il modulo "Check-up". Il consenso si presta inviando il modulo e si revoca in qualsiasi momento con il link di disiscrizione presente in ogni email o scrivendomi</li>
     <li><strong>Legittimo interesse</strong> (art. 6, par. 1, lett. f GDPR): per rispondere alle richieste di contatto</li>
     <li><strong>Obbligo legale</strong> (art. 6, par. 1, lett. c GDPR): per adempiere agli obblighi fiscali e normativi</li>
   </ul>
@@ -212,13 +216,19 @@
   <p>I dati personali vengono conservati per il tempo strettamente necessario alle finalità per cui sono stati raccolti:</p>
   <ul>
     <li>Dati relativi a richieste non seguite da contratto: fino a 12 mesi</li>
+    <li>Dati raccolti con il modulo "Check-up": fino alla disiscrizione e comunque non oltre 12 mesi dall'iscrizione</li>
     <li>Dati relativi a rapporti contrattuali: 10 anni dalla conclusione del contratto (obblighi fiscali)</li>
   </ul>
 
   <h2>5. Destinatari dei dati</h2>
   <p>I dati personali non vengono ceduti, venduti o comunicati a terzi per finalità di marketing. Possono essere condivisi esclusivamente con:</p>
   <ul>
-    <li>Fornitori di servizi tecnici necessari all'attività (es. hosting, piattaforme di comunicazione) che agiscono come responsabili del trattamento</li>
+    <li>Fornitori di servizi tecnici necessari all'attività (es. hosting, piattaforme di comunicazione) che agiscono come responsabili del trattamento, in particolare:
+      <ul>
+        <li><strong>Brevo</strong> (Sendinblue SAS, Parigi, Francia) — conserva gli indirizzi raccolti con il modulo "Check-up" e invia le relative email</li>
+        <li><strong>Vercel Inc.</strong> — hosting del sito e inoltro dei dati del modulo a Brevo</li>
+      </ul>
+    </li>
     <li>Autorità pubbliche in caso di obbligo di legge</li>
   </ul>
   <p>Le piattaforme di messaggistica utilizzate (WhatsApp, Gmail) hanno proprie politiche sulla privacy. Si consiglia di prenderne visione direttamente sui rispettivi siti.</p>
@@ -242,7 +252,7 @@
   <p>Il sito utilizza inoltre <strong>Meta Pixel</strong> (pixel.facebook.com), fornito da Meta Platforms Ireland Ltd., con base legale nel legittimo interesse (art. 6, par. 1, lett. f GDPR) per la misurazione delle campagne pubblicitarie. Meta Pixel invia a Meta dati tecnici anonimi sulla visualizzazione delle pagine. Non viene effettuato remarketing comportamentale avanzato né profilazione individuale. Puoi disabilitare questo tracciamento tramite le <a href="https://www.facebook.com/settings/?tab=ads" target="_blank" rel="noopener">preferenze pubblicitarie di Facebook</a> o tramite strumenti come uBlock Origin.</p>
 
   <h2>8. Trasferimento dei dati fuori dall'UE</h2>
-  <p>I dati non vengono trasferiti verso Paesi al di fuori dello Spazio Economico Europeo, salvo l'utilizzo di piattaforme (WhatsApp/Meta, Google) che possono trattare dati in server statunitensi sulla base di apposite garanzie (Standard Contractual Clauses).</p>
+  <p>I dati non vengono trasferiti verso Paesi al di fuori dello Spazio Economico Europeo, salvo l'utilizzo di piattaforme (WhatsApp/Meta, Google, Vercel) che possono trattare dati in server statunitensi sulla base di apposite garanzie (Standard Contractual Clauses).</p>
 
   <h2>9. Modifiche alla presente informativa</h2>
   <p>Questa informativa può essere aggiornata periodicamente. La data di ultima modifica è indicata in cima alla pagina. Ti invitiamo a consultarla periodicamente.</p>

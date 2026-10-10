@@ -200,7 +200,7 @@ Keyframes disponibili: `pulse`, `float`, `shimmer`, `badge-glow`, `pkg-scan`, `p
 
 ```
 index.html      ~2000 righe — TUTTO qui: CSS inline in <style>, JS inline in fondo
-privacy.html    pagina legale, <style> proprio
+privacy.html    pagina legale, <style> proprio — copre anche il form Check-up (Brevo, consenso, disiscrizione)
 termini.html    pagina legale, <style> proprio — contiene prezzo e tempi di consegna
 whatsapp.svg    logo ufficiale WhatsApp (cerchio verde + glifo bianco)
 logo-mark.svg   favicon, mark "G" in gradient
@@ -210,7 +210,7 @@ face.webp       avatar FAQ
 giacomo-brand-designer-developer-freelance.webp   foto sezione "Chi sono"
 robots.txt, sitemap.xml
 
-api/            ORFANO — api/subscribe.js (Brevo), non collegato a nessuna pagina
+api/            api/subscribe.js — funzione Vercel che iscrive l'email del form Check-up alla lista Brevo
 web-mockup/     DEMO CLIENTE scollegata (ristorante Shoshin) — non fa parte del sito
 ```
 
@@ -218,7 +218,7 @@ web-mockup/     DEMO CLIENTE scollegata (ristorante Shoshin) — non fa parte de
 
 ### JS in pagina (tutto inline, fine di `index.html`)
 
-anno nel footer · `#nav.scrolled` allo scroll · IntersectionObserver reveal · accordion FAQ (uno aperto per volta) · smooth scroll · hamburger + drawer · scrollspy nav · reveal timeline · contatori · **tracking WhatsApp**.
+anno nel footer · `#nav.scrolled` allo scroll · IntersectionObserver reveal · accordion FAQ (uno aperto per volta) · smooth scroll · hamburger + drawer · scrollspy nav · reveal timeline · contatori · **form Check-up** · **tracking WhatsApp**.
 
 ### Tracking — NON ROMPERE
 
@@ -230,11 +230,22 @@ Uno script delegato in fondo alla pagina intercetta **ogni** `a[href*="wa.me"]` 
 - `#sticky-wa` → `sticky`
 - `.nav-wa` → `nav`
 - `.price-cta-btn` → `pricing`
-- altrimenti l'`id` della `<section>` più vicina → `hero`, `pacchetto`, `chi-sono`, `faq`, `contatto`
+- altrimenti l'`id` della `<section>` più vicina → `hero`, `pacchetto`, `chi-sono`, `faq`, `contatto`, `check-up`
 
 **Quindi**: non rinominare `.nav-wa`, `.price-cta-btn`, `#sticky-wa`, non togliere gli `id` alle sezioni, non sostituire i link `wa.me` con altro. Se sposti un CTA in una sezione nuova, dalle un `id` sensato o il dato arriva come `unknown`.
 
 Il numero nei link è `393493457558` (**con prefisso 39** — senza, `wa.me` fallisce fuori Italia).
+
+### Form Check-up — seconda scelta, non conversione principale
+
+Sezione `#check-up`, subito dopo `#contatto`, separata da un divisore "oppure". È per chi non è pronto a scrivere su WhatsApp: lascia email + tipo di attività e riceve un esempio di sito.
+
+- Il form fa `POST /api/subscribe` con `{ email, tipo_business, source: 'landing-checkup' }`. La funzione aggiunge il contatto alla lista Brevo.
+- Su Vercel servono le env `BREVO_API_KEY` e `BREVO_LIST_ID`. Senza, l'endpoint risponde 500 e l'utente vede l'errore. In Brevo vanno creati gli attributi `TIPO_BUSINESS` e `SOURCE`.
+- Al successo invia `checkup_submit` (GA4) + `CheckupRequest` (Pixel, custom). **Evento distinto** da quello WhatsApp: le campagne ottimizzano su `WhatsAppClick`, non su questo.
+- Honeypot `#cu-sito`: se compilato, mostra la conferma senza inviare nulla.
+- Il submit è gradient, **mai verde**. Il blocco è volutamente più sobrio della `.cta-box`: non deve competere con WhatsApp.
+- Il copy promette "quattro email al massimo, niente newsletter, niente telefonate". Qualsiasi sequenza Brevo deve stare dentro questo limite, e ogni email deve avere il link di disiscrizione (la privacy lo promette).
 
 ---
 
@@ -252,7 +263,8 @@ Il numero nei link è `393493457558` (**con prefisso 39** — senza, `wa.me` fal
 | 8 | Confronto | `#confronto` | "costa troppo / posso fare da solo" |
 | 9 | FAQ | `#faq` | Obiezioni residue (7 domande) |
 | 10 | CTA finale | `#contatto` | Ultima chiamata |
-| 11 | Footer + sticky bar | `#sticky-wa` | CTA persistente su mobile |
+| 11 | Check-up | `#check-up` | "oppure": chi non è pronto lascia l'email e riceve un esempio |
+| 12 | Footer + sticky bar | `#sticky-wa` | CTA persistente su mobile |
 
 ---
 
@@ -308,5 +320,6 @@ Il blocco `FAQPage` nel `<head>` deve rispecchiare **parola per parola** le FAQ 
 
 ### Note aperte
 
-- `api/subscribe.js` (Brevo) è codice orfano: nessuna pagina ci fa `fetch`. Se un giorno si aggiunge la cattura email, l'endpoint è già pronto — servono `BREVO_API_KEY` e `BREVO_LIST_ID` su Vercel.
-- Attualmente sulla landing **non c'è nessun form**. L'unica conversione è WhatsApp (7 link) più il `mailto:` nel footer.
+- Conversioni in pagina: WhatsApp (8 link `wa.me`, la principale), il form Check-up (email → Brevo) e il `mailto:` nel footer.
+- **Sequenza email Check-up: non ancora costruita.** Oggi le email arrivano nella lista Brevo e basta. Finché la sequenza automatica non esiste, l'esempio di sito va mandato a mano a ogni nuovo iscritto — il form lo promette.
+- Se cambi cosa raccoglie il form o chi riceve i dati, aggiorna `privacy.html` (sezioni 2, 3, 4, 5, 8) nello stesso commit.
