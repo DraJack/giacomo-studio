@@ -459,6 +459,144 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .ba-range { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; pointer-events: none; }
     .ba:has(.ba-range:focus-visible) .ba-knob { outline: 2px solid var(--orange); outline-offset: 3px; }
 
+    /* ══════════════════════════════════════════════════════════════
+       PACCHETTO
+    ══════════════════════════════════════════════════════════════ */
+    .pkg-list { display: flex; flex-direction: column; gap: 24px; }
+    .pkg-card {
+      --accent: #fa6800; --accent-soft: #fff1ea;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
+      padding: 28px; border-radius: 32px; background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+    }
+    .pkg-card:nth-child(even) .pkg-text { order: 2; }
+    .pkg-text { padding: 20px 12px 20px 24px; }
+    .pkg-card:nth-child(even) .pkg-text { padding: 20px 24px 20px 12px; }
+    .pkg-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .pkg-num {
+      width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
+      background: var(--ink); color: #fff; font-family: var(--display); font-weight: 800; font-size: 13px;
+    }
+    .pkg-label { font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+    .pkg-title { font-family: var(--display); font-weight: 800; font-size: clamp(28px, 3.2vw, 38px); line-height: 1; letter-spacing: -.045em; margin-bottom: 16px; text-wrap: balance; }
+    .pkg-desc { color: var(--muted); font-size: 15.5px; margin-bottom: 22px; max-width: 440px; }
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 26px; }
+    .checklist li { display: flex; align-items: flex-start; gap: 11px; font-size: 14.5px; font-weight: 600; line-height: 1.4; }
+    .check-icon { flex: none; width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); margin-top: 0; }
+    .check-icon svg { width: 11px; height: 11px; }
+    .pkg-pill {
+      display: inline-flex; padding: 8px 15px; border-radius: 100px; border: 1.5px solid var(--ink);
+      font-size: 13px; font-weight: 800; letter-spacing: -.01em;
+    }
+    .pkg-visual {
+      position: relative; min-height: 440px; border-radius: 24px; background: var(--bg-alt); overflow: hidden;
+      display: grid; place-items: center; padding: 32px;
+    }
+    .pkg-visual .phone { width: 236px; }
+    .pkg-card--green { --accent: #25d366; --accent-soft: #e5f9ed; background: linear-gradient(180deg, #f4fdf7, #fff 60%); border-color: rgba(37,211,102,.28); }
+    .pkg-card--green .pkg-num { background: var(--wa); }
+    .pkg-card--green .pkg-pill { border-color: var(--wa); color: var(--wa-ink); }
+    .pkg-card--green .check-icon { color: var(--wa-ink); }
+    .pkg-card--green .pkg-visual { background: #e9faf0; }
+
+    /* 1 — browser */
+    .browser { width: 100%; max-width: 440px; border-radius: 16px; background: #fff; box-shadow: var(--shadow); overflow: hidden; }
+    .browser-bar { display: flex; align-items: center; gap: 6px; padding: 11px 14px; background: #f1f0ed; }
+    .browser-bar i { width: 9px; height: 9px; border-radius: 50%; background: #d6d3cd; }
+    .browser-url { margin-left: 10px; flex: 1; background: #fff; border-radius: 7px; padding: 4px 10px; font-size: 10.5px; color: var(--soft); }
+    .browser-body { padding: 18px; background: #f6f5f2; color: #0e1a2b; }
+    .browser-nav { display: flex; justify-content: space-between; align-items: center; font-size: 9.5px; color: #5d6675; margin-bottom: 16px; }
+    .browser-nav b { font-family: var(--display); font-weight: 900; font-size: 14px; color: #0e1a2b; letter-spacing: -.03em; }
+    .browser-hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 14px; align-items: center; margin-bottom: 14px; }
+    .browser-hero h4 { font-family: var(--serif); font-weight: 400; font-size: 24px; line-height: 1; margin-bottom: 8px; }
+    .browser-hero .mini-btn { width: fit-content; padding: 7px 12px; }
+    .browser-hero .mini-win { height: 104px; margin: 0; }
+    .browser-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .browser-tiles span { background: #fff; border-radius: 10px; padding: 10px; font-size: 9.5px; font-weight: 700; box-shadow: 0 2px 8px rgba(14,26,43,.06); }
+    .browser-tiles span::before { content: ''; display: block; height: 30px; border-radius: 6px; margin-bottom: 7px; background: linear-gradient(135deg, #dfe9f4, #f3ead9); }
+
+    /* 2 — preventivo guidato */
+    .quote-screen { padding-top: 44px; }
+    .quote-head { font-family: var(--serif); font-size: 21px; line-height: 1.05; margin: 4px 0 12px; }
+    .quote-progress { display: flex; gap: 4px; margin-bottom: 16px; }
+    .quote-progress i { flex: 1; height: 4px; border-radius: 4px; background: #e3ded4; transition: background .3s; }
+    .quote-progress i.on { background: #1fb855; }
+    .quote-q { font-weight: 800; font-size: 14px; margin-bottom: 10px; }
+    .quote-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+    .quote-opt {
+      padding: 11px 8px; border-radius: 12px; border: 1.5px solid #e3ded4; background: #fff; cursor: pointer;
+      font-size: 11.5px; font-weight: 700; color: #0e1a2b; transition: border-color .15s, transform .15s;
+    }
+    .quote-opt:hover { border-color: #1fb855; transform: translateY(-1px); }
+    .quote-step { animation: q-in .35s var(--ease); }
+    @keyframes q-in { from { opacity: 0; transform: translateX(14px); } }
+    .quote-bubble { margin-top: 2px; animation: q-in .35s var(--ease); }
+    .quote-chat-head { display: flex; align-items: center; gap: 8px; font-size: 10.5px; font-weight: 700; color: #5d6675; margin-bottom: 10px; }
+    .quote-chat-head img { width: 16px; height: 16px; }
+    .quote-bubble-text {
+      position: relative; background: #d9fdd3; border-radius: 12px 12px 12px 3px; padding: 10px 12px 18px;
+      font-size: 11.5px; line-height: 1.45; white-space: pre-line; color: #111; box-shadow: 0 1px 2px rgba(0,0,0,.08);
+    }
+    .quote-bubble-text::after { content: '✓✓'; position: absolute; right: 9px; bottom: 4px; font-size: 9px; color: #34b7f1; letter-spacing: -2px; }
+    .quote-note { font-size: 10px; color: #5d6675; margin: 10px 0 12px; line-height: 1.4; }
+    .quote-restart {
+      width: 100%; padding: 10px; border-radius: 100px; border: 1.5px solid #0e1a2b; background: transparent; cursor: pointer;
+      font-size: 11.5px; font-weight: 800;
+    }
+
+    /* 3 — ricerca Google */
+    .serp { width: 100%; max-width: 400px; background: #fff; border-radius: 20px; box-shadow: var(--shadow); padding: 18px; }
+    .serp-bar { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 100px; border: 1px solid #e6e3de; margin-bottom: 16px; font-size: 14px; font-weight: 600; min-height: 46px; }
+    .serp-bar svg { width: 16px; height: 16px; color: var(--soft); flex: none; }
+    .serp-query::after { content: ''; display: inline-block; width: 1.5px; height: 1em; margin-left: 1px; vertical-align: -2px; background: var(--ink); animation: caret 1s steps(1) infinite; }
+    .serp.done .serp-query::after { display: none; }
+    @keyframes caret { 50% { opacity: 0; } }
+    .serp-tab { font-size: 11px; font-weight: 700; color: var(--soft); margin: 0 0 10px 4px; }
+    .serp-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      padding: 12px 14px; border-radius: 14px; margin-bottom: 8px;
+      transition: opacity .4s var(--ease), transform .4s var(--ease);
+    }
+    .js .serp-row { opacity: 0; transform: translateY(8px); }
+    .js .serp.done .serp-row { opacity: 1; transform: none; }
+    .serp.done .serp-row:nth-child(4) { transition-delay: .12s; }
+    .serp.done .serp-row:nth-child(5) { transition-delay: .24s; }
+    .serp-row--you { background: #f2fbf5; border: 1.5px solid rgba(37,211,102,.45); }
+    .serp-row--dim, .js .serp.done .serp-row--dim { opacity: .5; }
+    .serp-name { display: block; font-weight: 800; font-size: 14px; letter-spacing: -.02em; max-width: 190px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .serp-row small { display: block; font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+    .serp-row small i { font-style: normal; color: #f5a623; }
+    .serp-tag { flex: none; font-size: 10.5px; font-weight: 800; padding: 5px 10px; border-radius: 100px; background: #eee; color: var(--muted); }
+    .serp-row--you .serp-tag { background: var(--wa); color: #fff; }
+
+    /* 4 — tempi */
+    .timeline { --fill: 0; width: 100%; max-width: 440px; position: relative; padding: 8px 0; }
+    .pkg-card.is-in .timeline { --fill: 1; }
+    .tl-track { position: absolute; top: 28px; left: 16.66%; right: 16.66%; height: 4px; border-radius: 4px; background: #e3ded4; overflow: hidden; }
+    .tl-fill { display: block; height: 100%; background: var(--grad); transform-origin: left; transform: scaleX(var(--fill)); transition: transform 1.6s var(--ease) .3s; }
+    .tl-nodes { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); text-align: center; }
+    .tl-dot {
+      width: 44px; height: 44px; margin: 0 auto 14px; border-radius: 50%; background: #fff; border: 2px solid #e3ded4;
+      display: grid; place-items: center; font-family: var(--display); font-weight: 900; font-size: 15px; color: var(--soft);
+      transition: background .3s, border-color .3s, color .3s;
+    }
+    .pkg-card.is-in .tl-dot { background: var(--ink); border-color: var(--ink); color: #fff; }
+    .pkg-card.is-in .tl-node:nth-child(1) .tl-dot { transition-delay: .2s; }
+    .pkg-card.is-in .tl-node:nth-child(2) .tl-dot { transition-delay: 1s; }
+    .pkg-card.is-in .tl-node:nth-child(3) .tl-dot { transition-delay: 1.8s; background: var(--wa); border-color: var(--wa); }
+    .tl-day { display: block; font-family: var(--display); font-weight: 900; font-size: 22px; letter-spacing: -.04em; }
+    .tl-cap { display: block; font-size: 13px; color: var(--muted); font-weight: 600; }
+
+    /* 5 — garanzia */
+    .shield {
+      width: 170px; height: 170px; border-radius: 50%; display: grid; place-items: center; position: relative;
+      background: #fff; color: var(--wa); box-shadow: 0 30px 60px -28px rgba(37,211,102,.6);
+    }
+    .shield::before, .shield::after { content: ''; position: absolute; inset: -22px; border-radius: 50%; border: 1.5px solid rgba(37,211,102,.25); }
+    .shield::after { inset: -48px; border-color: rgba(37,211,102,.12); }
+    .shield svg { width: 64px; height: 64px; }
+    .shield-cap { position: absolute; bottom: 34px; left: 0; right: 0; text-align: center; font-family: var(--display); font-weight: 900; font-size: 26px; letter-spacing: -.04em; }
+    .shield-cap span { color: var(--wa-ink); }
+
     /* @@SECTIONS-CSS@@ */
 
     /* ══════════════════════════════════════════════════════════════
@@ -544,11 +682,26 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
       .pain-card { padding: 28px 24px; }
     }
 
+    @media (max-width: 860px) {
+      .pkg-card { grid-template-columns: 1fr; gap: 8px; padding: 14px; border-radius: 26px; }
+      .pkg-card:nth-child(even) .pkg-text { order: 0; }
+      .pkg-card .pkg-visual { order: -1; }
+      .pkg-text, .pkg-card:nth-child(even) .pkg-text { padding: 24px 12px 14px; }
+      .pkg-visual { min-height: 0; padding: 30px 18px; }
+    }
+    @media (max-width: 680px) {
+      .serp-name { max-width: 150px; }
+      .shield-cap { bottom: 22px; font-size: 22px; }
+      .pkg-card--green .pkg-visual { padding-bottom: 76px; padding-top: 62px; }
+    }
+
     /* @@RESPONSIVE-CSS@@ */
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
       .js .reveal { opacity: 1; transform: none; }
+      .timeline { --fill: 1 !important; }
+      .tl-dot { background: var(--ink); border-color: var(--ink); color: #fff; }
     }
   </style>
 </head>
@@ -731,8 +884,163 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     </div>
   </div>
 </section>
-<!-- @@PACCHETTO@@ -->
-<section id="pacchetto"></section>
+<!-- ═══════════ PACCHETTO ═══════════ -->
+<section id="pacchetto">
+  <div class="section">
+
+    <div class="section-head reveal">
+      <div class="kicker">Il pacchetto</div>
+      <h2 class="h2">
+        Tutto quello che ti serve.<br>
+        <em class="serif-accent">Tutto compreso.</em>
+      </h2>
+      <p class="lead">Il sito, i preventivi su WhatsApp e la scheda Google sistemata. Niente altro da comprare dopo.</p>
+    </div>
+
+    <div class="pkg-list">
+
+      <!-- 1 — SITO COMPLETO -->
+      <article class="pkg-card reveal">
+        <div class="pkg-text">
+          <div class="pkg-head"><span class="pkg-num">1</span><span class="pkg-label">Sito completo</span></div>
+          <h3 class="pkg-title">Prodotti, lavori, contatti.<br><em class="serif-accent">Tutto in un sito solo.</em></h3>
+          <p class="pkg-desc">Pensato per chi ti cerca dal telefono mentre decide a chi chiedere il preventivo. Veloce, chiaro, con il tuo nome in grande.</p>
+          <ul class="checklist">
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Home, prodotti (PVC, alluminio, legno, persiane, porte)</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Lavori realizzati con le foto dei tuoi cantieri</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Contatti, mappa, orari e zone in cui lavori</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Dominio e hosting del primo anno inclusi</li>
+          </ul>
+          <span class="pkg-pill">150€ · tutto incluso</span>
+        </div>
+        <div class="pkg-visual" aria-hidden="true">
+          <div class="browser">
+            <div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">latuaimpresa.it</span></div>
+            <div class="browser-body">
+              <div class="browser-nav"><b class="mini-logo">ALBA</b><span>Prodotti · Lavori · Contatti</span></div>
+              <div class="browser-hero">
+                <div><h4>Infissi su misura.</h4><div class="mini-btn">Preventivo su WhatsApp</div></div>
+                <div class="mini-win"><i></i><i></i></div>
+              </div>
+              <div class="browser-tiles"><span>Finestre</span><span>Persiane</span><span>Porte</span></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2 — PREVENTIVI SU WHATSAPP -->
+      <article class="pkg-card reveal">
+        <div class="pkg-text">
+          <div class="pkg-head"><span class="pkg-num">2</span><span class="pkg-label">Preventivi su WhatsApp</span></div>
+          <h3 class="pkg-title">Quattro tocchi.<br><em class="serif-accent">Preventivo su WhatsApp.</em></h3>
+          <p class="pkg-desc">Il cliente sceglie cosa gli serve, il materiale, quanti pezzi e il comune. Si apre WhatsApp con il messaggio già scritto: tu rispondi quando esci dal cantiere.</p>
+          <ul class="checklist">
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Finestre, porte, persiane, zanzariere</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>PVC, alluminio, legno-alluminio</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Quantità e comune già nel messaggio</li>
+          </ul>
+          <span class="pkg-pill">Incluso</span>
+        </div>
+        <div class="pkg-visual">
+          <div class="phone" id="quote">
+            <div class="phone-screen quote-screen">
+              <div class="mini-nav">
+                <div class="mini-brand"><span class="mini-logo">ALBA</span><span class="mini-sub">SERRAMENTI</span></div>
+                <span class="mini-burger"></span>
+              </div>
+              <div class="quote-head">Preventivo gratuito</div>
+              <div class="quote-progress" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+              <div class="quote-body" aria-live="polite"></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 — GOOGLE -->
+      <article class="pkg-card reveal" id="pkg-google">
+        <div class="pkg-text">
+          <div class="pkg-head"><span class="pkg-num">3</span><span class="pkg-label">Google</span></div>
+          <h3 class="pkg-title">Ti cercano su Google.<br><em class="serif-accent">Fatti trovare.</em></h3>
+          <p class="pkg-desc">Sistemo la tua scheda Google e preparo il sito per farti trovare da chi cerca infissi nella tua zona. Il primo posto non lo promette nessuno onesto. Farti trovare sì.</p>
+          <ul class="checklist">
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Scheda Google sistemata: foto, orari, servizi</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Sito pronto per le ricerche nel tuo comune</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Recensioni Google in evidenza</li>
+          </ul>
+          <span class="pkg-pill">Incluso</span>
+        </div>
+        <div class="pkg-visual" aria-hidden="true">
+          <div class="serp">
+            <div class="serp-bar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <span class="serp-query"></span>
+            </div>
+            <div class="serp-tab">Attività nella zona</div>
+            <div class="serp-row serp-row--you">
+              <div><span class="serp-name">La tua impresa</span><small><i>★★★★★</i> 4,9 · Sito · WhatsApp</small></div>
+              <span class="serp-tag">Ti chiamano</span>
+            </div>
+            <div class="serp-row serp-row--dim">
+              <div><span class="serp-name">Concorrente A</span><small><i>★★★★</i> 4,1 · Nessun sito</small></div>
+              <span class="serp-tag">Saltato</span>
+            </div>
+            <div class="serp-row serp-row--dim">
+              <div><span class="serp-name">Concorrente B</span><small><i>★★★</i> 3,6 · Sito vecchio</small></div>
+              <span class="serp-tag">Saltato</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4 — TEMPI -->
+      <article class="pkg-card reveal">
+        <div class="pkg-text">
+          <div class="pkg-head"><span class="pkg-num">4</span><span class="pkg-label">Tempi</span></div>
+          <h3 class="pkg-title">Lo vedi in 48 ore.<br><em class="serif-accent">Non in 3 mesi.</em></h3>
+          <p class="pkg-desc">Lavoro io direttamente: nessuna agenzia, nessun passaggio di consegne, nessuna coda. Tu non devi fare praticamente niente.</p>
+          <ul class="checklist">
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Oggi — mi scrivi, cinque minuti di chat</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Entro 24 ore — costruisco tutto</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Entro 48 ore — lo vedi finito e decidi tu</li>
+          </ul>
+          <span class="pkg-pill">48 ore</span>
+        </div>
+        <div class="pkg-visual" aria-hidden="true">
+          <div class="timeline">
+            <div class="tl-track"><span class="tl-fill"></span></div>
+            <div class="tl-nodes">
+              <div class="tl-node"><span class="tl-dot">1</span><span class="tl-day">Oggi</span><span class="tl-cap">Mi scrivi</span></div>
+              <div class="tl-node"><span class="tl-dot">2</span><span class="tl-day">24 ore</span><span class="tl-cap">Costruisco</span></div>
+              <div class="tl-node"><span class="tl-dot">✓</span><span class="tl-day">48 ore</span><span class="tl-cap">Lo vedi finito</span></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5 — GARANZIA -->
+      <article class="pkg-card pkg-card--green reveal">
+        <div class="pkg-text">
+          <div class="pkg-head"><span class="pkg-num">5</span><span class="pkg-label">Garanzia</span></div>
+          <h3 class="pkg-title">Lo vedi prima.<br><em class="serif-accent">Paghi solo se ti piace.</em></h3>
+          <p class="pkg-desc">Nessun anticipo. Preparo il sito con il nome della tua impresa, te lo mostro finito, e paghi i 150€ solo se decidi di metterlo online. Se non ti convince, non paghi niente.</p>
+          <ul class="checklist">
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Zero anticipi, zero carta di credito bloccata</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Modifiche finché non sei soddisfatto</li>
+            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Se non ti piace, ci salutiamo. Fine.</li>
+          </ul>
+          <span class="pkg-pill">Zero rischio garantito</span>
+        </div>
+        <div class="pkg-visual" aria-hidden="true">
+          <div class="shield">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          </div>
+          <div class="shield-cap">Non ti piace? <span>0€.</span></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
 <!-- @@PREZZI@@ -->
 <section id="prezzi"></section>
 <!-- @@COME-FUNZIONA@@ -->
@@ -790,7 +1098,10 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
   // usa i selettori discendenti di .is-in (es. .pkg-card.is-in .timeline).
   var revealIO = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
-      if (e.isIntersecting) { e.target.classList.add('is-in'); revealIO.unobserve(e.target); }
+      if (e.isIntersecting) {
+        e.target.classList.add('is-in'); revealIO.unobserve(e.target);
+        e.target.dispatchEvent(new CustomEvent('gs:in'));
+      }
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal, [data-observe]').forEach(function (el) { revealIO.observe(el); });
@@ -908,6 +1219,66 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
   });
   ba.addEventListener('pointermove', function (e) { if (baDrag) baFromEvent(e); });
   ['pointerup', 'pointercancel'].forEach(function (t) { ba.addEventListener(t, function () { baDrag = false; }); });
+
+  // ── Preventivo guidato (dimostrazione: non apre WhatsApp) ──
+  var QUOTE_STEPS = [
+    { q: 'Cosa ti serve?', opts: ['Finestre', 'Porte', 'Persiane', 'Zanzariere'] },
+    { q: 'Che materiale?', opts: ['PVC', 'Alluminio', 'Legno-alluminio'] },
+    { q: 'Quanti pezzi?', opts: ['1–2', '3–5', '6–10', 'Più di 10'] },
+    { q: 'Dove?', opts: ['Nel mio comune', 'In un comune vicino'] }
+  ];
+  function quoteMessage(choices) {
+    var qty = choices[2] === 'Più di 10' ? 'più di 10 pezzi' : choices[2] + ' pezzi';
+    return 'Ciao! Vorrei un preventivo.\nCosa: ' + choices[0] + '\nMateriale: ' + choices[1] +
+      '\nQuanti: ' + qty + '\nDove: ' + choices[3].toLowerCase();
+  }
+  var quoteBody = document.querySelector('#quote .quote-body');
+  var quoteBars = document.querySelectorAll('#quote .quote-progress i');
+  var quoteChoices = [];
+  function renderQuote() {
+    var n = quoteChoices.length;
+    quoteBars.forEach(function (b, i) { b.classList.toggle('on', i < n); });
+    quoteBody.textContent = '';
+    if (n < QUOTE_STEPS.length) {
+      var step = document.createElement('div'); step.className = 'quote-step';
+      var q = document.createElement('div'); q.className = 'quote-q'; q.textContent = QUOTE_STEPS[n].q;
+      var opts = document.createElement('div'); opts.className = 'quote-opts';
+      QUOTE_STEPS[n].opts.forEach(function (label) {
+        var b = document.createElement('button'); b.type = 'button'; b.className = 'quote-opt'; b.textContent = label;
+        b.addEventListener('click', function () { quoteChoices.push(label); renderQuote(); });
+        opts.appendChild(b);
+      });
+      step.appendChild(q); step.appendChild(opts); quoteBody.appendChild(step);
+    } else {
+      var wrap = document.createElement('div'); wrap.className = 'quote-bubble';
+      wrap.innerHTML = '<div class="quote-chat-head"><img src="whatsapp.svg" alt="">Ti arriva così su WhatsApp</div>';
+      var txt = document.createElement('div'); txt.className = 'quote-bubble-text'; txt.textContent = quoteMessage(quoteChoices);
+      var note = document.createElement('p'); note.className = 'quote-note'; note.textContent = 'Con tutti i dati per rispondere, anche dal cantiere.';
+      var again = document.createElement('button'); again.type = 'button'; again.className = 'quote-restart'; again.textContent = 'Ricomincia';
+      again.addEventListener('click', function () { quoteChoices = []; renderQuote(); });
+      wrap.appendChild(txt); wrap.appendChild(note); wrap.appendChild(again); quoteBody.appendChild(wrap);
+    }
+  }
+  renderQuote();
+
+  // ── Ricerca Google simulata: si scrive da sola quando la scheda entra in vista ──
+  var serp = document.querySelector('.serp');
+  var serpQuery = serp.querySelector('.serp-query');
+  var serpYou = serp.querySelector('.serp-row--you .serp-name');
+  var SERP_TEXT = 'infissi vicino a me';
+  function serpName() { serpYou.textContent = window.gsName || 'La tua impresa'; }
+  document.addEventListener('gs:name', serpName);
+  serpName();
+  function serpFinish() { serpQuery.textContent = SERP_TEXT; serp.classList.add('done'); }
+  if (REDUCED) serpFinish();
+  else document.getElementById('pkg-google').addEventListener('gs:in', function () {
+    var i = 0;
+    (function type() {
+      serpQuery.textContent = SERP_TEXT.slice(0, ++i);
+      if (i < SERP_TEXT.length) setTimeout(type, 55);
+      else setTimeout(serpFinish, 250);
+    })();
+  }, { once: true });
 
   // @@SECTIONS-JS@@
 
