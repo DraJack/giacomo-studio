@@ -223,7 +223,8 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     ══════════════════════════════════════════════════════════════ */
     .section { max-width: 1120px; margin: 0 auto; padding: 112px 24px; }
     .section--alt { background: var(--bg-alt); }
-    .section-head { text-align: center; max-width: 720px; margin: 0 auto 64px; }
+    .section-head { text-align: center; max-width: 880px; margin: 0 auto 64px; }
+    .h1, .h2, .h3 { text-wrap: balance; }
     .section-head .kicker { margin-bottom: 18px; }
     .section-head .h2 { margin-bottom: 18px; }
     .section-head .lead { max-width: 540px; margin: 0 auto; }
@@ -396,6 +397,68 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .demo-input::placeholder { color: #aaa; font-weight: 500; }
     .demo-input:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 4px rgba(250,104,0,.12); }
 
+    /* ══════════════════════════════════════════════════════════════
+       PROBLEMA + PRIMA/DOPO
+    ══════════════════════════════════════════════════════════════ */
+    .pain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .pain-card {
+      position: relative; padding: 34px 30px 32px; border-radius: 24px;
+      background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow-sm);
+    }
+    .pain-num {
+      position: absolute; top: 26px; right: 28px;
+      font-family: var(--display); font-weight: 900; font-size: 44px; letter-spacing: -.05em; line-height: 1;
+      color: rgba(10,10,10,.06);
+    }
+    .pain-icon {
+      width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center;
+      background: #fff1ea; color: var(--orange); margin-bottom: 22px;
+    }
+    .pain-icon svg { width: 21px; height: 21px; }
+    .pain-title { font-family: var(--display); font-weight: 800; font-size: 21px; letter-spacing: -.035em; line-height: 1.1; margin-bottom: 10px; }
+    .pain-desc { font-size: 15px; line-height: 1.6; color: var(--muted); }
+
+    .ba-wrap {
+      margin-top: 72px; padding: 56px; border-radius: 32px; background: var(--bg-alt);
+      display: grid; grid-template-columns: 1fr 1fr; align-items: center; justify-items: center; gap: 40px;
+    }
+    .ba-copy { justify-self: start; padding-left: 8px; }
+    .ba-copy .kicker { margin-bottom: 16px; }
+    .ba-copy .h3 { margin-bottom: 14px; }
+    .ba-copy p { color: var(--muted); max-width: 400px; }
+    .ba-hint { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; font-size: 13px; font-weight: 700; color: var(--ink); }
+    .ba-hint svg { width: 18px; height: 18px; color: var(--orange); }
+
+    .ba { touch-action: pan-y; cursor: ew-resize; user-select: none; -webkit-user-select: none; --pos: 50%; }
+    .ba .phone-screen { padding: 0; }
+    .ba-layer { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 46px 16px 16px; }
+    .ba-new { background: #f6f5f2; clip-path: inset(0 0 0 var(--pos)); }
+    .ba-old { background: #e6e6e6; font-family: 'Times New Roman', Times, serif; color: #222; padding-top: 44px; }
+    .old-head { background: #1d3f8f; color: #fff; text-align: center; padding: 10px 6px; font-size: 15px; font-weight: 700; letter-spacing: .02em; }
+    .old-marquee { background: #ffff99; color: #b00; font-size: 9.5px; text-align: center; padding: 3px; font-weight: 700; }
+    .old-body { display: grid; grid-template-columns: 54px 1fr; gap: 8px; padding: 10px 4px; }
+    .old-menu { display: flex; flex-direction: column; gap: 4px; }
+    .old-menu span { font-size: 8.5px; color: #1d3f8f; text-decoration: underline; }
+    .old-img { height: 84px; background: repeating-linear-gradient(45deg, #cfcfcf 0 6px, #d9d9d9 6px 12px); display: grid; place-items: center; font-size: 8px; color: #777; margin-bottom: 6px; }
+    .old-text { font-size: 8.5px; line-height: 1.35; color: #444; }
+    .old-wip { margin: 8px 4px 0; border: 1px dashed #999; padding: 8px; text-align: center; font-size: 10px; font-weight: 700; color: #666; }
+    .old-foot { margin-top: auto; text-align: center; font-size: 7.5px; color: #777; padding: 6px; }
+    .ba-line { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 0 1px rgba(10,10,10,.12); z-index: 4; }
+    .ba-knob {
+      position: absolute; top: 50%; left: 50%; width: 42px; height: 42px; margin: -21px 0 0 -21px; border-radius: 50%;
+      background: #fff; box-shadow: 0 8px 24px -6px rgba(10,10,10,.4); display: grid; place-items: center; color: var(--ink);
+    }
+    .ba-knob svg { width: 20px; height: 20px; }
+    .ba-cap {
+      position: absolute; bottom: 18px; z-index: 5; padding: 4px 10px; border-radius: 100px;
+      font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+      background: rgba(10,10,10,.78); color: #fff; pointer-events: none;
+    }
+    .ba-cap--old { left: 14px; }
+    .ba-cap--new { right: 14px; background: var(--wa); }
+    .ba-range { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; pointer-events: none; }
+    .ba:has(.ba-range:focus-visible) .ba-knob { outline: 2px solid var(--orange); outline-offset: 3px; }
+
     /* @@SECTIONS-CSS@@ */
 
     /* ══════════════════════════════════════════════════════════════
@@ -468,6 +531,17 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
       .hero-ctas { flex-direction: column; align-items: stretch; text-align: center; }
       .hero-ctas .btn-link { align-self: center; }
       .phone { width: 236px; }
+    }
+
+    @media (max-width: 860px) {
+      .pain-grid { grid-template-columns: 1fr; }
+      .ba-wrap { grid-template-columns: 1fr; justify-items: center; text-align: center; padding: 44px 24px; gap: 36px; }
+      .ba-copy { justify-self: center; padding-left: 0; }
+      .ba-copy p { margin: 0 auto; }
+    }
+    @media (max-width: 680px) {
+      .ba-wrap { margin-top: 48px; border-radius: 26px; padding: 36px 18px; }
+      .pain-card { padding: 28px 24px; }
     }
 
     /* @@RESPONSIVE-CSS@@ */
@@ -576,8 +650,87 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
 
   </div>
 </section>
-<!-- @@PROBLEMA@@ -->
-<section id="problema"></section>
+<!-- ═══════════ PROBLEMA ═══════════ -->
+<section id="problema">
+  <div class="section">
+    <div class="section-head reveal">
+      <div class="kicker">Il problema</div>
+      <h2 class="h2">
+        Chi cerca infissi nella tua zona<br>
+        <em class="serif-accent">non ti trova.</em>
+      </h2>
+      <p class="lead problem-sub">
+        Cambiare le finestre costa migliaia di euro. Prima di chiamare, il cliente cerca su Google e confronta.
+      </p>
+    </div>
+
+    <div class="pain-grid">
+      <div class="pain-card reveal">
+        <span class="pain-num" aria-hidden="true">01</span>
+        <div class="pain-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+        <div class="pain-title">Ti cercano su Google</div>
+        <p class="pain-desc">Scrivono "infissi" e il nome del paese. Se non hai un sito, o ce l'hai vecchio, chiamano chi compare prima di te.</p>
+      </div>
+      <div class="pain-card reveal d1">
+        <span class="pain-num" aria-hidden="true">02</span>
+        <div class="pain-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div class="pain-title">I preventivi si perdono</div>
+        <p class="pain-desc">Sei in cantiere e non rispondi. La sera nessuno chiama. Chi voleva un preventivo lo chiede al concorrente.</p>
+      </div>
+      <div class="pain-card reveal d2">
+        <span class="pain-num" aria-hidden="true">03</span>
+        <div class="pain-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="pain-title">Sembri meno serio di quello accanto</div>
+        <p class="pain-desc">Per un lavoro da migliaia di euro il cliente vuole fidarsi. Chi mostra lavori, recensioni e contatti chiari parte avanti, anche se monta peggio di te.</p>
+      </div>
+    </div>
+
+    <div class="ba-wrap reveal">
+      <div class="ba-copy">
+        <div class="kicker">Prima e dopo</div>
+        <h3 class="h3">Stessa impresa. <em class="serif-accent">Due siti.</em></h3>
+        <p>Il cliente ti giudica in pochi secondi, dal telefono. Trascina e guarda cosa vede.</p>
+        <span class="ba-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/><line x1="3" y1="12" x2="21" y2="12"/></svg>Trascina il cursore</span>
+      </div>
+
+      <div class="phone ba" id="ba">
+        <div class="phone-screen">
+          <div class="ba-layer ba-old" aria-hidden="true">
+            <div class="old-head">INFISSI &amp; SERRAMENTI</div>
+            <div class="old-marquee">BENVENUTI NEL NOSTRO SITO INTERNET</div>
+            <div class="old-body">
+              <div class="old-menu"><span>Home</span><span>Chi siamo</span><span>Prodotti</span><span>Contatti</span><span>Link utili</span></div>
+              <div>
+                <div class="old-img">immagine non disponibile</div>
+                <p class="old-text">La nostra ditta opera nel settore dei serramenti da molti anni offrendo alla gentile clientela prodotti di qualità. Per informazioni contattateci via email.</p>
+              </div>
+            </div>
+            <div class="old-wip">Sito in costruzione</div>
+            <div class="old-foot">Visitatori: 000123 · Ottimizzato per Internet Explorer</div>
+          </div>
+          <div class="ba-layer ba-new" aria-hidden="true">
+            <div class="mini-nav">
+              <div class="mini-brand"><span class="mini-logo">ALBA</span><span class="mini-sub">SERRAMENTI</span></div>
+              <span class="mini-burger"></span>
+            </div>
+            <div class="mini-win"><i></i><i></i></div>
+            <div class="mini-title">Infissi su misura. Preventivo in 24 ore.</div>
+            <div class="mini-text">PVC, alluminio e legno. Sopralluogo gratuito e posa a regola d'arte.</div>
+            <div class="mini-btn">Chiedi un preventivo su WhatsApp</div>
+            <div class="mini-stars"><span class="mini-stars-g">★★★★★</span> 4,9 · 37 recensioni Google</div>
+            <div class="mini-chips"><span>PVC</span><span>Alluminio</span><span>Legno</span></div>
+          </div>
+          <span class="ba-cap ba-cap--old">Prima</span>
+          <span class="ba-cap ba-cap--new">Dopo</span>
+          <div class="ba-line" aria-hidden="true">
+            <span class="ba-knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 3 12 9 6"/><polyline points="15 6 21 12 15 18"/></svg></span>
+          </div>
+          <input id="ba-range" class="ba-range" type="range" min="0" max="100" value="50" aria-label="Confronta prima e dopo">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 <!-- @@PACCHETTO@@ -->
 <section id="pacchetto"></section>
 <!-- @@PREZZI@@ -->
@@ -734,6 +887,27 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
   }
   demoInput.addEventListener('input', function () { applyName(demoInput.value); });
   window.addEventListener('pageshow', function () { applyName(demoInput.value); });
+
+  // ── Prima / dopo: trascinamento (mouse e dito) + tastiera via input range ──
+  var ba = document.getElementById('ba');
+  var baRange = document.getElementById('ba-range');
+  function setBa(v) {
+    v = Math.max(0, Math.min(100, Math.round(v)));
+    baRange.value = v;
+    ba.style.setProperty('--pos', v + '%');
+  }
+  setBa(50);
+  baRange.addEventListener('input', function () { setBa(+baRange.value); });
+  var baDrag = false;
+  function baFromEvent(e) {
+    var r = ba.getBoundingClientRect();
+    setBa((e.clientX - r.left) / r.width * 100);
+  }
+  ba.addEventListener('pointerdown', function (e) {
+    baDrag = true; ba.setPointerCapture(e.pointerId); baFromEvent(e);
+  });
+  ba.addEventListener('pointermove', function (e) { if (baDrag) baFromEvent(e); });
+  ['pointerup', 'pointercancel'].forEach(function (t) { ba.addEventListener(t, function () { baDrag = false; }); });
 
   // @@SECTIONS-JS@@
 
