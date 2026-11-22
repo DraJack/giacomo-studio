@@ -46,12 +46,6 @@ test('ricerca Google simulata', async ({ page }) => {
   await expect(page.locator('.serp-row').first().locator('.serp-name')).toHaveText('La tua impresa');
 });
 
-test('ricerca Google col nome', async ({ page }) => {
-  await gotoHome(page);
-  await page.locator('#demo-name').fill('Rossi Infissi');
-  await page.locator('.serp').scrollIntoViewIfNeeded();
-  await expect(page.locator('.serp-row').first().locator('.serp-name')).toHaveText('Rossi Infissi', { timeout: 4000 });
-});
 
 test('riduci movimento', async ({ page }) => {
   await gotoHome(page, { reducedMotion: true });

@@ -38,10 +38,19 @@ async function pageWeight(browser, url, oldHtml) {
   return sizes.reduce((a, b) => a + b, 0);
 }
 
-test('peso pagina non peggiore di prima', async ({ browser }, info) => {
+// Le immagini vere della demo pesano: il tetto è la pagina vecchia + 450KB.
+test('peso pagina entro il tetto', async ({ browser }, info) => {
   test.skip(info.project.name !== 'mobile', 'una volta sola');
   const now = await pageWeight(browser, 'http://localhost:4173/');
   const before = await pageWeight(browser, 'http://localhost:4173/__old.html', OLD_HTML);
   console.log(`peso nuovo ${now} B · vecchio ${before} B`);
-  expect(now).toBeLessThanOrEqual(before);
+  expect(now).toBeLessThanOrEqual(before + 450 * 1024);
+});
+
+// Quello che serve per la prima schermata (HTML + telefono dell'hero) resta leggero.
+test('prima schermata leggera', async ({ request }) => {
+  const html = (await (await request.get('/')).body()).length;
+  const shot = (await (await request.get('/img/esempio-mobile.webp')).body()).length;
+  console.log(`html ${html} B · telefono hero ${shot} B`);
+  expect(html + shot).toBeLessThanOrEqual(320 * 1024);
 });

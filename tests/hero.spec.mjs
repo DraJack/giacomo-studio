@@ -1,9 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { gotoHome, blockWaNavigation, gaEvents, expectOldTextsIn, WA_BASE_HREF } from './helpers.mjs';
 
-const WA = 'https://wa.me/393493457558?text=';
-const withName = (n) => WA + encodeURIComponent(`Ciao Giacomo, ho un'impresa di infissi (${n}) e vorrei vedere gratis il sito che mi prepari.`);
-
 test('testi hero invariati', async ({ page }) => {
   await gotoHome(page);
   await expectOldTextsIn(expect, page, '#hero', ['.hero-h1', '.hero-kicker', '.hero-badge-text']);
@@ -16,58 +13,41 @@ test('hero tracciato', async ({ page }) => {
   expect(await gaEvents(page, 'whatsapp_click')).toEqual([{ button_location: 'hero' }]);
 });
 
-test('il nome aggiorna il telefono', async ({ page }) => {
+test('niente nome impresa né "Prova un modello"', async ({ page }) => {
   await gotoHome(page);
-  const logo = page.locator('#hero .mini-logo');
-  await page.locator('#demo-name').fill('Rossi Infissi');
-  await expect(logo).toHaveText('ROSSI INFISSI');
-  await page.locator('#demo-name').fill('');
-  await expect(logo).toHaveText('ALBA');
-  await expect(page.locator('#hero .mini-sub')).toHaveText('SERRAMENTI');
+  await expect(page.locator('#demo-name')).toHaveCount(0);
+  const text = await page.locator('body').innerText();
+  expect(text).not.toContain('Prova col nome');
+  expect(text).not.toContain('Prova un modello');
 });
 
-async function stubOpen(page) {
-  await page.addInitScript(() => { window.__opened = []; window.open = (u) => { window.__opened.push(u); return null; }; });
-}
+test('il telefono mostra la demo vera', async ({ page }) => {
+  await gotoHome(page);
+  const img = page.locator('#hero .phone img');
+  await expect(img).toHaveCount(1);
+  expect(await img.getAttribute('src')).toMatch(/img\/esempio-mobile\.webp$/);
+  expect(await img.getAttribute('loading')).not.toBe('lazy');
+  await expect.poll(() => img.evaluate((i) => i.naturalWidth)).toBeGreaterThan(0);
+  const s = await page.locator('#hero .phone-screen').evaluate((e) => ({ sh: e.scrollHeight, ch: e.clientHeight }));
+  expect(s.sh).toBeGreaterThan(s.ch + 200);
+});
 
-test('il nome entra nel WhatsApp solo al clic', async ({ page }) => {
-  await stubOpen(page);
+test('link al sito di esempio', async ({ page }) => {
+  await gotoHome(page);
+  const a = page.locator('#hero .demo-link');
+  await expect(a).toHaveAttribute('href', '/esempio/');
+  await expect(a).toHaveAttribute('target', '_blank');
+  await expect(a).toContainText('Apri il sito di esempio');
+});
+
+test('WhatsApp usa il link base, senza window.open', async ({ page }) => {
+  await page.addInitScript(() => { window.__opened = []; window.open = (u) => { window.__opened.push(u); return null; }; });
   await gotoHome(page);
   await blockWaNavigation(page);
-  await page.locator('#demo-name').fill("Dell'Anna & Figli");
   const hrefs = await page.$$eval('a[data-wa]', (as) => as.map((a) => a.getAttribute('href')));
-  expect(hrefs.length).toBeGreaterThan(1);
   for (const h of hrefs) expect(h).toBe(WA_BASE_HREF);
   await page.locator('#hero a[data-wa]').first().click();
-  expect(await page.evaluate(() => window.__opened)).toEqual([withName("Dell'Anna & Figli")]);
-  expect(await gaEvents(page, 'whatsapp_click')).toEqual([{ button_location: 'hero' }]);
-});
-
-test('emoji al limite non rompe i link', async ({ page }) => {
-  const errors = [];
-  page.on('pageerror', (e) => errors.push(e.message));
-  await stubOpen(page);
-  await gotoHome(page);
-  await blockWaNavigation(page);
-  await page.locator('#demo-name').fill('Serramenti Rossi e Figli ab😀 srl');
-  const logo = await page.locator('#hero .mini-logo').textContent();
-  expect(() => encodeURIComponent(logo)).not.toThrow();
-  await page.locator('#hero a[data-wa]').first().click();
-  const opened = await page.evaluate(() => window.__opened);
-  expect(opened.length).toBe(1);
-  expect(decodeURIComponent(opened[0])).toContain('Serramenti Rossi e Figli ab');
-  expect(errors).toEqual([]);
-});
-
-test('su telefono il logo resta visibile mentre scrivi', async ({ page, isMobile }) => {
-  test.skip(!isMobile, 'solo telefono');
-  await page.setViewportSize({ width: 375, height: 440 });
-  await gotoHome(page);
-  await page.locator('#demo-name').scrollIntoViewIfNeeded();
-  await page.locator('#demo-name').fill('Rossi Infissi');
-  const box = await page.locator('#hero .mini-logo').boundingBox();
-  expect(box.y).toBeGreaterThanOrEqual(0);
-  expect(box.y + box.height).toBeLessThanOrEqual(440);
+  expect(await page.evaluate(() => window.__opened)).toEqual([]);
 });
 
 test('i telefoni dicono che è un esempio', async ({ page }) => {
@@ -77,35 +57,27 @@ test('i telefoni dicono che è un esempio', async ({ page }) => {
   }
 });
 
-test('cancellare il nome ripristina i link', async ({ page }) => {
-  await gotoHome(page);
-  await page.locator('#demo-name').fill('Rossi Infissi');
-  await page.locator('#demo-name').fill('');
-  const hrefs = await page.$$eval('a[data-wa]', (as) => as.map((a) => a.getAttribute('href')));
-  for (const h of hrefs) expect(h).toBe(WA_BASE_HREF);
+test('riduci movimento: il telefono resta fermo', async ({ page }) => {
+  await gotoHome(page, { reducedMotion: true });
+  await page.waitForTimeout(2500);
+  expect(await page.locator('#hero .phone-screen').evaluate((e) => e.scrollTop)).toBe(0);
 });
 
-test('niente HTML iniettato', async ({ page }) => {
+test('il telefono scorre da solo e si ferma al tocco', async ({ page }) => {
   await gotoHome(page);
-  await page.locator('#demo-name').fill('<b>x</b>');
-  await expect(page.locator('#hero .mini-logo')).toHaveText('<B>X</B>');
-  await expect(page.locator('#hero .phone b')).toHaveCount(0);
+  const screen = page.locator('#hero .phone-screen');
+  await expect.poll(() => screen.evaluate((e) => e.scrollTop), { timeout: 4000 }).toBeGreaterThan(0);
+  await screen.dispatchEvent('pointerdown');
+  const a = await screen.evaluate((e) => e.scrollTop);
+  await page.waitForTimeout(600);
+  expect(await screen.evaluate((e) => e.scrollTop)).toBe(a);
 });
 
-test('nome lungo troncato', async ({ page }) => {
-  await page.setViewportSize({ width: 360, height: 780 });
-  await gotoHome(page);
-  await page.locator('#demo-name').fill('Infissi e Serramenti di Qualità Fratelli Rossi Sud Italia srl');
-  const t = await page.locator('#hero .mini-logo').textContent();
-  expect(t.length).toBeLessThanOrEqual(28);
-  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(360);
-});
-
-test('evento anonimo una volta', async ({ page }) => {
-  await gotoHome(page);
-  await page.locator('#demo-name').fill('Rossi Infissi');
-  await page.locator('#demo-name').fill('Bianchi Serramenti');
-  const ev = await gaEvents(page, 'demo_name_typed');
-  expect(ev.length).toBe(1);
-  expect(JSON.stringify(ev)).not.toMatch(/Rossi|Bianchi/);
+test('senza JS si vede la demo nel telefono', async ({ browser }) => {
+  const ctx = await browser.newContext({ javaScriptEnabled: false });
+  const page = await ctx.newPage();
+  await page.route(/googletagmanager|facebook/, (r) => r.abort());
+  await page.goto('/');
+  await expect.poll(() => page.locator('#hero .phone img').evaluate((i) => i.naturalWidth)).toBeGreaterThan(0);
+  await ctx.close();
 });

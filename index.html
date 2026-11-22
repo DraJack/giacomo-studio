@@ -297,7 +297,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
 
     /* ── TELEFONO + MINI-SITO (riusato in hero, prima/dopo, pacchetto) ── */
     .phone {
-      position: relative; width: 264px; aspect-ratio: 264 / 540; flex: none;
+      position: relative; width: 264px; aspect-ratio: 264 / 540; min-height: 0; flex: none;
       padding: 10px; border-radius: 44px; background: #0b0b0c;
       box-shadow: 0 0 0 1.5px #2a2a2c inset, 0 50px 90px -40px rgba(10,10,10,.45), 0 30px 60px -30px rgba(250,104,0,.35);
     }
@@ -380,19 +380,18 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .hero-demo { display: flex; flex-direction: column; align-items: center; gap: 26px; }
     .hero-demo .phone { transform: rotate(-3deg); animation: float 7s ease-in-out infinite; }
     @keyframes float { 0%, 100% { transform: rotate(-3deg) translateY(0); } 50% { transform: rotate(-3deg) translateY(-10px); } }
-    .demo-field { width: 100%; max-width: 300px; }
-    .demo-field label {
-      display: flex; align-items: center; gap: 8px; justify-content: center;
-      font-size: 12.5px; font-weight: 700; color: var(--muted); margin-bottom: 9px;
+    /* Schermo con lo screenshot della demo: scorre col dito o con la rotella */
+    .phone-screen--shot { display: block; padding: 0; overflow-y: auto; scrollbar-width: none; }
+    .phone-screen--shot::-webkit-scrollbar { display: none; }
+    .phone-screen--shot:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+    .phone-shot { display: block; width: 100%; height: auto; }
+    .demo-link {
+      display: inline-flex; align-items: center; gap: 7px; padding-bottom: 3px;
+      font-size: 14.5px; font-weight: 700; color: var(--ink); border-bottom: 1.5px solid currentColor;
+      transition: color .2s;
     }
-    .demo-field label svg { width: 14px; height: 14px; color: var(--orange); }
-    .demo-input {
-      width: 100%; padding: 14px 18px; border-radius: 100px; text-align: center;
-      border: 1.5px solid var(--line); background: #fff; font-weight: 600; font-size: 15px;
-      box-shadow: var(--shadow-sm); transition: border-color .2s, box-shadow .2s;
-    }
-    .demo-input::placeholder { color: #aaa; font-weight: 500; }
-    .demo-input:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 4px rgba(250,104,0,.12); }
+    .demo-link svg { width: 15px; height: 15px; }
+    .demo-link:hover { color: var(--orange); }
 
     /* ── PROBLEMA + PRIMA/DOPO ── */
     .pain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -872,13 +871,11 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     @media (max-width: 860px) {
       .hero-inner { grid-template-columns: 1fr; padding: 124px 22px 80px; gap: 56px; }
       .hero-halo { right: -50%; top: 38%; }
-      .demo-field { order: -1; }
     }
     @media (max-width: 680px) {
       .hero-inner { padding: 104px 20px 64px; }
       .hero-ctas .btn-dark { width: 100%; }
       .hero-ctas { flex-direction: column; align-items: stretch; text-align: center; }
-      .hero-ctas .btn-link { align-self: center; }
       .phone { width: 236px; }
     }
 
@@ -1008,7 +1005,6 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
           <span class="wa-dot"></span>
           Scrivimi su WhatsApp
         </a>
-        <a href="#pacchetto" class="btn-link">Prova un modello →</a>
       </div>
 
       <ul class="hero-trust">
@@ -1021,27 +1017,16 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     <div class="hero-demo">
       <div class="phone">
         <span class="phone-tag">Esempio</span>
-        <div class="phone-screen">
-          <div class="mini-nav">
-            <div class="mini-brand"><span class="mini-logo">ALBA</span><span class="mini-sub">SERRAMENTI</span></div>
-            <span class="mini-burger"></span>
-          </div>
-          <div class="mini-win" aria-hidden="true"><i></i><i></i></div>
-          <div class="mini-title">Infissi su misura. Preventivo in 24 ore.</div>
-          <div class="mini-text">PVC, alluminio e legno. Sopralluogo gratuito e posa a regola d'arte.</div>
-          <div class="mini-btn">Chiedi un preventivo su WhatsApp</div>
-          <div class="mini-stars"><span class="mini-stars-g">★★★★★</span> 4,9 · 37 recensioni Google</div>
-          <div class="mini-chips"><span>PVC</span><span>Alluminio</span><span>Legno</span></div>
+        <div class="phone-screen phone-screen--shot" tabindex="0" aria-label="Home del sito di esempio, scorrevole">
+          <img class="phone-shot" src="img/esempio-mobile.webp" width="585" height="5100" fetchpriority="high"
+               alt="La home del sito di esempio Alba Serramenti vista da telefono">
         </div>
       </div>
 
-      <div class="demo-field">
-        <label for="demo-name">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-          Prova col nome della tua impresa
-        </label>
-        <input id="demo-name" class="demo-input" type="text" maxlength="60" autocomplete="organization" placeholder="Il nome della tua impresa">
-      </div>
+      <a class="demo-link" href="/esempio/" target="_blank" rel="noopener">
+        Apri il sito di esempio
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+      </a>
     </div>
 
   </div>
@@ -1861,15 +1846,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
 <!-- ═══════════ JS ═══════════ -->
 <script>
   // ── Tracciamento WhatsApp — GA4 + Meta Pixel. Per primo: deve funzionare anche se il resto si rompe. ──
-  // Delegato su document. Il nome dell'impresa NON va negli href (GA4 e Pixel leggono gli URL dei link):
-  // al clic, se c'è un nome, si apre il link personalizzato al posto di quello base.
-  var WA_URL = 'https://wa.me/393493457558?text=';
-  window.gsName = '';
-  function buildWaText(name) {
-    return name
-      ? "Ciao Giacomo, ho un'impresa di infissi (" + name + ") e vorrei vedere gratis il sito che mi prepari."
-      : "Ciao Giacomo, ho un'impresa di infissi e vorrei vedere gratis il sito che mi prepari.";
-  }
+  // Delegato su document: vale per ogni link wa.me, anche quelli aggiunti dopo.
   function waLocation(link) {
     if (link.closest('#sticky-wa')) return 'sticky';
     if (link.classList.contains('nav-wa')) return 'nav';
@@ -1883,10 +1860,6 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     var loc = waLocation(link);
     if (typeof gtag !== 'undefined') gtag('event', 'whatsapp_click', { button_location: loc });
     if (typeof fbq !== 'undefined')  fbq('trackCustom', 'WhatsAppClick', { button_location: loc });
-    if (window.gsName && link.hasAttribute('data-wa')) {
-      e.preventDefault();
-      window.open(WA_URL + encodeURIComponent(buildWaText(window.gsName)), '_blank', 'noopener');
-    }
   });
 
   var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1976,28 +1949,33 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
   }, { threshold: 0.5 });
   document.querySelectorAll('[data-count]').forEach(function (el) { counterIO.observe(el); });
 
-  // ── Nome impresa: personalizza il mini-sito; il messaggio WhatsApp lo usa solo al clic (vedi sopra) ──
-  // Il nome resta nel browser: finisce solo nel testo che l'utente sceglie di mandare.
-  function cleanName(raw) {
-    // Array.from taglia per caratteri interi: un'emoji al limite non si spezza a metà.
-    return Array.from(String(raw || '').replace(/\s+/g, ' ').trim()).slice(0, 28).join('').trim();
+  // ── Telefono dell'hero: la home della demo scorre da sola una volta, poi la scorre chi guarda ──
+  // Si ferma per sempre al primo tocco, rotella o clic. Con riduci-movimento non parte.
+  var heroScreen = document.querySelector('#hero .phone-screen');
+  if (heroScreen && !REDUCED) {
+    var heroStopped = false;
+    var heroStop = function () { heroStopped = true; };
+    ['pointerdown', 'touchstart', 'wheel', 'keydown'].forEach(function (t) {
+      heroScreen.addEventListener(t, heroStop, { passive: true });
+    });
+    var heroGlide = function (to, ms, done) {
+      var from = heroScreen.scrollTop, t0 = null;
+      (function step(t) {
+        if (heroStopped) return;
+        if (t0 === null) t0 = t;
+        var k = Math.min(1, (t - t0) / ms);
+        heroScreen.scrollTop = from + (to - from) * (k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2);
+        if (k < 1) requestAnimationFrame(step); else if (done) done();
+      })(performance.now());
+    };
+    setTimeout(function () {
+      if (heroStopped) return;
+      var max = heroScreen.scrollHeight - heroScreen.clientHeight;
+      heroGlide(Math.min(900, max), 3500, function () {
+        setTimeout(function () { if (!heroStopped) heroGlide(0, 1800); }, 900);
+      });
+    }, 1200);
   }
-  var demoInput = document.getElementById('demo-name');
-  var nameTracked = false;
-  function applyName(raw) {
-    var name = cleanName(raw);
-    if (name === window.gsName) return;
-    window.gsName = name;
-    document.querySelectorAll('.mini-logo').forEach(function (el) { el.textContent = name ? name.toUpperCase() : 'ALBA'; });
-    document.querySelectorAll('.mini-sub').forEach(function (el) { el.hidden = !!name; });
-    if (name && !nameTracked) {
-      nameTracked = true;
-      if (typeof gtag !== 'undefined') gtag('event', 'demo_name_typed');
-    }
-    document.dispatchEvent(new CustomEvent('gs:name', { detail: { name: name } }));
-  }
-  demoInput.addEventListener('input', function () { applyName(demoInput.value); });
-  window.addEventListener('pageshow', function () { applyName(demoInput.value); });
 
   // ── Prima / dopo: trascinamento (mouse e dito) + tastiera via input range ──
   var ba = document.getElementById('ba');
@@ -2064,11 +2042,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
   // ── Ricerca Google simulata: si scrive da sola quando la scheda entra in vista ──
   var serp = document.querySelector('.serp');
   var serpQuery = serp.querySelector('.serp-query');
-  var serpYou = serp.querySelector('.serp-row--you .serp-name');
   var SERP_TEXT = 'infissi vicino a me';
-  function serpName() { serpYou.textContent = window.gsName || 'La tua impresa'; }
-  document.addEventListener('gs:name', serpName);
-  serpName();
   function serpFinish() { serpQuery.textContent = SERP_TEXT; serp.classList.add('done'); }
   if (REDUCED) serpFinish();
   else document.getElementById('pkg-google').addEventListener('gs:in', function () {
