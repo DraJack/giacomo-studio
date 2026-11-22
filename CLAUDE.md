@@ -295,7 +295,8 @@ Il numero nei link è `393493457558` (**con prefisso 39** — senza, `wa.me` fal
 
 - **Titolo**: `Siti web per serramentisti in Puglia: lo vedi gratis | Giacomo Studio`. Parola chiave in testa, marchio in coda.
   Google taglia oltre **~600px in Arial 20px** (non a caratteri): misura ogni variante, questo titolo fa 589px. Il vecchio (642px) veniva tagliato.
-- **Descrizione**: sotto **~920px in Arial 14px**; la promessa (gratis · 48 ore · 150€ solo se ti piace) deve stare prima del taglio.
+- **Descrizione**: sotto **~920px in Arial 14px** (oggi 889px). **Inizia con l'aggancio** "Il tuo sito gratis in 48 ore", seguito subito da
+  "lo vedi prima e paghi 150€ solo se ti piace" (deve essere chiaro che gratis è vederlo, non il sito). Decisione di Giacomo del 23/11.
 - Titolo e descrizione sono ripetuti nel nodo `WebPage` del JSON-LD: se cambi uno, cambia l'altro.
 - `charset`, `viewport`, `title`, `description`, `robots`, `canonical` stanno **in cima** a `<head>`, prima di GA e Pixel.
 - **JSON-LD**: un `@graph` (`WebSite` → nome del sito mostrato da Google, `WebPage`, `ProfessionalService`, `Person`) + il blocco `FAQPage` separato
