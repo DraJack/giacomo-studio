@@ -214,7 +214,7 @@ Un unico `IntersectionObserver` (`revealIO`). Non crearne altri senza motivo.
 
 ```
 index.html      ~2200 righe — TUTTO qui: CSS inline in <style>, JS inline in fondo
-privacy.html    pagina legale, <style> proprio — copre anche il form Check-up (Brevo, consenso, disiscrizione)
+privacy.html    pagina legale, <style> proprio — copre anche il form Check-up (foglio Google, consenso, disiscrizione)
 termini.html    pagina legale, <style> proprio — contiene prezzo e tempi di consegna
 whatsapp.svg    logo ufficiale WhatsApp (cerchio verde + glifo bianco)
 logo-mark.svg   favicon, mark "G" in gradient
@@ -226,13 +226,14 @@ face.webp       avatar FAQ
 giacomo-brand-designer-developer-freelance.webp   foto sezione "Chi sono"
 robots.txt, sitemap.xml
 
-api/            api/subscribe.js — funzione Vercel che salva il numero di telefono del form Check-up su Brevo (attributo SMS)
+api/            api/subscribe.js — funzione Vercel che manda il numero del form Check-up al foglio Google (app web Apps Script)
+apps-script/    Code.gs — copia di riferimento dello script del foglio "Contatti giacomostudio" (si incolla nel foglio, escluso dal deploy)
 tests/          test Playwright + server statico (escluso dal deploy con .vercelignore)
 web-mockup/     DEMO CLIENTE scollegata (ristorante Shoshin) — non fa parte del sito
 ```
 
 **Nessun build step, nessuna dipendenza nel sito.** Si apre il file, si modifica, si committa, Vercel pubblica.
-L'unico `package.json` è in `tests/` (Playwright) e non finisce online: `.vercelignore` esclude `tests/`, `docs/`, `.superpowers/`, `web-mockup/`, `INFRASTRUTTURA.md`, `CLAUDE.md`, `og-template.html`. **Questo file non deve essere pubblico**: dopo ogni pubblicazione `curl -I https://giacomostudio.it/CLAUDE.md` deve dare 404.
+L'unico `package.json` è in `tests/` (Playwright) e non finisce online: `.vercelignore` esclude `tests/`, `docs/`, `.superpowers/`, `web-mockup/`, `apps-script/`, `INFRASTRUTTURA.md`, `CLAUDE.md`, `og-template.html`. **Questo file non deve essere pubblico**: dopo ogni pubblicazione `curl -I https://giacomostudio.it/CLAUDE.md` deve dare 404.
 
 ### Test — lanciali prima di ogni commit
 
@@ -284,8 +285,11 @@ Il numero nei link è `393493457558` (**con prefisso 39** — senza, `wa.me` fal
 
 Sezione `#check-up`, subito dopo `#contatto`, separata da un divisore "oppure". È per chi non è pronto a scrivere su WhatsApp: lascia il **numero di cellulare** + "Hai già un sito?", e Giacomo gli scrive a mano su WhatsApp con il link al sito di esempio.
 
-- Il form normalizza il numero (`normPhone`: spazi, punti, trattini, `0039` → `+39…`, 6–11 cifre; stessa regola in `api/subscribe.js`) e fa `POST /api/subscribe` con `{ telefono, tipo_business, ha_sito, source: 'landing-checkup' }`. La funzione crea il contatto Brevo con l'attributo `SMS` (senza email).
-- Su Vercel servono le env `BREVO_API_KEY` e `BREVO_LIST_ID`. Senza, l'endpoint risponde 500 e l'utente vede l'errore. In Brevo vanno creati gli attributi `TIPO_BUSINESS`, `HA_SITO` e `SOURCE`.
+- Il form normalizza il numero (`normPhone`: spazi, punti, trattini, `0039` → `+39…`, 6–11 cifre; stessa regola in `api/subscribe.js`) e fa `POST /api/subscribe` con `{ telefono, tipo_business, ha_sito, source: 'landing-checkup' }`.
+- La funzione fa POST JSON `{ token, telefono, ha_sito, source }` all'app web Apps Script del foglio Google **"Contatti giacomostudio"** (account Gmail di Giacomo), seguendo il redirect 302 di Google. Lo script (`apps-script/Code.gs`) controlla il token, aggiunge una riga alla scheda `Contatti` e manda l'email "Nuovo contatto dal sito: +39…" con il link wa.me già pronto. Errori: 400 numero non valido, 500 env mancanti, 502 tutto il resto (anche token sbagliato: lo script risponde `ok:false` e non scrive).
+- **Env su Vercel** (Production): `SHEET_WEBHOOK_URL` (l'URL `/exec` dell'app web) e `SHEET_TOKEN`. Lo stesso token sta nello script in Impostazioni progetto → Proprietà script → `SHEET_TOKEN`. Dopo aver cambiato le env, rifare il deploy: valgono solo per i deploy successivi.
+- **Il foglio è anche il CRM.** Colonne: Data · Telefono · Nome · Da dove · Ha già un sito · Stato · Ricontatta il · Note · WhatsApp. Stato a tendina: Nuovo, Scritto, In attesa, Da ricontattare, Cliente, Perso. Chi scrive su WhatsApp si aggiunge a mano (Da dove = `whatsapp`). Ogni mattina alle 8 lo script manda "Da ricontattare oggi: N" (righe "Nuovo" o con Ricontatta il a oggi o prima, esclusi Cliente e Perso); se non c'è nessuno, niente email.
+- **Se cambi lo script:** aggiorna `apps-script/Code.gs` (test: `tests/apps-script.spec.mjs`), incollalo nel foglio, poi Esegui il deployment → Gestisci deployment → matita → Versione: **Nuova versione** → Esegui il deployment. L'URL resta lo stesso. Un "Nuovo deployment" crea invece un URL diverso: va copiato in `SHEET_WEBHOOK_URL` su Vercel, poi rifatto il deploy. Se cambi intestazioni o tendina, rilancia `prepara()` (rifà anche il promemoria delle 8, senza duplicarlo).
 - Al successo invia `checkup_submit` (GA4) + `CheckupRequest` (Pixel, custom). **Evento distinto** da quello WhatsApp: le campagne ottimizzano su `WhatsAppClick`, non su questo.
 - Honeypot `#cu-sito`: se compilato, mostra la conferma senza inviare nulla.
 - Il submit è gradient, **mai verde**. Il blocco è volutamente più sobrio della `.cta-box` (bianco su fondo `--bg-alt`): non deve competere con WhatsApp.
@@ -366,6 +370,7 @@ Il blocco `FAQPage` nel `<head>` deve rispecchiare **parola per parola** le FAQ 
 
 ### Note aperte
 
-- Conversioni in pagina: WhatsApp (8 link `wa.me`, la principale), il form Check-up (cellulare → Brevo) e il `mailto:` nel footer.
-- **Check-up:** i numeri arrivano nella lista Brevo. A ogni nuovo numero Giacomo scrive a mano su WhatsApp con il link `https://giacomostudio.it/esempio/` — il form lo promette.
+- Conversioni in pagina: WhatsApp (8 link `wa.me`, la principale), il form Check-up (cellulare → foglio Google) e il `mailto:` nel footer.
+- **Check-up:** i numeri arrivano nel foglio "Contatti giacomostudio" con un'email di avviso. A ogni nuovo numero Giacomo scrive a mano su WhatsApp con il link `https://giacomostudio.it/esempio/` (il link wa.me nell'email ha già il testo pronto) — il form lo promette. Poi aggiorna Stato e Ricontatta il nel foglio.
+- **App WhatsApp Business** (gratuita, Impostazioni → Strumenti per le aziende): messaggio di benvenuto, messaggio di assenza, risposte rapide, etichette con gli stessi nomi degli stati del foglio. Non ci sono messaggi automatici in uscita: rispondono solo a chi scrive per primo. Le API di WhatsApp per le aziende si valutano solo quando le chat diventano troppe da gestire a mano.
 - Se cambi cosa raccoglie il form o chi riceve i dati, aggiorna `privacy.html` (sezioni 2, 3, 4, 5, 8) nello stesso commit.
