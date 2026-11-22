@@ -26,16 +26,8 @@
     .phone { position: absolute; right: 92px; top: 78px; width: 270px; height: 552px; padding: 10px; border-radius: 46px; background: #0b0b0c;
       transform: rotate(-4deg); box-shadow: 0 50px 90px -40px rgba(10,10,10,.45), 0 30px 60px -30px rgba(250,104,0,.4); }
     .phone::before { content: ''; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); width: 80px; height: 22px; border-radius: 20px; background: #0b0b0c; z-index: 2; }
-    .screen { width: 100%; height: 100%; border-radius: 36px; background: #f6f5f2; padding: 48px 16px 16px; color: #0e1a2b; display: flex; flex-direction: column; }
-    .brand { font-family: 'Inter Tight', sans-serif; font-weight: 900; font-size: 18px; letter-spacing: -.03em; }
-    .brand small { display: block; font-family: 'Manrope'; font-size: 7px; letter-spacing: .34em; font-weight: 700; opacity: .55; margin: 3px 0 14px; }
-    .win { height: 130px; border-radius: 12px; background: #e7e1d6; padding: 7px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 14px; }
-    .win i { border-radius: 5px; background: linear-gradient(160deg, #a9cdf0 0%, #dcebf8 55%, #f6e4cb 100%); }
-    .t { font-family: 'Instrument Serif', serif; font-size: 24px; line-height: 1.02; margin-bottom: 8px; }
-    .x { font-size: 10px; color: #5d6675; margin-bottom: 12px; line-height: 1.45; }
-    .btn { background: #1fb855; color: #fff; border-radius: 100px; padding: 10px; text-align: center; font-size: 10px; font-weight: 800; }
-    .stars { font-size: 9.5px; color: #5d6675; margin-top: 9px; } .stars span { color: #f5a623; }
-    .chips { display: flex; gap: 5px; margin-top: auto; } .chips span { flex: 1; background: #fff; border-radius: 9px; padding: 7px 0; font-size: 9px; font-weight: 700; text-align: center; }
+    .screen { width: 100%; height: 100%; border-radius: 36px; overflow: hidden; background: #f6f5f2; padding-top: 34px; }
+    .screen img { display: block; width: 100%; height: auto; }
   </style>
 </head>
 <body>
@@ -47,15 +39,7 @@
     <p class="sub">Lo vedi gratis in 48 ore.<br><b>Paghi 150€ solo se ti piace.</b></p>
   </div>
   <div class="phone">
-    <div class="screen">
-      <div class="brand">ALBA<small>SERRAMENTI</small></div>
-      <div class="win"><i></i><i></i></div>
-      <div class="t">Infissi su misura. Preventivo in 24 ore.</div>
-      <div class="x">PVC, alluminio e legno. Sopralluogo gratuito e posa a regola d'arte.</div>
-      <div class="btn">Chiedi un preventivo su WhatsApp</div>
-      <div class="stars"><span>★★★★★</span> 4,9 · 37 recensioni Google</div>
-      <div class="chips"><span>PVC</span><span>Alluminio</span><span>Legno</span></div>
-    </div>
+    <div class="screen"><img src="img/esempio-mobile.webp" alt=""></div>
   </div>
 </body>
 </html>

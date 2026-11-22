@@ -9,7 +9,7 @@ Contiene identità, posizionamento, offerta, tono di voce, design system, archit
 
 ## 1. Identità
 
-**Giacomo** — Brand Designer & Developer freelance. Il brand è `giacomostudio` (minuscolo, tutto attaccato, "studio" in gradient).
+**Giacomo** — studente di Ingegneria Informatica e web designer freelance (in pagina: "Studente di Ingegneria Informatica · Web Designer"). Il brand è `giacomostudio` (minuscolo, tutto attaccato, "studio" in gradient).
 
 Non è un'agenzia. È **una persona sola** che fa tutto: strategia, design, codice, consegna, assistenza. Questo non è un limite da nascondere, è **il differenziale principale**:
 
@@ -182,12 +182,14 @@ La card garanzia (`.pkg-card--green`) ridefinisce `--accent` / `--accent-soft` l
 
 ### Componenti
 
-- Pulsanti: `.btn.btn-dark` (principale, nero con `.wa-dot` verde), `.btn.btn-wa` (verde: solo CTA finale), `.btn-link` (secondario sottolineato).
+- Pulsanti: `.btn.btn-dark` (principale, nero), `.btn.btn-wa` (verde: solo CTA finale), `.btn-link` (secondario sottolineato).
+  Ogni pulsante WhatsApp ha il logo `<img src="whatsapp.svg" class="wa-mark">` (un test lo verifica).
   Il gradient sui pulsanti si usa **solo** nel submit del Check-up.
 - `.section` (contenitore 1120px) dentro `<section id="…">`; `class="section--alt"` sulla `<section>` per il fondo grigio caldo.
   `.section-head` = intestazione centrata (kicker + h2 + `.lead`).
-- `.phone` > `.phone-screen` = telefono con mini-sito Alba (`.mini-logo`, `.mini-sub`, `.mini-win`, `.mini-title`, `.mini-btn`…),
-  riusato in hero, prima/dopo, preventivo guidato e check-up. Ogni `.mini-logo` segue il nome scritto nell'hero.
+- `.phone` > `.phone-screen` = telefono. Hero e check-up mostrano lo screenshot vero della demo (`.phone-screen--shot` > `img.phone-shot`,
+  `img/esempio-mobile.webp`); nell'hero scorre da solo una volta e poi col dito. Prima/dopo usa `img/prima-mobile.webp` e lo stesso screenshot.
+  Il preventivo guidato (`#quote`) è l'unico telefono disegnato in HTML. Niente più mini-siti finti.
 - Radius: 14–24px (riquadri), 26–40px (card e blocchi), 100px (pill e bottoni). Breakpoint: 860 / 740 / 680 / 340px.
 
 ### Animazioni
@@ -218,11 +220,13 @@ whatsapp.svg    logo ufficiale WhatsApp (cerchio verde + glifo bianco)
 logo-mark.svg   favicon, mark "G" in gradient
 og-image.jpg     anteprima social 1200×630 — generata da og-template.html
 og-template.html sorgente dell'anteprima social (noindex, non linkata dal sito)
+img/            screenshot della demo per la landing: esempio-mobile.webp (telefoni), esempio-desktop.webp (browser del pacchetto), prima-mobile.webp (il "prima")
+esempio/        SITO DI ESEMPIO pubblico (Alba Serramenti, impresa inventata, noindex) — generato, non modificarlo a mano (vedi sotto)
 face.webp       avatar FAQ
 giacomo-brand-designer-developer-freelance.webp   foto sezione "Chi sono"
 robots.txt, sitemap.xml
 
-api/            api/subscribe.js — funzione Vercel che iscrive l'email del form Check-up alla lista Brevo
+api/            api/subscribe.js — funzione Vercel che salva il numero di telefono del form Check-up su Brevo (attributo SMS)
 tests/          test Playwright + server statico (escluso dal deploy con .vercelignore)
 web-mockup/     DEMO CLIENTE scollegata (ristorante Shoshin) — non fa parte del sito
 ```
@@ -237,18 +241,26 @@ cd tests && npm install        # la prima volta
 npx playwright test             # tutta la suite, telefono (375px) e computer (1280px)
 node shot.mjs <cartella> "#hero" 375,1280   # screenshot di una sezione
 node og.mjs                     # rigenera og-image.jpg da og-template.html
+node shots.mjs                  # rigenera img/*.webp da /esempio/ e da fixtures/prima-sito.html
 ```
+
+### Sito di esempio (`/esempio/`)
+
+Nasce da `Documents/projects/modello-serramentisti` (fuori da questo repo): `clienti/alba-serramenti.json` con `esempio: true`
+(striscia "Sito di esempio", noindex, niente telefono né P.IVA finti, WhatsApp = numero di Giacomo) e le foto in
+`clienti/alba-serramenti/` (fonti Unsplash in `FONTI.md`). Per aggiornarlo: `node genera.mjs alba-serramenti`, copia
+`siti/alba-serramenti/index.html` e i `.webp` in `esempio/`, poi `cd tests && node shots.mjs` per rifare gli screenshot.
 
 I test controllano: testi identici al sito di riferimento (`tests/fixtures/old-index.html`), FAQ = JSON-LD,
 ogni link WhatsApp tracciato con il `button_location` giusto, form Check-up, interazioni, nessuno scroll
-orizzontale a 360px, pagina leggibile senza JS, "riduci movimento", peso non superiore alla versione precedente.
+orizzontale a 360px, pagina leggibile senza JS, "riduci movimento", peso entro la versione vecchia + 450KB, la demo su `/esempio/`, la funzione `api/subscribe.js`.
 Se cambi un testo **apposta**, aggiorna anche `tests/fixtures/old-index.html` (o il test fallisce, ed è giusto così).
 
 ### JS in pagina (tutto inline, fine di `index.html`)
 
-anno nel footer · `#nav.scrolled` + sticky dopo 320px · observer reveal · smooth scroll · hamburger + drawer · scrollspy nav · contatori · **nome impresa** (`#demo-name`) · prima/dopo · preventivo guidato (`quoteMessage`) · ricerca Google simulata · calcolatore (`timesRepaid`) · accordion FAQ · **form Check-up** · **tracking WhatsApp**.
+anno nel footer · `#nav.scrolled` + sticky dopo 320px · observer reveal · smooth scroll · hamburger + drawer · scrollspy nav · contatori · telefono dell'hero che scorre · prima/dopo · preventivo guidato (`quoteMessage`) · ricerca Google simulata · calcolatore (`timesRepaid`) · accordion FAQ · **form Check-up** · **tracking WhatsApp**.
 
-**Nome impresa.** Il campo `#demo-name` nell'hero chiama `cleanName` (max 28 caratteri), aggiorna ogni `.mini-logo` ed emette l'evento `gs:name` (`detail.name`; ultimo valore in `window.gsName`). Gli `href` dei link **restano sempre quelli base**: GA4 (clic in uscita) e Pixel leggono gli URL dei link, quindi il nome non ci deve stare. Al clic su un `a[data-wa]`, se c'è un nome, il listener di tracciamento fa `preventDefault()` e apre `WA_URL + buildWaText(nome)`. A GA4 va solo `demo_name_typed`, senza parametri, una volta per visita. **Ogni nuovo link WhatsApp deve avere l'attributo `data-wa`** (un test lo verifica).
+**Link WhatsApp.** Gli `href` sono tutti uguali (testo base precompilato). **Ogni nuovo link WhatsApp deve avere l'attributo `data-wa`** e il logo `.wa-mark` (i test lo verificano).
 
 **Rete di sicurezza.** Il listener di tracciamento è il primo codice dello script, così funziona anche se il resto si rompe. `html.js` viene messo solo se esiste `IntersectionObserver`, e se lo script non arriva in fondo (`window.gsReady`) entro 3 secondi la classe si toglie e tutti i blocchi diventano visibili.
 
@@ -270,14 +282,14 @@ Il numero nei link è `393493457558` (**con prefisso 39** — senza, `wa.me` fal
 
 ### Form Check-up — seconda scelta, non conversione principale
 
-Sezione `#check-up`, subito dopo `#contatto`, separata da un divisore "oppure". È per chi non è pronto a scrivere su WhatsApp: lascia email + tipo di attività e riceve un esempio di sito.
+Sezione `#check-up`, subito dopo `#contatto`, separata da un divisore "oppure". È per chi non è pronto a scrivere su WhatsApp: lascia il **numero di cellulare** + "Hai già un sito?", e Giacomo gli scrive a mano su WhatsApp con il link al sito di esempio.
 
-- Il form fa `POST /api/subscribe` con `{ email, tipo_business, source: 'landing-checkup' }`. La funzione aggiunge il contatto alla lista Brevo.
-- Su Vercel servono le env `BREVO_API_KEY` e `BREVO_LIST_ID`. Senza, l'endpoint risponde 500 e l'utente vede l'errore. In Brevo vanno creati gli attributi `TIPO_BUSINESS` e `SOURCE`.
+- Il form normalizza il numero (`normPhone`: spazi, punti, trattini, `0039` → `+39…`, 6–11 cifre; stessa regola in `api/subscribe.js`) e fa `POST /api/subscribe` con `{ telefono, tipo_business, ha_sito, source: 'landing-checkup' }`. La funzione crea il contatto Brevo con l'attributo `SMS` (senza email).
+- Su Vercel servono le env `BREVO_API_KEY` e `BREVO_LIST_ID`. Senza, l'endpoint risponde 500 e l'utente vede l'errore. In Brevo vanno creati gli attributi `TIPO_BUSINESS`, `HA_SITO` e `SOURCE`.
 - Al successo invia `checkup_submit` (GA4) + `CheckupRequest` (Pixel, custom). **Evento distinto** da quello WhatsApp: le campagne ottimizzano su `WhatsAppClick`, non su questo.
 - Honeypot `#cu-sito`: se compilato, mostra la conferma senza inviare nulla.
 - Il submit è gradient, **mai verde**. Il blocco è volutamente più sobrio della `.cta-box` (bianco su fondo `--bg-alt`): non deve competere con WhatsApp.
-- Il copy promette "quattro email al massimo, niente newsletter, niente telefonate". Qualsiasi sequenza Brevo deve stare dentro questo limite, e ogni email deve avere il link di disiscrizione (la privacy lo promette).
+- Il copy promette "Ti scrivo una volta sola. Niente pubblicità, niente chiamate a sorpresa." Niente sequenze automatiche.
 
 ---
 
@@ -295,7 +307,7 @@ Sezione `#check-up`, subito dopo `#contatto`, separata da un divisore "oppure". 
 | 8 | Confronto | `#confronto` | "costa troppo / posso fare da solo" |
 | 9 | FAQ | `#faq` | Obiezioni residue (7 domande) |
 | 10 | CTA finale | `#contatto` | Ultima chiamata |
-| 11 | Check-up | `#check-up` | "oppure": chi non è pronto lascia l'email e riceve un esempio |
+| 11 | Check-up | `#check-up` | "oppure": chi non è pronto lascia il cellulare e riceve il sito di esempio su WhatsApp |
 | 12 | Footer + sticky bar | `#sticky-wa` | CTA persistente su mobile |
 
 ---
@@ -323,7 +335,7 @@ Il valore è ripetuto in **~30 punti**. Cambiarlo in un posto solo lascia il sit
 - [ ] `#confronto`: **due copie** — tabella desktop **e** card mobile
 - [ ] `#faq`: 7 risposte
 - [ ] `#contatto`: H2 + trust item
-- [ ] **tutti i link `wa.me`**: il testo precompilato cita il prezzo (e `buildWaText` nel JS)
+- [ ] **tutti i link `wa.me`**: il testo precompilato cita il prezzo
 - [ ] calcolatore: `timesRepaid` divide per 150
 - [ ] `tests/fixtures/old-index.html`: aggiorna i testi di riferimento, o i test di "testi invariati" falliscono
 
@@ -354,6 +366,6 @@ Il blocco `FAQPage` nel `<head>` deve rispecchiare **parola per parola** le FAQ 
 
 ### Note aperte
 
-- Conversioni in pagina: WhatsApp (8 link `wa.me`, la principale), il form Check-up (email → Brevo) e il `mailto:` nel footer.
-- **Sequenza email Check-up: non ancora costruita.** Oggi le email arrivano nella lista Brevo e basta. Finché la sequenza automatica non esiste, l'esempio di sito va mandato a mano a ogni nuovo iscritto — il form lo promette.
+- Conversioni in pagina: WhatsApp (8 link `wa.me`, la principale), il form Check-up (cellulare → Brevo) e il `mailto:` nel footer.
+- **Check-up:** i numeri arrivano nella lista Brevo. A ogni nuovo numero Giacomo scrive a mano su WhatsApp con il link `https://giacomostudio.it/esempio/` — il form lo promette.
 - Se cambi cosa raccoglie il form o chi riceve i dati, aggiorna `privacy.html` (sezioni 2, 3, 4, 5, 8) nello stesso commit.
