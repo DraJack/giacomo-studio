@@ -154,12 +154,17 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@800;900&family=Instrument+Serif:ital@1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script>document.documentElement.classList.add('js');</script>
+  <script>
+    // Le animazioni di ingresso nascondono i blocchi solo con html.js.
+    // Rete di sicurezza: se lo script principale non arriva in fondo (errore, browser vecchio), si mostra tutto.
+    if ('IntersectionObserver' in window) {
+      document.documentElement.classList.add('js');
+      setTimeout(function () { if (!window.gsReady) document.documentElement.classList.remove('js'); }, 3000);
+    }
+  </script>
 
   <style>
-    /* ══════════════════════════════════════════════════════════════
-       TOKEN
-    ══════════════════════════════════════════════════════════════ */
+    /* ── TOKEN ── */
     :root {
       --bg:     #ffffff;
       --bg-alt: #f7f6f3;
@@ -181,9 +186,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
       --ease:    cubic-bezier(.2,.7,.2,1);
     }
 
-    /* ══════════════════════════════════════════════════════════════
-       BASE
-    ══════════════════════════════════════════════════════════════ */
+    /* ── BASE ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { -webkit-text-size-adjust: 100%; }
     body {
@@ -196,9 +199,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     button, input { font: inherit; color: inherit; }
     :focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; border-radius: 6px; }
 
-    /* ══════════════════════════════════════════════════════════════
-       TIPOGRAFIA
-    ══════════════════════════════════════════════════════════════ */
+    /* ── TIPOGRAFIA ── */
     .h1, .h2, .h3 { font-family: var(--display); font-weight: 900; color: var(--ink); }
     .h1 { font-size: clamp(42px, 7.4vw, 84px); line-height: .92; letter-spacing: -.05em; }
     .h2 { font-size: clamp(34px, 5.2vw, 60px); line-height: .95; letter-spacing: -.05em; font-weight: 800; }
@@ -219,9 +220,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .lead { font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; color: var(--muted); text-wrap: pretty; }
     p { text-wrap: pretty; }
 
-    /* ══════════════════════════════════════════════════════════════
-       LAYOUT
-    ══════════════════════════════════════════════════════════════ */
+    /* ── LAYOUT ── */
     .section { max-width: 1120px; margin: 0 auto; padding: 112px 24px; }
     .section--alt { background: var(--bg-alt); }
     .section-head { text-align: center; max-width: 880px; margin: 0 auto 64px; }
@@ -230,9 +229,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .section-head .h2 { margin-bottom: 18px; }
     .section-head .lead { max-width: 540px; margin: 0 auto; }
 
-    /* ══════════════════════════════════════════════════════════════
-       PULSANTI
-    ══════════════════════════════════════════════════════════════ */
+    /* ── PULSANTI ── */
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 10px;
       padding: 16px 26px; border-radius: 100px; border: 0; cursor: pointer;
@@ -252,9 +249,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
       box-shadow: 0 0 0 3px rgba(37,211,102,.22); }
     .wa-mark { width: 18px; height: 18px; flex: none; }
 
-    /* ══════════════════════════════════════════════════════════════
-       NAV
-    ══════════════════════════════════════════════════════════════ */
+    /* ── NAV ── */
     #nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       transition: background .25s, box-shadow .25s, backdrop-filter .25s;
@@ -300,9 +295,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     }
 
 
-    /* ══════════════════════════════════════════════════════════════
-       TELEFONO + MINI-SITO (riusato in hero, prima/dopo, pacchetto)
-    ══════════════════════════════════════════════════════════════ */
+    /* ── TELEFONO + MINI-SITO (riusato in hero, prima/dopo, pacchetto) ── */
     .phone {
       position: relative; width: 264px; aspect-ratio: 264 / 540; flex: none;
       padding: 10px; border-radius: 44px; background: #0b0b0c;
@@ -316,6 +309,12 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
       position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 34px;
       background: #f6f5f2; color: #0e1a2b; font-family: var(--body);
       padding: 46px 16px 16px; display: flex; flex-direction: column;
+    }
+    .phone-tag {
+      position: absolute; top: -13px; left: 50%; transform: translateX(-50%); z-index: 4;
+      padding: 5px 12px; border-radius: 100px; background: #fff; border: 1px solid var(--line);
+      box-shadow: var(--shadow-sm); font-size: 10.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--muted);
+      white-space: nowrap;
     }
     .mini-nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 14px; }
     .mini-brand { min-width: 0; }
@@ -353,9 +352,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .mini-chips { display: flex; gap: 5px; margin-top: auto; padding-top: 10px; }
     .mini-chips span { flex: 1; text-align: center; background: #fff; border-radius: 9px; padding: 7px 0; font-size: 8.5px; font-weight: 700; box-shadow: 0 2px 6px rgba(14,26,43,.06); }
 
-    /* ══════════════════════════════════════════════════════════════
-       HERO
-    ══════════════════════════════════════════════════════════════ */
+    /* ── HERO ── */
     #hero { position: relative; overflow: hidden; }
     .hero-halo {
       position: absolute; right: -12%; top: 4%; width: 760px; height: 760px; border-radius: 50%;
@@ -397,9 +394,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .demo-input::placeholder { color: #aaa; font-weight: 500; }
     .demo-input:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 4px rgba(250,104,0,.12); }
 
-    /* ══════════════════════════════════════════════════════════════
-       PROBLEMA + PRIMA/DOPO
-    ══════════════════════════════════════════════════════════════ */
+    /* ── PROBLEMA + PRIMA/DOPO ── */
     .pain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     .pain-card {
       position: relative; padding: 34px 30px 32px; border-radius: 24px;
@@ -459,9 +454,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .ba-range { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; pointer-events: none; }
     .ba:has(.ba-range:focus-visible) .ba-knob { outline: 2px solid var(--orange); outline-offset: 3px; }
 
-    /* ══════════════════════════════════════════════════════════════
-       PACCHETTO
-    ══════════════════════════════════════════════════════════════ */
+    /* ── PACCHETTO ── */
     .pkg-list { display: flex; flex-direction: column; gap: 24px; }
     .pkg-card {
       --accent: #fa6800; --accent-soft: #fff1ea;
@@ -597,9 +590,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .shield-cap { position: absolute; bottom: 34px; left: 0; right: 0; text-align: center; font-family: var(--display); font-weight: 900; font-size: 26px; letter-spacing: -.04em; }
     .shield-cap span { color: var(--wa-ink); }
 
-    /* ══════════════════════════════════════════════════════════════
-       PREZZO + CALCOLATORE
-    ══════════════════════════════════════════════════════════════ */
+    /* ── PREZZO + CALCOLATORE ── */
     .price-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 24px; align-items: stretch; max-width: 1000px; margin: 0 auto; }
     .price-card, .calc-card { border-radius: 32px; background: #fff; box-shadow: var(--shadow); padding: 40px; }
     .price-card { border: 1px solid var(--line); }
@@ -643,9 +634,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .calc-big .serif-accent { font-size: 44px; }
     .calc-note { font-size: 12.5px; color: var(--soft); margin-top: 12px; }
 
-    /* ══════════════════════════════════════════════════════════════
-       COME FUNZIONA
-    ══════════════════════════════════════════════════════════════ */
+    /* ── COME FUNZIONA ── */
     .steps { --fill: 0; position: relative; max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
     .steps.is-in { --fill: 1; }
     .steps-track { position: absolute; left: 23px; top: 24px; bottom: 24px; width: 3px; border-radius: 3px; background: #ebe8e2; overflow: hidden; }
@@ -695,9 +684,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     }
     .sv-stamp svg { width: 14px; height: 14px; }
 
-    /* ══════════════════════════════════════════════════════════════
-       CHI SONO
-    ══════════════════════════════════════════════════════════════ */
+    /* ── CHI SONO ── */
     .about-card { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: center; }
     .about-photo { position: relative; border-radius: 32px; overflow: hidden; aspect-ratio: 4 / 5; background: var(--bg-alt); box-shadow: var(--shadow); }
     .about-photo img { width: 100%; height: 100%; object-fit: cover; }
@@ -715,9 +702,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .about-stat-num { font-family: var(--display); font-weight: 900; font-size: 44px; letter-spacing: -.05em; line-height: 1; margin-bottom: 6px; }
     .about-stat-label { font-size: 13px; color: var(--muted); font-weight: 600; line-height: 1.35; }
 
-    /* ══════════════════════════════════════════════════════════════
-       CONFRONTO
-    ══════════════════════════════════════════════════════════════ */
+    /* ── CONFRONTO ── */
     .compare-wrap { max-width: 1000px; margin: 0 auto; }
     .compare-table { border-radius: 28px; background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow-sm); overflow: hidden; }
     .compare-row { display: grid; grid-template-columns: 1fr 1.15fr 1fr 1fr; border-top: 1px solid var(--line); }
@@ -747,9 +732,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .cmc-check { color: var(--wa-ink); margin-right: 6px; }
     .cmc-cross { color: #b9b4ab; margin-right: 6px; }
 
-    /* ══════════════════════════════════════════════════════════════
-       FAQ
-    ══════════════════════════════════════════════════════════════ */
+    /* ── FAQ ── */
     .faq-list { max-width: 820px; margin: 0 auto; border-top: 1px solid rgba(0,0,0,.12); }
     .faq-item { border-bottom: 1px solid rgba(0,0,0,.12); }
     .faq-trigger {
@@ -779,9 +762,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .faq-contact-title { font-family: var(--display); font-weight: 800; font-size: 19px; letter-spacing: -.03em; }
     .faq-contact-sub { font-size: 14px; color: var(--muted); }
 
-    /* ══════════════════════════════════════════════════════════════
-       CTA FINALE — l'unico blocco nero della pagina
-    ══════════════════════════════════════════════════════════════ */
+    /* ── CTA FINALE — l'unico blocco nero della pagina ── */
     #contatto .section { padding-bottom: 96px; }
     .cta-box {
       position: relative; overflow: hidden; text-align: center; border-radius: 40px; padding: 96px 32px;
@@ -800,9 +781,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .cta-trust-item { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: rgba(255,255,255,.7); }
     .cta-trust-item::before { border-color: var(--wa); }
 
-    /* ══════════════════════════════════════════════════════════════
-       CHECK-UP — seconda scelta, più sobria di WhatsApp
-    ══════════════════════════════════════════════════════════════ */
+    /* ── CHECK-UP — seconda scelta, più sobria di WhatsApp ── */
     .cu-split { display: flex; align-items: center; gap: 18px; max-width: 1000px; margin: 0 auto 40px; color: var(--soft); font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
     .cu-split::before, .cu-split::after { content: ''; flex: 1; height: 1px; background: rgba(0,0,0,.12); }
     .cu-box { max-width: 1000px; margin: 0 auto; border-radius: 32px; background: #fff; border: 1px solid var(--line); padding: 48px; }
@@ -837,9 +816,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .cu-done-sub { color: var(--muted); margin-bottom: 22px; }
 
 
-    /* ══════════════════════════════════════════════════════════════
-       FOOTER + STICKY
-    ══════════════════════════════════════════════════════════════ */
+    /* ── FOOTER + STICKY ── */
     footer { border-top: 1px solid var(--line); }
     .footer-inner {
       max-width: 1120px; margin: 0 auto; padding: 36px 24px;
@@ -863,19 +840,14 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
       box-shadow: 0 14px 30px -12px rgba(37,211,102,.65);
     }
 
-    /* ══════════════════════════════════════════════════════════════
-       ANIMAZIONI DI INGRESSO
-       Nascosto solo con JS attivo (html.js): senza JS tutto resta visibile.
-    ══════════════════════════════════════════════════════════════ */
+    /* ── ANIMAZIONI DI INGRESSO Nascosto solo con JS attivo (html.js): senza JS tutto resta visibile. ── */
     .js .reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
     .js .reveal.is-in { opacity: 1; transform: none; }
     .js .reveal.d1 { transition-delay: .08s; }
     .js .reveal.d2 { transition-delay: .16s; }
     .js .reveal.d3 { transition-delay: .24s; }
 
-    /* ══════════════════════════════════════════════════════════════
-       RESPONSIVE
-    ══════════════════════════════════════════════════════════════ */
+    /* ── RESPONSIVE ── */
     @media (max-width: 860px) {
       .section { padding: 92px 22px; }
     }
@@ -900,6 +872,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     @media (max-width: 860px) {
       .hero-inner { grid-template-columns: 1fr; padding: 124px 22px 80px; gap: 56px; }
       .hero-halo { right: -50%; top: 38%; }
+      .demo-field { order: -1; }
     }
     @media (max-width: 680px) {
       .hero-inner { padding: 104px 20px 64px; }
@@ -1046,7 +1019,8 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     </div>
 
     <div class="hero-demo">
-      <div class="phone" aria-label="Anteprima di un sito per un'impresa di infissi">
+      <div class="phone">
+        <span class="phone-tag">Esempio</span>
         <div class="phone-screen">
           <div class="mini-nav">
             <div class="mini-brand"><span class="mini-logo">ALBA</span><span class="mini-sub">SERRAMENTI</span></div>
@@ -1212,6 +1186,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
         </div>
         <div class="pkg-visual">
           <div class="phone" id="quote">
+            <span class="phone-tag">Esempio</span>
             <div class="phone-screen quote-screen">
               <div class="mini-nav">
                 <div class="mini-brand"><span class="mini-logo">ALBA</span><span class="mini-sub">SERRAMENTI</span></div>
@@ -1777,6 +1752,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
 
         <div class="cu-visual" aria-hidden="true">
           <div class="phone">
+            <span class="phone-tag">Esempio</span>
             <div class="phone-screen">
               <div class="mini-nav">
                 <div class="mini-brand"><span class="mini-logo">ALBA</span><span class="mini-sub">SERRAMENTI</span></div>
@@ -1884,6 +1860,35 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
 
 <!-- ═══════════ JS ═══════════ -->
 <script>
+  // ── Tracciamento WhatsApp — GA4 + Meta Pixel. Per primo: deve funzionare anche se il resto si rompe. ──
+  // Delegato su document. Il nome dell'impresa NON va negli href (GA4 e Pixel leggono gli URL dei link):
+  // al clic, se c'è un nome, si apre il link personalizzato al posto di quello base.
+  var WA_URL = 'https://wa.me/393493457558?text=';
+  window.gsName = '';
+  function buildWaText(name) {
+    return name
+      ? "Ciao Giacomo, ho un'impresa di infissi (" + name + ") e vorrei vedere gratis il sito che mi prepari."
+      : "Ciao Giacomo, ho un'impresa di infissi e vorrei vedere gratis il sito che mi prepari.";
+  }
+  function waLocation(link) {
+    if (link.closest('#sticky-wa')) return 'sticky';
+    if (link.classList.contains('nav-wa')) return 'nav';
+    if (link.classList.contains('price-cta-btn')) return 'pricing';
+    var section = link.closest('section') || link.closest('[id]');
+    return section ? (section.id || 'unknown') : 'other';
+  }
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest && e.target.closest('a[href*="wa.me"]');
+    if (!link) return;
+    var loc = waLocation(link);
+    if (typeof gtag !== 'undefined') gtag('event', 'whatsapp_click', { button_location: loc });
+    if (typeof fbq !== 'undefined')  fbq('trackCustom', 'WhatsAppClick', { button_location: loc });
+    if (window.gsName && link.hasAttribute('data-wa')) {
+      e.preventDefault();
+      window.open(WA_URL + encodeURIComponent(buildWaText(window.gsName)), '_blank', 'noopener');
+    }
+  });
+
   var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   document.getElementById('yr').textContent = new Date().getFullYear();
@@ -1971,19 +1976,12 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
   }, { threshold: 0.5 });
   document.querySelectorAll('[data-count]').forEach(function (el) { counterIO.observe(el); });
 
-  // ── Nome impresa: personalizza il mini-sito e il messaggio WhatsApp ──
+  // ── Nome impresa: personalizza il mini-sito; il messaggio WhatsApp lo usa solo al clic (vedi sopra) ──
   // Il nome resta nel browser: finisce solo nel testo che l'utente sceglie di mandare.
-  var WA_URL = 'https://wa.me/393493457558?text=';
-  var WA_BASE_HREF = WA_URL + 'Ciao%20Giacomo%2C%20ho%20un%27impresa%20di%20infissi%20e%20vorrei%20vedere%20gratis%20il%20sito%20che%20mi%20prepari.';
   function cleanName(raw) {
-    return String(raw || '').replace(/\s+/g, ' ').trim().slice(0, 28).trim();
+    // Array.from taglia per caratteri interi: un'emoji al limite non si spezza a metà.
+    return Array.from(String(raw || '').replace(/\s+/g, ' ').trim()).slice(0, 28).join('').trim();
   }
-  function buildWaText(name) {
-    return name
-      ? "Ciao Giacomo, ho un'impresa di infissi (" + name + ") e vorrei vedere gratis il sito che mi prepari."
-      : "Ciao Giacomo, ho un'impresa di infissi e vorrei vedere gratis il sito che mi prepari.";
-  }
-  window.gsName = '';
   var demoInput = document.getElementById('demo-name');
   var nameTracked = false;
   function applyName(raw) {
@@ -1992,8 +1990,6 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     window.gsName = name;
     document.querySelectorAll('.mini-logo').forEach(function (el) { el.textContent = name ? name.toUpperCase() : 'ALBA'; });
     document.querySelectorAll('.mini-sub').forEach(function (el) { el.hidden = !!name; });
-    var href = name ? WA_URL + encodeURIComponent(buildWaText(name)) : WA_BASE_HREF;
-    document.querySelectorAll('a[data-wa]').forEach(function (a) { a.setAttribute('href', href); });
     if (name && !nameTracked) {
       nameTracked = true;
       if (typeof gtag !== 'undefined') gtag('event', 'demo_name_typed');
@@ -2173,22 +2169,8 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
   }
 
 
-  // Tracciamento WhatsApp — GA4 + Meta Pixel.
-  // Delegato su document: vale anche per i link il cui href cambia (nome impresa).
-  function waLocation(link) {
-    if (link.closest('#sticky-wa')) return 'sticky';
-    if (link.classList.contains('nav-wa')) return 'nav';
-    if (link.classList.contains('price-cta-btn')) return 'pricing';
-    var section = link.closest('section') || link.closest('[id]');
-    return section ? (section.id || 'unknown') : 'other';
-  }
-  document.addEventListener('click', function (e) {
-    var link = e.target.closest && e.target.closest('a[href*="wa.me"]');
-    if (!link) return;
-    var loc = waLocation(link);
-    if (typeof gtag !== 'undefined') gtag('event', 'whatsapp_click', { button_location: loc });
-    if (typeof fbq !== 'undefined')  fbq('trackCustom', 'WhatsAppClick', { button_location: loc });
-  });
+
+  window.gsReady = true;
 </script>
 
 </body>

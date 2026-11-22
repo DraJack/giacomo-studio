@@ -228,7 +228,7 @@ web-mockup/     DEMO CLIENTE scollegata (ristorante Shoshin) — non fa parte de
 ```
 
 **Nessun build step, nessuna dipendenza nel sito.** Si apre il file, si modifica, si committa, Vercel pubblica.
-L'unico `package.json` è in `tests/` (Playwright) e non finisce online: `.vercelignore` esclude `tests/`, `docs/`, `.superpowers/`, `web-mockup/`, `INFRASTRUTTURA.md`.
+L'unico `package.json` è in `tests/` (Playwright) e non finisce online: `.vercelignore` esclude `tests/`, `docs/`, `.superpowers/`, `web-mockup/`, `INFRASTRUTTURA.md`, `CLAUDE.md`, `og-template.html`. **Questo file non deve essere pubblico**: dopo ogni pubblicazione `curl -I https://giacomostudio.it/CLAUDE.md` deve dare 404.
 
 ### Test — lanciali prima di ogni commit
 
@@ -248,7 +248,9 @@ Se cambi un testo **apposta**, aggiorna anche `tests/fixtures/old-index.html` (o
 
 anno nel footer · `#nav.scrolled` + sticky dopo 320px · observer reveal · smooth scroll · hamburger + drawer · scrollspy nav · contatori · **nome impresa** (`#demo-name`) · prima/dopo · preventivo guidato (`quoteMessage`) · ricerca Google simulata · calcolatore (`timesRepaid`) · accordion FAQ · **form Check-up** · **tracking WhatsApp**.
 
-**Nome impresa.** Il campo `#demo-name` nell'hero chiama `cleanName` (max 28 caratteri), aggiorna ogni `.mini-logo`, riscrive l'`href` di **ogni `a[data-wa]`** con `buildWaText(nome)` ed emette l'evento `gs:name` (`detail.name`; ultimo valore in `window.gsName`). Con il campo vuoto i link tornano esattamente al testo base. Il nome **non** va a GA4/Pixel: si invia solo `demo_name_typed` senza parametri, una volta per visita. **Ogni nuovo link WhatsApp deve avere l'attributo `data-wa`** (un test lo verifica).
+**Nome impresa.** Il campo `#demo-name` nell'hero chiama `cleanName` (max 28 caratteri), aggiorna ogni `.mini-logo` ed emette l'evento `gs:name` (`detail.name`; ultimo valore in `window.gsName`). Gli `href` dei link **restano sempre quelli base**: GA4 (clic in uscita) e Pixel leggono gli URL dei link, quindi il nome non ci deve stare. Al clic su un `a[data-wa]`, se c'è un nome, il listener di tracciamento fa `preventDefault()` e apre `WA_URL + buildWaText(nome)`. A GA4 va solo `demo_name_typed`, senza parametri, una volta per visita. **Ogni nuovo link WhatsApp deve avere l'attributo `data-wa`** (un test lo verifica).
+
+**Rete di sicurezza.** Il listener di tracciamento è il primo codice dello script, così funziona anche se il resto si rompe. `html.js` viene messo solo se esiste `IntersectionObserver`, e se lo script non arriva in fondo (`window.gsReady`) entro 3 secondi la classe si toglie e tutti i blocchi diventano visibili.
 
 ### Tracking — NON ROMPERE
 
@@ -321,7 +323,7 @@ Il valore è ripetuto in **~30 punti**. Cambiarlo in un posto solo lascia il sit
 - [ ] `#confronto`: **due copie** — tabella desktop **e** card mobile
 - [ ] `#faq`: 7 risposte
 - [ ] `#contatto`: H2 + trust item
-- [ ] **tutti i link `wa.me`**: il testo precompilato cita il prezzo (e `buildWaText` / `WA_BASE_HREF` nel JS)
+- [ ] **tutti i link `wa.me`**: il testo precompilato cita il prezzo (e `buildWaText` nel JS)
 - [ ] calcolatore: `timesRepaid` divide per 150
 - [ ] `tests/fixtures/old-index.html`: aggiorna i testi di riferimento, o i test di "testi invariati" falliscono
 

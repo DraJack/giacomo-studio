@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { readFileSync } from 'node:fs';
 import { gotoHome, blockWaNavigation, gaEvents, pixelEvents, scrollThrough, blockExternal, OLD_HTML } from './helpers.mjs';
 
 const isIgnorableConsole = (t) => /Failed to load resource|net::ERR_FAILED|ERR_BLOCKED/.test(t);
@@ -72,4 +73,27 @@ test('senza JS si legge tutto', async ({ browser }) => {
     .map((e) => e.className || e.tagName));
   await ctx.close();
   expect(hidden).toEqual([]);
+});
+
+test('errore JS presto: sezioni visibili e WhatsApp tracciato', async ({ page }) => {
+  await page.addInitScript(() => { window.matchMedia = undefined; });
+  await gotoHome(page);
+  await blockWaNavigation(page);
+  await page.waitForTimeout(3200);
+  const hidden = await page.$$eval('.reveal', (els) => els.filter((e) => getComputedStyle(e).opacity !== '1').length);
+  expect(hidden).toBe(0);
+  await page.locator('#hero a[href*="wa.me"]').first().dispatchEvent('click');
+  expect(await gaEvents(page, 'whatsapp_click')).toEqual([{ button_location: 'hero' }]);
+});
+
+test('senza IntersectionObserver la pagina si legge', async ({ page }) => {
+  await page.addInitScript(() => { delete window.IntersectionObserver; });
+  await gotoHome(page);
+  const hidden = await page.$$eval('.reveal', (els) => els.filter((e) => getComputedStyle(e).opacity !== '1').length);
+  expect(hidden).toBe(0);
+});
+
+test('file interni esclusi dal deploy', () => {
+  const lines = readFileSync(new URL('../.vercelignore', import.meta.url), 'utf8').split(/\r?\n/).map((l) => l.trim());
+  for (const f of ['CLAUDE.md', 'tests/', 'docs/', '.superpowers/', 'og-template.html']) expect(lines).toContain(f);
 });
