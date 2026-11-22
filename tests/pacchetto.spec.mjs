@@ -61,3 +61,10 @@ test('garanzia verde', async ({ page }) => {
   await expect(card).toHaveClass(/pkg-card--green/);
   expect(await card.evaluate((e) => getComputedStyle(e).getPropertyValue('--accent').trim())).toBe('#25d366');
 });
+test('browser del pacchetto con la demo vera', async ({ page }) => {
+  await gotoHome(page);
+  const img = page.locator('#pacchetto .browser img');
+  expect(await img.getAttribute('src')).toMatch(/img\/esempio-desktop\.webp$/);
+  await img.scrollIntoViewIfNeeded();
+  await expect.poll(() => img.evaluate((i) => i.naturalWidth)).toBeGreaterThan(0);
+});

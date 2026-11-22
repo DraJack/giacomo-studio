@@ -295,7 +295,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     }
 
 
-    /* ── TELEFONO + MINI-SITO (riusato in hero, prima/dopo, pacchetto) ── */
+    /* ── TELEFONO (hero, prima/dopo, preventivo, check-up) ── */
     .phone {
       position: relative; width: 264px; aspect-ratio: 264 / 540; min-height: 0; flex: none;
       padding: 10px; border-radius: 44px; background: #0b0b0c;
@@ -316,41 +316,9 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
       box-shadow: var(--shadow-sm); font-size: 10.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--muted);
       white-space: nowrap;
     }
-    .mini-nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 14px; }
-    .mini-brand { min-width: 0; }
-    .mini-logo {
-      display: block; font-family: var(--display); font-weight: 900; font-size: 17px; letter-spacing: -.03em;
-      line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 170px;
-      transition: opacity .2s;
-    }
-    .mini-sub { display: block; font-size: 6.5px; letter-spacing: .34em; font-weight: 700; opacity: .55; margin-top: 3px; }
-    .mini-burger { width: 16px; height: 9px; border-top: 2px solid #0e1a2b; border-bottom: 2px solid #0e1a2b; flex: none; }
-    .mini-win {
-      position: relative; height: 128px; border-radius: 12px; background: #e7e1d6; padding: 7px;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 14px;
-    }
-    .mini-win i {
-      position: relative; border-radius: 5px; overflow: hidden;
-      background: linear-gradient(160deg, #a9cdf0 0%, #dcebf8 55%, #f6e4cb 100%);
-    }
-    .mini-win i::after {
-      content: ''; position: absolute; inset: -20% 40% -20% -10%; transform: rotate(18deg);
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent);
-    }
-    .mini-win i:first-child::before {
-      content: ''; position: absolute; right: 4px; top: 45%; width: 3px; height: 16px; border-radius: 2px; background: #9b958a; z-index: 1;
-    }
-    .mini-title { font-family: var(--serif); font-weight: 400; font-size: 23px; line-height: 1.02; letter-spacing: -.01em; margin-bottom: 7px; }
-    .mini-text { font-size: 9.5px; line-height: 1.45; color: #5d6675; margin-bottom: 12px; }
-    .mini-btn {
-      display: flex; align-items: center; justify-content: center; gap: 6px;
-      background: #1fb855; color: #fff; border-radius: 100px; padding: 9px;
-      font-size: 9.5px; font-weight: 800;
-    }
-    .mini-stars { font-size: 9px; margin-top: 9px; color: #5d6675; }
-    .mini-stars-g { color: #f5a623; letter-spacing: 1px; }
-    .mini-chips { display: flex; gap: 5px; margin-top: auto; padding-top: 10px; }
-    .mini-chips span { flex: 1; text-align: center; background: #fff; border-radius: 9px; padding: 7px 0; font-size: 8.5px; font-weight: 700; box-shadow: 0 2px 6px rgba(14,26,43,.06); }
+    /* Marchio della demo nel preventivo guidato */
+    .quote-brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 13px; letter-spacing: -.02em; margin-bottom: 10px; }
+    .quote-mark { width: 24px; height: 24px; border-radius: 7px; background: #0e1a2b; color: #fff; display: grid; place-items: center; font-size: 9.5px; }
 
     /* ── HERO ── */
     #hero { position: relative; overflow: hidden; }
@@ -381,7 +349,8 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .hero-demo .phone { transform: rotate(-3deg); animation: float 7s ease-in-out infinite; }
     @keyframes float { 0%, 100% { transform: rotate(-3deg) translateY(0); } 50% { transform: rotate(-3deg) translateY(-10px); } }
     /* Schermo con lo screenshot della demo: scorre col dito o con la rotella */
-    .phone-screen--shot { display: block; padding: 0; overflow-y: auto; scrollbar-width: none; }
+    .phone-screen--shot { display: block; padding: 34px 0 0; overflow-y: auto; scrollbar-width: none; }
+    .cu-visual .phone-screen--shot { overflow: hidden; }
     .phone-screen--shot::-webkit-scrollbar { display: none; }
     .phone-screen--shot:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
     .phone-shot { display: block; width: 100%; height: auto; }
@@ -425,18 +394,10 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
 
     .ba { touch-action: pan-y; cursor: ew-resize; user-select: none; -webkit-user-select: none; --pos: 50%; }
     .ba .phone-screen { padding: 0; }
-    .ba-layer { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 46px 16px 16px; }
+    .ba-layer { position: absolute; inset: 0; overflow: hidden; padding-top: 34px; }
+    .ba-layer img { display: block; width: 100%; height: auto; }
     .ba-new { background: #f6f5f2; clip-path: inset(0 0 0 var(--pos)); }
-    .ba-old { background: #e6e6e6; font-family: 'Times New Roman', Times, serif; color: #222; padding-top: 44px; }
-    .old-head { background: #1d3f8f; color: #fff; text-align: center; padding: 10px 6px; font-size: 15px; font-weight: 700; letter-spacing: .02em; }
-    .old-marquee { background: #ffff99; color: #b00; font-size: 9.5px; text-align: center; padding: 3px; font-weight: 700; }
-    .old-body { display: grid; grid-template-columns: 54px 1fr; gap: 8px; padding: 10px 4px; }
-    .old-menu { display: flex; flex-direction: column; gap: 4px; }
-    .old-menu span { font-size: 8.5px; color: #1d3f8f; text-decoration: underline; }
-    .old-img { height: 84px; background: repeating-linear-gradient(45deg, #cfcfcf 0 6px, #d9d9d9 6px 12px); display: grid; place-items: center; font-size: 8px; color: #777; margin-bottom: 6px; }
-    .old-text { font-size: 8.5px; line-height: 1.35; color: #444; }
-    .old-wip { margin: 8px 4px 0; border: 1px dashed #999; padding: 8px; text-align: center; font-size: 10px; font-weight: 700; color: #666; }
-    .old-foot { margin-top: auto; text-align: center; font-size: 7.5px; color: #777; padding: 6px; }
+    .ba-old { background: #fff; }
     .ba-line { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 0 1px rgba(10,10,10,.12); z-index: 4; }
     .ba-knob {
       position: absolute; top: 50%; left: 50%; width: 42px; height: 42px; margin: -21px 0 0 -21px; border-radius: 50%;
@@ -495,16 +456,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .browser-bar { display: flex; align-items: center; gap: 6px; padding: 11px 14px; background: #f1f0ed; }
     .browser-bar i { width: 9px; height: 9px; border-radius: 50%; background: #d6d3cd; }
     .browser-url { margin-left: 10px; flex: 1; background: #fff; border-radius: 7px; padding: 4px 10px; font-size: 10.5px; color: var(--soft); }
-    .browser-body { padding: 18px; background: #f6f5f2; color: #0e1a2b; }
-    .browser-nav { display: flex; justify-content: space-between; align-items: center; font-size: 9.5px; color: #5d6675; margin-bottom: 16px; }
-    .browser-nav b { font-family: var(--display); font-weight: 900; font-size: 14px; color: #0e1a2b; letter-spacing: -.03em; }
-    .browser-hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 14px; align-items: center; margin-bottom: 14px; }
-    .browser-hero h4 { font-family: var(--serif); font-weight: 400; font-size: 24px; line-height: 1; margin-bottom: 8px; }
-    .browser-hero .mini-btn { width: fit-content; padding: 7px 12px; }
-    .browser-hero .mini-win { height: 104px; margin: 0; }
-    .browser-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-    .browser-tiles span { background: #fff; border-radius: 10px; padding: 10px; font-size: 9.5px; font-weight: 700; box-shadow: 0 2px 8px rgba(14,26,43,.06); }
-    .browser-tiles span::before { content: ''; display: block; height: 30px; border-radius: 6px; margin-bottom: 7px; background: linear-gradient(135deg, #dfe9f4, #f3ead9); }
+    .browser-shot { display: block; width: 100%; height: auto; }
 
     /* 2 — preventivo guidato */
     .quote-screen { padding-top: 44px; }
@@ -1077,29 +1029,10 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
       <div class="phone ba" id="ba">
         <div class="phone-screen">
           <div class="ba-layer ba-old" aria-hidden="true">
-            <div class="old-head">INFISSI &amp; SERRAMENTI</div>
-            <div class="old-marquee">BENVENUTI NEL NOSTRO SITO INTERNET</div>
-            <div class="old-body">
-              <div class="old-menu"><span>Home</span><span>Chi siamo</span><span>Prodotti</span><span>Contatti</span><span>Link utili</span></div>
-              <div>
-                <div class="old-img">immagine non disponibile</div>
-                <p class="old-text">La nostra ditta opera nel settore dei serramenti da molti anni offrendo alla gentile clientela prodotti di qualità. Per informazioni contattateci via email.</p>
-              </div>
-            </div>
-            <div class="old-wip">Sito in costruzione</div>
-            <div class="old-foot">Visitatori: 000123 · Ottimizzato per Internet Explorer</div>
+            <img src="img/prima-mobile.webp" width="585" height="1266" loading="lazy" alt="">
           </div>
           <div class="ba-layer ba-new" aria-hidden="true">
-            <div class="mini-nav">
-              <div class="mini-brand"><span class="mini-logo">ALBA</span><span class="mini-sub">SERRAMENTI</span></div>
-              <span class="mini-burger"></span>
-            </div>
-            <div class="mini-win"><i></i><i></i></div>
-            <div class="mini-title">Infissi su misura. Preventivo in 24 ore.</div>
-            <div class="mini-text">PVC, alluminio e legno. Sopralluogo gratuito e posa a regola d'arte.</div>
-            <div class="mini-btn">Chiedi un preventivo su WhatsApp</div>
-            <div class="mini-stars"><span class="mini-stars-g">★★★★★</span> 4,9 · 37 recensioni Google</div>
-            <div class="mini-chips"><span>PVC</span><span>Alluminio</span><span>Legno</span></div>
+            <img src="img/esempio-mobile.webp" width="585" height="5100" loading="lazy" alt="">
           </div>
           <span class="ba-cap ba-cap--old">Prima</span>
           <span class="ba-cap ba-cap--new">Dopo</span>
@@ -1143,15 +1076,8 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
         </div>
         <div class="pkg-visual" aria-hidden="true">
           <div class="browser">
-            <div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">latuaimpresa.it</span></div>
-            <div class="browser-body">
-              <div class="browser-nav"><b class="mini-logo">ALBA</b><span>Prodotti · Lavori · Contatti</span></div>
-              <div class="browser-hero">
-                <div><h4>Infissi su misura.</h4><div class="mini-btn">Preventivo su WhatsApp</div></div>
-                <div class="mini-win"><i></i><i></i></div>
-              </div>
-              <div class="browser-tiles"><span>Finestre</span><span>Persiane</span><span>Porte</span></div>
-            </div>
+            <div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">albaserramenti.it</span></div>
+            <img class="browser-shot" src="img/esempio-desktop.webp" width="1000" height="625" loading="lazy" alt="">
           </div>
         </div>
       </article>
@@ -1173,10 +1099,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
           <div class="phone" id="quote">
             <span class="phone-tag">Esempio</span>
             <div class="phone-screen quote-screen">
-              <div class="mini-nav">
-                <div class="mini-brand"><span class="mini-logo">ALBA</span><span class="mini-sub">SERRAMENTI</span></div>
-                <span class="mini-burger"></span>
-              </div>
+              <div class="quote-brand"><span class="quote-mark">AS</span>Alba Serramenti</div>
               <div class="quote-head">Preventivo gratuito</div>
               <div class="quote-progress" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
               <div class="quote-body" aria-live="polite"></div>
@@ -1738,17 +1661,8 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
         <div class="cu-visual" aria-hidden="true">
           <div class="phone">
             <span class="phone-tag">Esempio</span>
-            <div class="phone-screen">
-              <div class="mini-nav">
-                <div class="mini-brand"><span class="mini-logo">ALBA</span><span class="mini-sub">SERRAMENTI</span></div>
-                <span class="mini-burger"></span>
-              </div>
-              <div class="mini-win"><i></i><i></i></div>
-              <div class="mini-title">Infissi su misura. Preventivo in 24 ore.</div>
-              <div class="mini-text">PVC, alluminio e legno. Sopralluogo gratuito e posa a regola d'arte.</div>
-              <div class="mini-btn">Chiedi un preventivo su WhatsApp</div>
-              <div class="mini-stars"><span class="mini-stars-g">★★★★★</span> 4,9 · 37 recensioni Google</div>
-              <div class="mini-chips"><span>PVC</span><span>Alluminio</span><span>Legno</span></div>
+            <div class="phone-screen phone-screen--shot">
+              <img class="phone-shot" src="img/esempio-mobile.webp" width="585" height="5100" loading="lazy" alt="">
             </div>
           </div>
         </div>

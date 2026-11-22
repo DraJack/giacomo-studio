@@ -39,3 +39,19 @@ test('didascalie', async ({ page }) => {
   await expect(page.locator('.ba-cap', { hasText: 'Prima' })).toHaveCount(1);
   await expect(page.locator('.ba-cap', { hasText: 'Dopo' })).toHaveCount(1);
 });
+
+test('prima/dopo con siti veri', async ({ page }) => {
+  await gotoHome(page);
+  await page.locator('#ba').scrollIntoViewIfNeeded();
+  const old = page.locator('.ba-old img');
+  const neu = page.locator('.ba-new img');
+  expect(await old.getAttribute('src')).toMatch(/img\/prima-mobile\.webp$/);
+  expect(await neu.getAttribute('src')).toMatch(/img\/esempio-mobile\.webp$/);
+  await expect.poll(() => old.evaluate((i) => i.naturalWidth)).toBeGreaterThan(0);
+  await expect.poll(() => neu.evaluate((i) => i.naturalWidth)).toBeGreaterThan(0);
+});
+
+test('niente più mini-siti disegnati', async ({ page }) => {
+  await gotoHome(page);
+  await expect(page.locator('.mini-logo, .mini-win, .old-head, .old-marquee')).toHaveCount(0);
+});

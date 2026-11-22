@@ -105,3 +105,12 @@ test("contatto è l'unico blocco nero", async ({ page }) => {
   });
   expect(dark).toEqual([]);
 });
+
+test('check-up col telefono della demo vera', async ({ page }) => {
+  await gotoHome(page);
+  const img = page.locator('#check-up .phone img');
+  expect(await img.getAttribute('src')).toMatch(/img\/esempio-mobile\.webp$/);
+  if (!(await page.locator('#check-up .cu-visual').isVisible())) return; // su telefono il visual è nascosto
+  await img.scrollIntoViewIfNeeded();
+  await expect.poll(() => img.evaluate((i) => i.naturalWidth)).toBeGreaterThan(0);
+});
