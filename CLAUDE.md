@@ -234,6 +234,7 @@ img/            screenshot della demo per la landing: esempio-mobile.webp (telef
 esempio/        SITO DI ESEMPIO pubblico (Alba Serramenti, impresa inventata, noindex) — generato, non modificarlo a mano (vedi sotto)
 face.webp       avatar FAQ
 giacomo-brand-designer-developer-freelance.webp   foto sezione "Chi sono"
+siti-web-serramentisti/   PAGINA GUIDA SEO (indicizzata, non per le ads) — vedi §8 "Pagina guida"
 robots.txt, sitemap.xml
 
 api/            api/subscribe.js — funzione Vercel che manda il numero del form Check-up al foglio Google (app web Apps Script)
@@ -306,6 +307,19 @@ Il numero nei link è `393493457558` (**con prefisso 39** — senza, `wa.me` fal
 - `sitemap.xml` contiene **solo pagine indicizzabili** (privacy e termini sono `noindex` → fuori). Aggiorna `lastmod` a ogni modifica della home.
 - Dopo ogni modifica a titolo/descrizione: Search Console → Controllo URL → `https://giacomostudio.it/` → **Richiedi indicizzazione**. Senza, Google può mostrare il vecchio testo per settimane.
 - Il footer ripete "Siti web per serramentisti in Puglia": è l'unico punto del corpo con la parola chiave del titolo. Non toglierlo.
+
+### Pagina guida `/siti-web-serramentisti/`
+
+Per le ricerche di chi si informa ("quanto costa un sito web per serramentisti", "cosa deve avere", "preventivi su WhatsApp",
+"farsi trovare su Google"). **Non è per le ads**: la trova chi cerca su Google, e Giacomo la manda a chi chiede "quanto costa".
+File unico `siti-web-serramentisti/index.html`, CSS proprio con gli **stessi token della home** (se cambi lì, cambia qui), percorsi assoluti.
+- Ogni capitolo è una `<section id>` e finisce con un CTA WhatsApp (`data-wa` + `.wa-mark`); il tracciamento è lo stesso della home,
+  `button_location` = id del capitolo (`quanto-costa`, `cosa-deve-avere`, `esempio`, `preventivi-whatsapp`, `google`, `piu-richieste`, `contatto`).
+- Numeri **identici** a home e termini (agenzia 1.500–8.000€, 4–12 settimane, 30–50% di anticipo; 150€; 48 ore; rinnovo dal secondo anno).
+  Se cambi prezzo o tempi, questa pagina entra nella checklist di §10.
+- Regole come la home: niente città, niente scarsità, niente vendita di lead gen/social, nessun "primo posto su Google".
+- Collegata dal footer della home ("Quanto costa un sito per serramentisti") e nella sitemap. Test: `tests/guida.spec.mjs`.
+- JSON-LD `Article` (autore = `#giacomo` della home) + `BreadcrumbList`. Se aggiorni i testi, aggiorna `dateModified` e `lastmod`.
 
 ### Form Check-up — seconda scelta, non conversione principale
 
