@@ -11,6 +11,10 @@ Contiene identità, posizionamento, offerta, tono di voce, design system, archit
 
 **Giacomo** — studente di Ingegneria Informatica e web designer freelance (in pagina: "Studente di Ingegneria Informatica · Web Designer"). Il brand è `giacomostudio` (minuscolo, tutto attaccato, "studio" in gradient).
 
+**Regola del nome:** logo = `giacomostudio` · nel testo e nei documenti = "Giacomo Studio" · social = `@giacomostudio.it` · nei messaggi parla "Giacomo". Mai "GiacomoStudio", "Giacomostudio.it" come nome, "Studio Giacomo".
+
+**Manuale del brand:** `brand/index.html` (interno, escluso dal deploy). Colori, caratteri, voce, componenti, social, modelli WhatsApp, annunci. Se cambi qualcosa del brand: prima il sito, poi il manuale, poi questo file.
+
 Non è un'agenzia. È **una persona sola** che fa tutto: strategia, design, codice, consegna, assistenza. Questo non è un limite da nascondere, è **il differenziale principale**:
 
 - risponde una persona, non un centralino
@@ -106,7 +110,7 @@ La scarsità è stata **rimossa deliberatamente**. Un contatore di "posti" che n
 ```
 Sito 150€  →  cliente acquisito, fiducia costruita, risultato visibile
               ↓
-        Lead generation (campagne, Google Business, prenotazioni)
+        Lead generation (campagne, scheda Google, richieste di preventivo)
         Social media marketing (gestione contenuti, ads)
               ↓
         Ricavo ricorrente mensile ← qui sta il margine reale
@@ -116,9 +120,7 @@ Il sito serve a: (a) entrare in casa del cliente con attrito quasi zero, (b) dim
 
 ### Come si tratta l'upsell sulla landing
 
-**Accennato, mai venduto.** Una riga sola, nella sezione "Chi sono":
-
-> *"Il sito è il primo passo. Quando funziona, c'è il resto — farti trovare su Google, portare prenotazioni, curare i social. Ma prima il sito."*
+**Accennato, mai venduto.** Vive in una frase sola, nella FAQ 6 ("Concordiamo un piano mensile senza vincoli, che disdici quando vuoi"). La riga in "Chi sono" è stata tolta apposta nel redesign del 22/11 (un test verifica che non ci sia).
 
 ⚠️ **Non creare sezioni, pacchetti o listini per lead gen / social sulla landing.** Ogni offerta aggiuntiva in pagina abbassa la conversione sull'offerta d'ingresso, che è l'unica cosa che questa pagina deve fare. L'upsell si propone a voce, dopo la consegna.
 
@@ -126,16 +128,16 @@ Il sito serve a: (a) entrare in casa del cliente con attrito quasi zero, (b) dim
 
 ## 6. Tono di voce
 
-**Diretto, concreto, senza fronzoli. Come parlare al bancone.**
+**Diretto, concreto, senza fronzoli. Come parlare con il titolare in cantiere.**
 
 ### Regole
 
-- **Seconda persona singolare.** "Il tuo locale", "ti porta clienti", "paghi solo se ti piace". Mai il "voi".
+- **Seconda persona singolare.** "La tua impresa", "ti porta preventivi", "paghi solo se ti piace". Mai il "voi".
 - **Frasi corte. Punto fermo aggressivo.** `Semplice come deve essere.` / `Se non ti convince, ci salutiamo. Fine.` Il ritmo si costruisce col punto, non con le virgole.
-- **Numeri, non aggettivi.** "150€", "3 giorni", "zero anticipo" — non "conveniente", "veloce", "rapidissimo". (Unica eccezione: il tempo di risposta è "rispondo subito", non un numero.)
+- **Numeri, non aggettivi.** "150€", "48 ore", "zero anticipo" — non "conveniente", "veloce", "rapidissimo". (Unica eccezione: il tempo di risposta è "rispondo subito", non un numero.)
 - **Zero gergo tecnico.** Mai "responsive", "stack", "CMS", "framework", "performance". Si dice "si vede bene dal telefono", "veloce", "lo aggiorni in un minuto".
 - **Ogni claim dev'essere mantenibile.** Se non lo puoi consegnare, non lo scrivi. La pagina promette solo cose vere.
-- **Titoli in due tempi:** frase bianca + seconda parte in gradient. `Prezzo chiaro.` / `Nessuna sorpresa.` È il pattern tipografico del sito, rispettalo.
+- **Titoli in due tempi:** frase in nero + seconda parte in `Instrument Serif` corsivo gradient (`.serif-accent`). `Lo vedi prima.` / *`Paghi solo se ti piace.`* È il pattern tipografico del sito, rispettalo.
 
 ### Vietato
 
@@ -148,26 +150,32 @@ Il sito serve a: (a) entrare in casa del cliente con attrito quasi zero, (b) dim
 
 ## 7. Design system
 
-Stile chiaro "Mix 1" (redesign del 22/11/2026): fondo avorio (#fbfaf7) con card bianche, griglia leggera nell'hero e nel blocco nero finale, titoli neri molto pesanti, un dettaglio
+Stile chiaro "Mix 1" (redesign del 22/11/2026): fondo avorio (#fdfcfa) con card bianche, griglia leggera nell'hero e nel blocco nero finale, titoli neri molto pesanti, un dettaglio
 elegante in corsivo con il gradient del brand. Spec: `docs/superpowers/specs/2026-11-22-redesign-giacomostudio-design.md` (locale, non nel repo).
 
 ### Token — `:root` in `index.html`
 
 ```css
---bg:     #fbfaf7;   /* fondo pagina (avorio: le card #fff staccano) */
---bg-alt: #f3efe7;   /* sezioni alterne, riquadri (grigio caldo) */
+--bg:     #fdfcfa;   /* fondo pagina (avorio: le card #fff staccano) — uguale in privacy e termini */
+--bg-alt: #f6f4ef;   /* sezioni alterne, riquadri (grigio caldo) */
 --ink:    #0a0a0a;   /* testo, pulsante principale */
 --muted:  #555555;   /* testo secondario */
---soft:   #8a8a8a;   /* note, didascalie */
---line:   rgba(0,0,0,.08);
+--soft:   #707070;   /* note, didascalie (≥4,5:1) */
+--line:   rgba(0,0,0,.08);   --line-strong: rgba(0,0,0,.14);
+--track:  #e3ded4;   /* barre vuote, bordi caldi */
 --red:    #ff2c32;  --orange: #fa6800;
+--orange-ink:  #b84d00;   /* arancio per testo piccolo e focus (≥4,5:1) */
+--orange-soft: #fff1ea;   /* fondo delle icone */
 --grad:   linear-gradient(90deg, #ff2c32 0%, #fa6800 100%);
 --wa:     #25d366;   /* WhatsApp / garanzia / conferme */
---wa-ink: #128c4a;   /* verde leggibile su fondo chiaro (testi, ✓) */
+--wa-ink: #108043;   /* verde leggibile su fondo chiaro (testi, ✓) (≥4,5:1) */
+--wa-soft: #e9f9ef;  /* fondo verde chiaro */
 --halo:   #ffe6da;   /* alone caldo dietro i telefoni */
 ```
 
 **Il verde ha un significato preciso: garanzia, WhatsApp, "sì".** Non usarlo come colore decorativo.
+**Contrasto:** testo piccolo arancione → `--orange-ink`, mai `--orange`. Eccezione decisa da Giacomo il 22/11: testo bianco sul verde `#25d366` nei pulsanti WhatsApp (resta così).
+**Scelte del 22/11 da non riproporre come errori:** prezzo barrato 390€, "Martina Franca" nella demo Alba, ruolo in "Chi sono" rosso pieno, testo bianco su verde.
 La card garanzia (`.pkg-card--green`) ridefinisce `--accent` / `--accent-soft` localmente: **usa questo pattern** se serve un blocco a colore diverso.
 
 **Un solo blocco nero**: `#contatto .cta-box`. Tutto il resto è avorio, bianco o `--bg-alt` (un test lo verifica).
@@ -217,7 +225,9 @@ index.html      ~2200 righe — TUTTO qui: CSS inline in <style>, JS inline in f
 privacy.html    pagina legale, <style> proprio — copre anche il form Check-up (foglio Google, consenso, disiscrizione)
 termini.html    pagina legale, <style> proprio — contiene prezzo e tempi di consegna
 whatsapp.svg    logo ufficiale WhatsApp (cerchio verde + glifo bianco)
-logo-mark.svg   favicon, mark "G" in gradient
+logo-mark.svg   favicon: la G bianca su riquadro gradient (sorgenti e versioni in brand/logo/)
+favicon-32.png, apple-touch-icon.png, icon-512.png   icone PNG (scheda, iPhone, avatar)
+brand/          MANUALE DEL BRAND (interno, escluso dal deploy): brand/index.html + logo/ + img/
 og-image.jpg     anteprima social 1200×630 — generata da og-template.html
 og-template.html sorgente dell'anteprima social (noindex, non linkata dal sito)
 img/            screenshot della demo per la landing: esempio-mobile.webp (telefoni), esempio-desktop.webp (browser del pacchetto), prima-mobile.webp (il "prima")
@@ -233,7 +243,7 @@ web-mockup/     DEMO CLIENTE scollegata (ristorante Shoshin) — non fa parte de
 ```
 
 **Nessun build step, nessuna dipendenza nel sito.** Si apre il file, si modifica, si committa, Vercel pubblica.
-L'unico `package.json` è in `tests/` (Playwright) e non finisce online: `.vercelignore` esclude `tests/`, `docs/`, `.superpowers/`, `web-mockup/`, `apps-script/`, `INFRASTRUTTURA.md`, `CLAUDE.md`, `og-template.html`. **Questo file non deve essere pubblico**: dopo ogni pubblicazione `curl -I https://giacomostudio.it/CLAUDE.md` deve dare 404.
+L'unico `package.json` è in `tests/` (Playwright) e non finisce online: `.vercelignore` esclude `tests/`, `docs/`, `.superpowers/`, `web-mockup/`, `apps-script/`, `brand/`, `INFRASTRUTTURA.md`, `CLAUDE.md`, `og-template.html`. **Questo file non deve essere pubblico**: dopo ogni pubblicazione `curl -I https://giacomostudio.it/CLAUDE.md` deve dare 404.
 
 ### Test — lanciali prima di ogni commit
 
@@ -306,7 +316,7 @@ Sezione `#check-up`, subito dopo `#contatto`, separata da un divisore "oppure". 
 | 1 | Nav | `#nav` | CTA sempre a portata |
 | 2 | Hero | `#hero` | Message match con l'annuncio: cosa, quanto, quando, che rischio |
 | 3 | Problema | `#problema` | "non mi serve" → sì che ti serve |
-| 4 | **Cosa c'è nel pacchetto** | `#pacchetto` | 4 card alternate: cosa ricevi, concretamente |
+| 4 | **Cosa c'è nel pacchetto** | `#pacchetto` | 5 card alternate: cosa ricevi, concretamente |
 | 5 | Prezzi | `#prezzi` | Prezzo chiaro, add-on, garanzia |
 | 6 | Come funziona | `#come-funziona` | "è complicato" → tre step, non fai niente |
 | 7 | Chi sono | `#chi-sono` | "non mi fido" → faccia, nome, prossimità + seme upsell |
