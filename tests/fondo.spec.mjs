@@ -3,7 +3,7 @@ import { gotoHome, blockWaNavigation, gaEvents, pixelEvents, expectOldTextsIn, s
 
 test('testi invariati', async ({ page }) => {
   await gotoHome(page);
-  await expectOldTextsIn(expect, page, 'main', ['.about-name', '.about-role', '.about-bio', '.about-stat-label',
+  await expectOldTextsIn(expect, page, 'main', ['.about-name', '.about-bio', '.about-stat-label',
     '.compare-feature', '.compare-val-me', '.compare-val', '.cmc-title', '.cmc-val', '.faq-q', '.faq-a',
     '.faq-contact-title', '#contatto .h2', '.cta-sub', '.cta-trust-item', '.cu-sub', '.cu-legend', '.cu-chip span',
     '.cu-note', '.cu-privacy', '.cu-done-title']);
@@ -113,4 +113,19 @@ test('check-up col telefono della demo vera', async ({ page }) => {
   if (!(await page.locator('#check-up .cu-visual').isVisible())) return; // su telefono il visual è nascosto
   await img.scrollIntoViewIfNeeded();
   await expect.poll(() => img.evaluate((i) => i.naturalWidth)).toBeGreaterThan(0);
+});
+
+test('chi sono: ruolo, niente etichetta sulla foto', async ({ page }) => {
+  await gotoHome(page);
+  await expect(page.locator('.about-photo-tag')).toHaveCount(0);
+  await expect(page.locator('.about-role')).toHaveText('Studente di Ingegneria Informatica · Web Designer');
+});
+
+test('su telefono la foto mostra la faccia', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'solo telefono');
+  await gotoHome(page);
+  const img = page.locator('.about-photo img');
+  expect(await img.evaluate((i) => getComputedStyle(i).objectPosition)).toBe('50% 0%');
+  const box = await page.locator('.about-photo').boundingBox();
+  expect(Math.abs(box.width / box.height - 4 / 5)).toBeLessThan(0.02);
 });

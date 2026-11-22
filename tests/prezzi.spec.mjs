@@ -23,7 +23,7 @@ test('prezzo tracciato', async ({ page }) => {
 test('calcolatore', async ({ page }) => {
   await gotoHome(page);
   const r = page.locator('#calc-range');
-  await expect(r).toHaveAttribute('min', '1000');
+  await expect(r).toHaveAttribute('min', '500');
   await expect(r).toHaveAttribute('max', '20000');
   await expect(r).toHaveAttribute('step', '500');
   await expect(r).toHaveValue('5000');
@@ -32,6 +32,9 @@ test('calcolatore', async ({ page }) => {
   await r.fill('1000');
   await expect(page.locator('#calc-value')).toHaveText('1.000€');
   await expect(page.locator('#calc-times')).toHaveText('7');
+  await r.fill('500');
+  await expect(page.locator('#calc-value')).toHaveText('500€');
+  await expect(page.locator('#calc-times')).toHaveText('3');
   await r.fill('20000');
   await expect(page.locator('#calc-value')).toHaveText('20.000€');
   await expect(page.locator('#calc-times')).toHaveText('133');

@@ -97,3 +97,10 @@ test('file interni esclusi dal deploy', () => {
   const lines = readFileSync(new URL('../.vercelignore', import.meta.url), 'utf8').split(/\r?\n/).map((l) => l.trim());
   for (const f of ['CLAUDE.md', 'tests/', 'docs/', '.superpowers/', 'og-template.html']) expect(lines).toContain(f);
 });
+
+test('icona WhatsApp su ogni pulsante WhatsApp', async ({ page }) => {
+  await gotoHome(page);
+  await expect(page.locator('.wa-dot')).toHaveCount(0);
+  const missing = await page.$$eval('a[data-wa]', (as) => as.filter((a) => !a.querySelector('img.wa-mark[src="whatsapp.svg"]')).map((a) => a.textContent.trim()));
+  expect(missing).toEqual([]);
+});
