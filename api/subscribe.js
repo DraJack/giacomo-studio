@@ -1,7 +1,10 @@
-// Modulo "Non sei pronto?": salva il numero di telefono su Brevo (attributo SMS).
-// Giacomo poi scrive a mano su WhatsApp: nessuna email automatica.
+// Modulo "Non sei pronto?": manda il numero di telefono all'app web Apps Script del foglio Google
+// "Contatti giacomostudio", che aggiunge la riga e avvisa Giacomo via Gmail (script in apps-script/Code.gs).
+// Giacomo poi scrive a mano su WhatsApp: nessun messaggio automatico al cliente.
 
-const ERR_TEL = 'Controlla il numero, sembra incompleto.';
+const ERR_TEL  = 'Controlla il numero, sembra incompleto.';
+const ERR_CONF = 'Configurazione server mancante.';
+const ERR_SEND = 'Invio non riuscito. Riprova.';
 
 // Stessa regola di normPhone() in index.html: numeri italiani, +39 davanti.
 export function normPhone(raw) {
@@ -17,55 +20,37 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { telefono, tipo_business, ha_sito, source } = req.body || {};
+  const { telefono, ha_sito, source } = req.body || {};
 
-  const sms = normPhone(telefono);
-  if (!sms) {
+  const tel = normPhone(telefono);
+  if (!tel) {
     return res.status(400).json({ error: ERR_TEL });
   }
 
-  const apiKey = process.env.BREVO_API_KEY;
-  const listId = Number(process.env.BREVO_LIST_ID);
-
-  if (!apiKey || !listId) {
-    console.error('Missing BREVO env vars');
-    return res.status(500).json({ error: 'Configurazione server mancante.' });
+  const url   = process.env.SHEET_WEBHOOK_URL;
+  const token = process.env.SHEET_TOKEN;
+  if (!url || !token) {
+    console.error('Missing SHEET_WEBHOOK_URL / SHEET_TOKEN');
+    return res.status(500).json({ error: ERR_CONF });
   }
 
-  // Brevo accetta un contatto senza email se ha l'attributo SMS.
-  // TIPO_BUSINESS, HA_SITO e SOURCE vanno creati in Brevo (Contatti > Impostazioni > Attributi).
-  const attributes = { SMS: sms };
-  if (tipo_business) attributes.TIPO_BUSINESS = tipo_business;
-  if (ha_sito)       attributes.HA_SITO       = ha_sito;
-  if (source)        attributes.SOURCE        = source;
-
-  const payload = { attributes, listIds: [listId], updateEnabled: true };
+  const payload = { token, telefono: tel, ha_sito: String(ha_sito ?? ''), source: String(source ?? '') };
 
   try {
-    const brevoRes = await fetch('https://api.brevo.com/v3/contacts', {
+    // Apps Script risponde 302 verso googleusercontent.com: il redirect va seguito per leggere il JSON.
+    const r = await fetch(url, {
       method: 'POST',
-      headers: {
-        'accept':       'application/json',
-        'content-type': 'application/json',
-        'api-key':      apiKey,
-      },
+      headers: { 'content-type': 'application/json' },
       body: JSON.stringify(payload),
+      redirect: 'follow',
     });
-
-    if (brevoRes.ok || brevoRes.status === 204) {
+    const data = r.ok ? await r.json() : null;
+    if (data && data.ok === true) {
       return res.status(200).json({ ok: true });
     }
-
-    const errBody = await brevoRes.json().catch(() => ({}));
-    // Numero già in lista (ha già compilato il modulo): per chi scrive è comunque andata bene.
-    if (brevoRes.status === 400 && errBody.code === 'duplicate_parameter') {
-      return res.status(200).json({ ok: true });
-    }
-    console.error('Brevo error:', brevoRes.status, errBody);
-    return res.status(502).json({ error: 'Invio non riuscito. Riprova.' });
-
+    console.error('Apps Script error:', r.status, data);
   } catch (err) {
-    console.error('Fetch error:', err);
-    return res.status(502).json({ error: 'Errore di rete. Riprova.' });
+    console.error('Apps Script fetch error:', err && err.message);
   }
+  return res.status(502).json({ error: ERR_SEND });
 }
