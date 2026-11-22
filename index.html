@@ -153,1779 +153,219 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
   <link rel="canonical" href="https://giacomostudio.it">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
-  <link href="https://fonts.cdnfonts.com/css/clash-display" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@800;900&family=Instrument+Serif:ital@1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js');</script>
 
   <style>
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+    /* ══════════════════════════════════════════════════════════════
+       TOKEN
+    ══════════════════════════════════════════════════════════════ */
     :root {
+      --bg:     #ffffff;
+      --bg-alt: #f7f6f3;
+      --ink:    #0a0a0a;
+      --muted:  #555555;
+      --soft:   #8a8a8a;
+      --line:   rgba(0,0,0,.08);
       --red:    #ff2c32;
       --orange: #fa6800;
-      --green:  #25d366;
-      --bg:     #050505;
-      --card:   #0c0c0c;
-      --border: rgba(255,255,255,0.07);
-      --text:   rgba(255,255,255,0.50);
       --grad:   linear-gradient(90deg, #ff2c32 0%, #fa6800 100%);
+      --wa:     #25d366;
+      --wa-ink: #128c4a;
+      --halo:   #ffe6da;
+      --shadow: 0 30px 70px -32px rgba(10,10,10,.28);
+      --shadow-sm: 0 10px 30px -18px rgba(10,10,10,.25);
+      --display: 'Inter Tight', 'Manrope', system-ui, sans-serif;
+      --serif:   'Instrument Serif', Georgia, serif;
+      --body:    'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --ease:    cubic-bezier(.2,.7,.2,1);
     }
 
-    html { scroll-behavior: smooth; }
-
+    /* ══════════════════════════════════════════════════════════════
+       BASE
+    ══════════════════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; }
     body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: #fff;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      background-image: radial-gradient(ellipse 100% 60% at 50% 0%, #111 0%, #060606 50%, #000 100%);
-      background-attachment: fixed;
+      font-family: var(--body); font-size: 16px; line-height: 1.6;
+      color: var(--ink); background: var(--bg);
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
     }
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; }
+    button, input { font: inherit; color: inherit; }
+    :focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; border-radius: 6px; }
 
-    body::after {
-      content: '';
-      position: fixed; inset: 0; z-index: 9999;
-      pointer-events: none; opacity: 0.022;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 180px;
+    /* ══════════════════════════════════════════════════════════════
+       TIPOGRAFIA
+    ══════════════════════════════════════════════════════════════ */
+    .h1, .h2, .h3 { font-family: var(--display); font-weight: 900; color: var(--ink); }
+    .h1 { font-size: clamp(42px, 7.4vw, 84px); line-height: .92; letter-spacing: -.05em; }
+    .h2 { font-size: clamp(34px, 5.2vw, 60px); line-height: .95; letter-spacing: -.05em; font-weight: 800; }
+    .h3 { font-size: clamp(24px, 2.6vw, 32px); line-height: 1; letter-spacing: -.04em; font-weight: 800; }
+    .serif-accent {
+      font-family: var(--serif); font-style: italic; font-weight: 400;
+      letter-spacing: -.02em; font-size: 1.08em; line-height: .9;
+      background: var(--grad); -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: var(--orange);
+      padding: 0 .08em 0 .02em;
     }
-
-    ::-webkit-scrollbar { width: 3px; }
-    ::-webkit-scrollbar-track { background: #000; }
-    ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
-
-    /* ─── Utility ─── */
-    .gradient-text {
-      background: var(--grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .section {
-      padding: 96px 24px;
-      max-width: 1080px;
-      margin: 0 auto;
-    }
-    .label {
+    .kicker {
       display: inline-flex; align-items: center; gap: 10px;
-      margin-bottom: 18px;
+      font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--muted);
     }
-    .label-line { width: 22px; height: 1px; background: var(--red); }
-    .label-text {
-      font-size: 12px; font-weight: 600;
-      letter-spacing: 0.10em; text-transform: uppercase;
-      color: var(--red);
-    }
-    .h2 {
-      font-family: 'Clash Display', sans-serif;
-      font-size: clamp(30px, 5vw, 56px);
-      font-weight: 700; line-height: 1.06;
-      letter-spacing: -0.03em;
-    }
+    .kicker::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--grad); }
+    .lead { font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; color: var(--muted); }
 
-    /* ─── Fade-up ─── */
-    .fade-up {
-      opacity: 0; transform: translateY(28px);
-      transition: opacity 0.60s cubic-bezier(0.25,0.46,0.45,0.94),
-                  transform 0.60s cubic-bezier(0.25,0.46,0.45,0.94);
-    }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
-    .fade-up.d1 { transition-delay: 0.08s; }
-    .fade-up.d2 { transition-delay: 0.16s; }
-    .fade-up.d3 { transition-delay: 0.24s; }
-    .fade-row {
-      opacity: 0; transform: translateY(12px);
-      transition: opacity 0.40s ease, transform 0.40s ease;
-    }
-    .fade-row.visible { opacity: 1; transform: translateY(0); }
-    .fade-row:nth-child(2) { transition-delay: 0.05s; }
-    .fade-row:nth-child(3) { transition-delay: 0.10s; }
-    .fade-row:nth-child(4) { transition-delay: 0.15s; }
-    .fade-row:nth-child(5) { transition-delay: 0.20s; }
-    .fade-row:nth-child(6) { transition-delay: 0.25s; }
-    .fade-row:nth-child(7) { transition-delay: 0.30s; }
+    /* ══════════════════════════════════════════════════════════════
+       LAYOUT
+    ══════════════════════════════════════════════════════════════ */
+    .section { max-width: 1120px; margin: 0 auto; padding: 112px 24px; }
+    .section--alt { background: var(--bg-alt); }
+    .section-head { text-align: center; max-width: 720px; margin: 0 auto 64px; }
+    .section-head .kicker { margin-bottom: 18px; }
+    .section-head .h2 { margin-bottom: 18px; }
+    .section-head .lead { max-width: 540px; margin: 0 auto; }
 
-    /* ─── Buttons ─── */
+    /* ══════════════════════════════════════════════════════════════
+       PULSANTI
+    ══════════════════════════════════════════════════════════════ */
     .btn {
-      display: inline-flex; align-items: center; gap: 9px;
-      padding: 15px 28px;
-      font-size: 15px; font-weight: 600;
-      border-radius: 100px;
-      text-decoration: none; border: none; cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-      white-space: nowrap; letter-spacing: -0.01em;
-      position: relative; overflow: hidden;
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 16px 26px; border-radius: 100px; border: 0; cursor: pointer;
+      font-family: var(--body); font-size: 15px; font-weight: 700; letter-spacing: -.01em;
+      text-decoration: none; white-space: nowrap;
+      transition: transform .2s var(--ease), box-shadow .2s var(--ease), background .2s;
     }
-    .btn:active { transform: translateY(1px) !important; }
-    .btn-wa {
-      background: var(--green); color: #fff;
-      box-shadow: 0 6px 28px rgba(37,211,102,0.28);
+    .btn:hover { transform: translateY(-2px); }
+    .btn-dark { background: var(--ink); color: #fff; box-shadow: var(--shadow-sm); }
+    .btn-dark:hover { box-shadow: 0 16px 34px -16px rgba(10,10,10,.5); }
+    .btn-wa { background: var(--wa); color: #fff; box-shadow: 0 14px 30px -14px rgba(37,211,102,.7); }
+    .btn-link {
+      font-weight: 700; font-size: 15px; text-decoration: none;
+      border-bottom: 1.5px solid currentColor; padding-bottom: 2px;
     }
-    .btn-wa:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 40px rgba(37,211,102,0.45);
-      filter: brightness(1.07);
-    }
-    .btn-ghost {
-      background: transparent; color: rgba(255,255,255,0.65);
-      border: 1px solid rgba(255,255,255,0.12);
-    }
-    .btn-ghost:hover {
-      border-color: rgba(255,255,255,0.28);
-      background: rgba(255,255,255,0.05);
-      transform: translateY(-1px);
-    }
-
-    /* Logo WhatsApp ufficiale — su fondo verde pieno serve un anello che lo stacchi */
-    .wa-mark { display: block; flex-shrink: 0; }
-    .btn-wa .wa-mark,
-    .price-cta-btn .wa-mark,
-    #sticky-wa .wa-mark {
-      border-radius: 50%;
-      box-shadow: 0 0 0 1.5px rgba(255,255,255,0.85);
-    }
+    .wa-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--wa); flex: none;
+      box-shadow: 0 0 0 3px rgba(37,211,102,.22); }
+    .wa-mark { width: 18px; height: 18px; flex: none; }
 
     /* ══════════════════════════════════════════════════════════════
        NAV
     ══════════════════════════════════════════════════════════════ */
     #nav {
-      position: fixed; top: 0; left: 0; right: 0;
-      z-index: 100; padding: 14px 20px;
-      transition: padding 0.35s ease;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      transition: background .25s, box-shadow .25s, backdrop-filter .25s;
     }
-    #nav.scrolled { padding: 9px 20px; }
+    #nav.scrolled, #nav.menu-open {
+      background: rgba(255,255,255,.86);
+      backdrop-filter: saturate(1.6) blur(16px); -webkit-backdrop-filter: saturate(1.6) blur(16px);
+      box-shadow: 0 1px 0 var(--line), 0 10px 30px -24px rgba(0,0,0,.3);
+    }
     #nav-inner {
-      max-width: 1080px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between; gap: 16px;
-      padding: 10px 10px 10px 22px;
-      border-radius: 100px;
-      background: rgba(8,8,8,0.72);
-      backdrop-filter: blur(24px) saturate(1.5);
-      -webkit-backdrop-filter: blur(24px) saturate(1.5);
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.09);
+      max-width: 1120px; margin: 0 auto; height: 72px; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
     }
-    .nav-logo {
-      font-family: 'Clash Display', sans-serif;
-      font-size: 18px; font-weight: 700;
-      color: #fff; text-decoration: none;
-      letter-spacing: -0.02em; flex-shrink: 0;
+    .logo {
+      font-family: var(--display); font-weight: 800; font-size: 19px; letter-spacing: -.045em;
+      text-decoration: none; color: var(--ink);
     }
-    .nav-logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .logo span { background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav-links { display: flex; gap: 30px; list-style: none; }
+    .nav-link { font-size: 14px; font-weight: 600; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .nav-link:hover, .nav-link.active { color: var(--ink); }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
     .nav-wa {
-      display: flex; align-items: center; gap: 7px;
-      padding: 9px 18px;
-      background: rgba(37,211,102,0.10);
-      border: 1px solid rgba(37,211,102,0.28);
-      color: #25d366;
-      font-size: 13px; font-weight: 600;
-      border-radius: 100px; text-decoration: none;
-      transition: background 0.2s, border-color 0.2s;
-      white-space: nowrap; letter-spacing: -0.01em;
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 10px 18px; border-radius: 100px; background: var(--ink); color: #fff;
+      font-size: 14px; font-weight: 700; text-decoration: none;
+      transition: transform .2s var(--ease);
     }
-    .nav-wa:hover { background: rgba(37,211,102,0.20); border-color: rgba(37,211,102,0.55); }
-
-    /* Nav links centrati */
-    #nav-inner { position: relative; }
-    .nav-links {
-      display: flex; align-items: center; gap: 4px;
-      list-style: none;
-      position: absolute; left: 50%; transform: translateX(-50%);
-    }
-    .nav-link {
-      font-size: 13px; font-weight: 500;
-      color: rgba(255,255,255,0.52);
-      text-decoration: none; letter-spacing: -0.01em;
-      padding: 7px 13px; border-radius: 100px;
-      transition: color 0.2s, background 0.2s;
-      white-space: nowrap;
-    }
-    .nav-link:hover { color: rgba(255,255,255,0.90); background: rgba(255,255,255,0.06); }
-    .nav-link.active { color: #fff; background: rgba(255,255,255,0.07); }
-    .nav-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .nav-wa:hover { transform: translateY(-1px); }
     .nav-hamburger {
-      display: none; flex-direction: column; justify-content: center; align-items: center;
-      gap: 5px; width: 38px; height: 38px; padding: 0;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 100px; cursor: pointer;
+      display: none; width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line);
+      background: #fff; cursor: pointer; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
     }
-    .nav-hamburger span {
-      display: block; width: 16px; height: 1.5px;
-      background: rgba(255,255,255,0.70); border-radius: 2px;
-      transition: transform 0.28s ease, opacity 0.2s ease;
-    }
-    #nav.menu-open .nav-hamburger span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-    #nav.menu-open .nav-hamburger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-    #nav.menu-open .nav-hamburger span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-    .nav-drawer {
-      max-width: 1080px; margin: 0 auto;
-      overflow: hidden; max-height: 0;
-      transition: max-height 0.38s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.28s ease;
-      opacity: 0;
-    }
-    #nav.menu-open .nav-drawer { max-height: 260px; opacity: 1; }
-    .nav-drawer ul { list-style: none; padding: 10px 22px 14px; display: flex; flex-direction: column; gap: 2px; }
+    .nav-hamburger span { width: 16px; height: 1.8px; background: var(--ink); border-radius: 2px; transition: transform .25s, opacity .2s; }
+    #nav.menu-open .nav-hamburger span:nth-child(1) { transform: translateY(5.8px) rotate(45deg); }
+    #nav.menu-open .nav-hamburger span:nth-child(2) { opacity: 0; }
+    #nav.menu-open .nav-hamburger span:nth-child(3) { transform: translateY(-5.8px) rotate(-45deg); }
+    .nav-drawer { display: none; }
+    .nav-drawer ul { list-style: none; padding: 8px 24px 24px; }
     .nav-drawer-link {
-      display: block; font-size: 17px; font-weight: 500;
-      color: rgba(255,255,255,0.70); text-decoration: none;
-      letter-spacing: -0.02em; padding: 11px 14px; border-radius: 12px;
-      transition: color 0.2s, background 0.2s;
+      display: block; padding: 14px 0; border-bottom: 1px solid var(--line);
+      font-family: var(--display); font-weight: 800; font-size: 26px; letter-spacing: -.04em; text-decoration: none;
     }
-    .nav-drawer-link:hover { color: #fff; background: rgba(255,255,255,0.06); }
-    @media (max-width: 740px) {
-      .nav-links { display: none; }
-      .nav-hamburger { display: flex; }
-      #nav-inner { border-radius: 18px; }
-      #nav.menu-open #nav-inner { border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
-      .nav-drawer {
-        background: rgba(8,8,8,0.90); backdrop-filter: blur(24px) saturate(1.5);
-        -webkit-backdrop-filter: blur(24px) saturate(1.5);
-        border: 1px solid rgba(255,255,255,0.08); border-top: none;
-        border-radius: 0 0 18px 18px; padding: 0 10px;
-      }
-    }
+
+    section:empty { min-height: 100vh; } /* segnaposto: smette di valere quando la sezione ha contenuto */
+
+    /* @@SECTIONS-CSS@@ */
 
     /* ══════════════════════════════════════════════════════════════
-       HERO
+       FOOTER + STICKY
     ══════════════════════════════════════════════════════════════ */
-    #hero {
-      min-height: 100dvh;
-      display: flex; align-items: center; justify-content: center;
-      padding: 120px 24px 72px;
-      position: relative; overflow: hidden;
-    }
-    .hero-orb {
-      position: absolute; top: -200px; left: 50%;
-      transform: translateX(-50%);
-      width: 900px; height: 560px;
-      background: radial-gradient(55% 94% at 48.7% 6.5%, #fa6800 0%, #c00000 46%, #0f0f0f 100%);
-      opacity: 0.45; border-radius: 50%;
-      filter: blur(6px); pointer-events: none;
-    }
-    .hero-grid {
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size: 80px 80px;
-      pointer-events: none;
-    }
-    .hero-grid::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(to bottom, transparent 30%, #050505 100%);
-    }
-    .hero-content {
-      position: relative; z-index: 2;
-      max-width: 880px; width: 100%;
-      text-align: center;
-    }
-
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(255,165,0,0.07);
-      border: 1px solid rgba(255,165,0,0.28);
-      border-radius: 100px;
-      padding: 6px 14px; margin-bottom: 28px;
-      animation: badge-glow 3s ease-in-out infinite;
-    }
-    .hero-badge-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: #fa6800;
-      box-shadow: 0 0 6px rgba(250,104,0,0.8);
-      animation: pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.7)} }
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50%       { transform: translateY(-6px); }
-    }
-    @keyframes shimmer {
-      0%   { transform: translateX(-100%) skewX(-12deg); }
-      100% { transform: translateX(250%) skewX(-12deg); }
-    }
-    @keyframes badge-glow {
-      0%,100% { box-shadow: none; border-color: rgba(255,165,0,0.28); }
-      50%     { box-shadow: 0 0 12px 2px rgba(250,104,0,0.18); border-color: rgba(255,165,0,0.52); }
-    }
-    .btn-wa::after {
-      content: ''; position: absolute; top: 0; left: 0;
-      width: 40%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
-      animation: shimmer 3.2s ease-in-out infinite;
-      animation-delay: 1.5s; pointer-events: none;
-    }
-    .hero-badge-text {
-      font-size: 12px; font-weight: 700;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      color: rgba(255,165,0,0.85);
-    }
-
-    .hero-h1 {
-      font-family: 'Clash Display', sans-serif;
-      font-size: clamp(52px, 11vw, 108px);
-      font-weight: 700;
-      line-height: 0.95;
-      letter-spacing: -0.04em;
-      margin-bottom: 20px;
-    }
-
-    .hero-kicker {
-      display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
-      gap: 8px; margin-bottom: 48px;
-      font-size: clamp(20px, 2.5vw, 26px); font-weight: 500; color: rgba(255,255,255,0.45);
-      letter-spacing: -0.01em;
-    }
-    .hero-kicker-price {
-      font-family: 'Clash Display', sans-serif;
-      font-size: clamp(24px, 3vw, 30px); font-weight: 700; letter-spacing: -0.02em;
-      background: var(--grad);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .hero-kicker-sep { color: rgba(255,255,255,0.20); }
-    .hero-kicker-claim { font-size: clamp(22px, 2.8vw, 29px); }
-
-    .hero-zero-risk {
-      display: inline-flex; align-items: center; gap: 7px;
-      font-size: 13px; font-weight: 500;
-      color: rgba(255,255,255,0.38);
-      margin-bottom: 28px;
-      letter-spacing: -0.01em;
-    }
-    .hero-zero-risk svg { color: var(--green); flex-shrink: 0; }
-
-    .hero-ctas {
-      display: flex; align-items: center; justify-content: center;
-      gap: 12px; flex-wrap: wrap;
-      margin-bottom: 48px;
-    }
-
-    /* ══════════════════════════════════════════════════════════════
-       PROBLEMA
-    ══════════════════════════════════════════════════════════════ */
-    .problem-intro { text-align: center; margin-bottom: 52px; }
-    .problem-intro .h2 { margin-bottom: 14px; }
-    .problem-sub { font-size: clamp(18px, 2vw, 21px); color: var(--text); line-height: 1.72; max-width: 460px; margin: 0 auto; }
-
-    .pain-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-    .pain-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px; padding: 30px 22px;
-      transition: border-color 0.3s;
-    }
-    .pain-card:hover { border-color: rgba(255,44,50,0.20); }
-    .pain-icon {
-      width: 44px; height: 44px; border-radius: 12px;
-      background: rgba(255,44,50,0.08);
-      border: 1px solid rgba(255,44,50,0.15);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 18px; color: var(--red);
-    }
-    .pain-title {
-      font-family: 'Clash Display', sans-serif;
-      font-size: 18px; font-weight: 600;
-      letter-spacing: -0.02em; margin-bottom: 10px;
-    }
-    .pain-desc { font-size: 14px; color: var(--text); line-height: 1.70; }
-
-    /* ══════════════════════════════════════════════════════════════
-       PACCHETTO — cosa c'è dentro
-    ══════════════════════════════════════════════════════════════ */
-    .pkg-intro { text-align: center; margin-bottom: 52px; }
-    .pkg-intro .h2 { margin-bottom: 14px; }
-    .pkg-intro p {
-      font-size: clamp(16px, 1.9vw, 19px); color: var(--text);
-      line-height: 1.7; max-width: 480px; margin: 0 auto; letter-spacing: -0.01em;
-    }
-
-    .pkg-list { display: flex; flex-direction: column; gap: 18px; }
-
-    .pkg-card {
-      --pkg-rgb: 255,44,50;
-      --pkg-accent: #ff2c32;
-      --pkg-grad: var(--grad);
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 42px;
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 44px; align-items: center;
-      position: relative; overflow: hidden;
-      transition: border-color 0.35s ease;
-    }
-    .pkg-card::before {
-      content: ''; position: absolute; inset: 0; pointer-events: none;
-      background: radial-gradient(ellipse 55% 70% at 100% 0%, rgba(var(--pkg-rgb),0.07) 0%, transparent 70%);
-    }
-    .pkg-card:hover { border-color: rgba(var(--pkg-rgb),0.22); }
-    .pkg-card--green { --pkg-rgb: 37,211,102; --pkg-accent: #25d366;
-      --pkg-grad: linear-gradient(90deg, #25d366 0%, #6ee7a0 100%); }
-    .pkg-text, .pkg-visual { position: relative; }
-    .pkg-card:nth-child(even) .pkg-text { order: 2; }
-
-    .pkg-head { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-    .pkg-num {
-      width: 22px; height: 22px; border-radius: 50%;
-      border: 1px solid rgba(var(--pkg-rgb),0.35);
-      background: rgba(var(--pkg-rgb),0.10);
-      color: var(--pkg-accent);
-      font-size: 11px; font-weight: 700;
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-    }
-    .pkg-label {
-      font-size: 12px; font-weight: 700;
-      letter-spacing: 0.10em; text-transform: uppercase;
-      color: var(--pkg-accent);
-    }
-    .pkg-title {
-      font-family: 'Clash Display', sans-serif;
-      font-size: clamp(26px, 3.4vw, 38px);
-      font-weight: 700; letter-spacing: -0.03em; line-height: 1.06;
-      margin-bottom: 14px;
-    }
-    .pkg-hl {
-      background: var(--pkg-grad);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .pkg-desc {
-      font-size: 15px; color: var(--text); line-height: 1.72;
-      margin-bottom: 22px; letter-spacing: -0.01em;
-    }
-    .pkg-card .checklist { margin-bottom: 26px; }
-    .pkg-card .checklist li { font-size: 14.5px; }
-    .pkg-card .check-icon {
-      background: rgba(var(--pkg-rgb),0.08);
-      border-color: rgba(var(--pkg-rgb),0.22);
-      color: var(--pkg-accent);
-    }
-    .pkg-pill {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 9px 18px; border-radius: 100px;
-      border: 1px solid rgba(var(--pkg-rgb),0.30);
-      background: rgba(var(--pkg-rgb),0.07);
-      font-family: 'Clash Display', sans-serif;
-      font-weight: 700; font-size: 14px; letter-spacing: -0.01em;
-      color: var(--pkg-accent);
-    }
-
-    /* ─── Pannello visual ─── */
-    .pkg-visual {
-      border-radius: 18px;
-      border: 1px solid rgba(var(--pkg-rgb),0.13);
-      background: radial-gradient(ellipse 70% 60% at 50% 42%, rgba(var(--pkg-rgb),0.10) 0%, transparent 72%), #090909;
-      min-height: 300px; padding: 28px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
-      overflow: hidden;
-    }
-
-    /* 1 — mockup browser */
-    .pkg-browser {
-      width: 100%; max-width: 290px;
-      background: #101010;
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 14px; padding: 16px;
-      box-shadow: 0 24px 52px rgba(0,0,0,0.55);
-    }
-    .pkg-browser-hero {
-      height: 62px; border-radius: 8px; margin-bottom: 15px;
-      background: radial-gradient(ellipse 70% 120% at 50% 45%, #fa6800 0%, #ff2c32 55%, #7a1a10 100%);
-      filter: blur(3px); opacity: 0.9;
-    }
-    .pkg-sk {
-      height: 7px; border-radius: 4px; margin-bottom: 8px;
-      background: rgba(255,255,255,0.085);
-      position: relative; overflow: hidden;
-    }
-    .pkg-sk::after {
-      content: ''; position: absolute; top: 0; left: 0;
-      width: 45%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.20), transparent);
-      transform: translateX(-100%) skewX(-12deg);
-    }
-    .pkg-card.visible .pkg-sk::after { animation: shimmer 2.8s ease-in-out infinite; }
-    .pkg-card.visible .pkg-sk:nth-child(3)::after { animation-delay: 0.18s; }
-    .pkg-card.visible .pkg-sk:nth-child(4)::after { animation-delay: 0.36s; }
-    .pkg-browser-cta {
-      margin-top: 16px; width: 76px; height: 22px;
-      border-radius: 100px; background: var(--grad);
-    }
-
-    /* 2 — preventivo guidato su WhatsApp */
-    .pkg-quote {
-      width: 100%; max-width: 290px;
-      background: #101010; border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 14px; padding: 18px;
-      box-shadow: 0 24px 52px rgba(0,0,0,0.55);
-    }
-    .pkg-quote-q {
-      font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-      color: rgba(255,255,255,0.42); margin-bottom: 12px;
-    }
-    .pkg-quote-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
-    .pkg-quote-opt {
-      font-size: 12.5px; font-weight: 600; color: rgba(255,255,255,0.55);
-      padding: 9px 10px; border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02);
-      opacity: 0; transform: translateY(8px);
-      transition: opacity 0.45s ease, transform 0.45s ease, border-color 0.3s, color 0.3s, background 0.3s;
-    }
-    .pkg-quote-opt.is-on { border-color: rgba(var(--pkg-rgb),0.55); background: rgba(var(--pkg-rgb),0.10); color: #fff; }
-    .pkg-card.visible .pkg-quote-opt { opacity: 1; transform: none; }
-    .pkg-card.visible .pkg-quote-opt:nth-child(2) { transition-delay: 0.12s; }
-    .pkg-card.visible .pkg-quote-opt:nth-child(3) { transition-delay: 0.24s; }
-    .pkg-card.visible .pkg-quote-opt:nth-child(4) { transition-delay: 0.36s; }
-    .pkg-quote-send {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 11px; border-radius: 100px; background: #25d366; color: #fff;
-      font-size: 13px; font-weight: 700;
-      opacity: 0; transform: scale(0.92);
-      transition: opacity 0.5s ease 0.6s, transform 0.5s cubic-bezier(0.34,1.56,0.64,1) 0.6s;
-    }
-    .pkg-card.visible .pkg-quote-send { opacity: 1; transform: none; }
-    .pkg-quote-send img { width: 15px; height: 15px; filter: brightness(0) invert(1); }
-
-    /* 3 — risultati Google */
-    .pkg-serp { width: 100%; max-width: 300px; display: flex; flex-direction: column; gap: 8px; }
-    .pkg-serp-bar {
-      display: flex; align-items: center; gap: 10px;
-      padding: 11px 14px; border-radius: 100px;
-      background: #101010; border: 1px solid rgba(255,255,255,0.09);
-      font-size: 13px; color: rgba(255,255,255,0.75); margin-bottom: 6px;
-    }
-    .pkg-serp-bar svg { color: rgba(255,255,255,0.4); flex-shrink: 0; }
-    .pkg-serp-row {
-      display: flex; align-items: center; justify-content: space-between; gap: 10px;
-      padding: 12px 14px; border-radius: 12px;
-      background: #101010; border: 1px solid rgba(255,255,255,0.06);
-      opacity: 0; transform: translateY(10px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-    .pkg-serp-row b { display: block; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.85); }
-    .pkg-serp-row small { display: block; font-size: 11px; color: rgba(255,255,255,0.34); margin-top: 2px; }
-    .pkg-serp-row small i { font-style: normal; color: #f5a623; letter-spacing: 1px; }
-    .pkg-serp-tag {
-      font-size: 10.5px; font-weight: 700; padding: 5px 10px; border-radius: 100px; white-space: nowrap;
-      color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.04);
-    }
-    .pkg-serp-row--you { border-color: rgba(var(--pkg-rgb),0.45); background: rgba(var(--pkg-rgb),0.07); }
-    .pkg-serp-row--you .pkg-serp-tag { color: #fff; background: var(--pkg-grad); }
-    .pkg-serp-row--dim { opacity: 0; }
-    .pkg-card.visible .pkg-serp-row { opacity: 1; transform: none; }
-    .pkg-card.visible .pkg-serp-row--dim { opacity: 0.45; }
-    .pkg-card.visible .pkg-serp-row:nth-child(3) { transition-delay: 0.15s; }
-    .pkg-card.visible .pkg-serp-row:nth-child(4) { transition-delay: 0.3s; }
-
-    /* 4 — timeline 48 ore */
-    .pkg-timeline { position: relative; width: 100%; max-width: 300px; }
-    .pkg-tl-track {
-      position: absolute; top: 10px; left: 16%; right: 16%; height: 2px;
-      background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden;
-    }
-    .pkg-tl-fill {
-      display: block; width: 100%; height: 100%;
-      background: var(--pkg-grad);
-      transform: scaleX(0); transform-origin: left center;
-      transition: transform 1.3s cubic-bezier(0.25,0.46,0.45,0.94) 0.3s;
-    }
-    .pkg-card.visible .pkg-tl-fill { transform: scaleX(1); }
-    .pkg-tl-nodes {
-      position: relative;
-      display: grid; grid-template-columns: repeat(3, 1fr); text-align: center;
-    }
-    .pkg-tl-dot {
-      display: block; width: 22px; height: 22px; border-radius: 50%;
-      margin: 0 auto 14px; background: #090909;
-      border: 2px solid rgba(var(--pkg-rgb),0.30);
-      position: relative;
-      opacity: 0; transform: scale(0.4);
-      transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.34,1.56,0.64,1);
-    }
-    .pkg-tl-dot::after {
-      content: ''; position: absolute; inset: 4px;
-      border-radius: 50%; background: var(--pkg-grad);
-    }
-    .pkg-card.visible .pkg-tl-dot { opacity: 1; transform: scale(1); }
-    .pkg-tl-node:nth-child(1) .pkg-tl-dot { transition-delay: 0.35s; }
-    .pkg-tl-node:nth-child(2) .pkg-tl-dot { transition-delay: 0.75s; }
-    .pkg-tl-node:nth-child(3) .pkg-tl-dot { transition-delay: 1.15s; }
-    .pkg-tl-day {
-      display: block; font-size: 11px; font-weight: 700;
-      letter-spacing: 0.10em; text-transform: uppercase;
-      color: var(--pkg-accent); margin-bottom: 5px;
-    }
-    .pkg-tl-cap {
-      display: block; font-size: 12px; line-height: 1.45;
-      color: rgba(255,255,255,0.34);
-    }
-
-    /* 5 — scudo garanzia */
-    .pkg-shield {
-      position: relative;
-      width: 112px; height: 112px; border-radius: 26px;
-      background: rgba(var(--pkg-rgb),0.09);
-      border: 1px solid rgba(var(--pkg-rgb),0.26);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--pkg-accent);
-    }
-    .pkg-shield::after {
-      content: ''; position: absolute; inset: -11px;
-      border-radius: 34px; border: 1px solid rgba(var(--pkg-rgb),0.20);
-      opacity: 0.5;
-    }
-    .pkg-card.visible .pkg-shield::after { animation: pkg-ring 2.8s ease-in-out infinite; }
-    @keyframes pkg-ring {
-      0%, 100% { transform: scale(1);    opacity: 0.55; }
-      50%      { transform: scale(1.09); opacity: 0.12; }
-    }
-
-    /* ══════════════════════════════════════════════════════════════
-       PREZZO
-    ══════════════════════════════════════════════════════════════ */
-    .price-intro { text-align: center; margin-bottom: 46px; }
-    .price-intro .h2 { margin-bottom: 14px; }
-    .price-intro p {
-      font-size: clamp(16px, 1.9vw, 19px); color: var(--text);
-      line-height: 1.7; max-width: 470px; margin: 0 auto; letter-spacing: -0.01em;
-    }
-    .price-wrap { max-width: 470px; margin: 0 auto; }
-
-    .price-addon {
-      display: flex; align-items: center; justify-content: space-between; gap: 12px;
-      padding: 13px 16px; border-radius: 13px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border);
-      margin-bottom: 22px; position: relative;
-    }
-    .price-addon-name {
-      font-size: 14px; font-weight: 500;
-      color: rgba(255,255,255,0.70); letter-spacing: -0.01em;
-    }
-    .price-addon-name small {
-      display: block; margin-top: 2px;
-      font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.28);
-    }
-    .price-addon-val {
-      font-family: 'Clash Display', sans-serif;
-      font-size: 17px; font-weight: 700; letter-spacing: -0.02em;
-      color: var(--orange); flex-shrink: 0;
-    }
-
-    .checklist { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-    .checklist li {
-      display: flex; align-items: flex-start; gap: 10px;
-      font-size: 15px; color: rgba(255,255,255,0.70); line-height: 1.5;
-      letter-spacing: -0.01em;
-    }
-    .check-icon {
-      width: 20px; height: 20px; border-radius: 50%;
-      background: rgba(255,44,50,0.08);
-      border: 1px solid rgba(255,44,50,0.20);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; margin-top: 1px; color: var(--red);
-    }
-    .check-icon svg { width: 10px; height: 10px; }
-
-    .price-card {
-      background: var(--card);
-      border: 1px solid rgba(255,44,50,0.22);
-      border-radius: 24px;
-      padding: 36px 32px;
-      position: relative; overflow: hidden;
-      box-shadow: 0 0 60px rgba(255,44,50,0.05), 0 28px 60px rgba(0,0,0,0.45);
-      animation: float 5s ease-in-out infinite;
-    }
-    .price-card::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 85% 50% at 50% 0%, rgba(255,44,50,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .price-label {
-      font-size: 12px; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: rgba(255,44,50,0.70);
-      margin-bottom: 12px; position: relative;
-    }
-    .price-number {
-      font-family: 'Clash Display', sans-serif;
-      font-size: clamp(52px, 8vw, 84px);
-      font-weight: 700; letter-spacing: -0.04em; line-height: 1;
-      margin-bottom: 4px; position: relative;
-    }
-    .price-orig {
-      font-size: 14px; font-weight: 600;
-      color: rgba(255,255,255,0.20);
-      text-decoration: line-through;
-      margin-left: 6px;
-    }
-    .price-sub {
-      font-size: 13px; color: rgba(255,255,255,0.28);
-      margin-bottom: 24px; position: relative;
-      letter-spacing: 0.01em;
-    }
-    .price-zero-risk {
-      background: rgba(37,211,102,0.07);
-      border: 1px solid rgba(37,211,102,0.18);
-      border-radius: 14px;
-      padding: 14px 16px;
-      margin-bottom: 22px; position: relative;
-      display: flex; align-items: flex-start; gap: 12px;
-    }
-    .price-zero-risk-icon { color: var(--green); flex-shrink: 0; margin-top: 1px; }
-    .price-zero-risk-text {
-      font-size: 14px; font-weight: 600;
-      color: rgba(255,255,255,0.75);
-      line-height: 1.5; letter-spacing: -0.01em;
-    }
-    .price-zero-risk-text small {
-      display: block; font-weight: 400;
-      font-size: 13px; color: rgba(255,255,255,0.32);
-      margin-top: 3px;
-    }
-    .price-cta-btn {
-      display: flex; align-items: center; justify-content: center;
-      gap: 10px; width: 100%;
-      padding: 16px 24px;
-      background: var(--green); color: #fff;
-      font-size: 16px; font-weight: 700;
-      letter-spacing: -0.01em;
-      border-radius: 14px; text-decoration: none; border: none; cursor: pointer;
-      box-shadow: 0 6px 28px rgba(37,211,102,0.28);
-      transition: filter 0.2s, box-shadow 0.2s, transform 0.2s;
-      position: relative;
-    }
-    .price-cta-btn:hover {
-      filter: brightness(1.07);
-      box-shadow: 0 12px 40px rgba(37,211,102,0.42);
-      transform: translateY(-2px);
-    }
-    .price-note {
-      font-size: 13px; color: rgba(255,255,255,0.20);
-      text-align: center; margin-top: 12px; position: relative;
-      letter-spacing: 0.01em;
-    }
-
-    /* ══════════════════════════════════════════════════════════════
-       COME FUNZIONA
-    ══════════════════════════════════════════════════════════════ */
-    .steps-intro { text-align: center; margin-bottom: 68px; }
-    .steps-intro .h2 { margin-bottom: 12px; }
-
-    .steps-list { max-width: 950px; margin: 0 auto; position: relative; }
-    .steps-list::before {
-      content: '';
-      position: absolute;
-      left: 27px; top: 20px; bottom: 20px; width: 1px;
-      background: linear-gradient(to bottom,
-        transparent 0%, rgba(255,44,50,0.30) 15%,
-        rgba(255,44,50,0.30) 85%, transparent 100%);
-      transform-origin: top center;
-      transform: scaleY(0);
-      transition: transform 1.1s cubic-bezier(0.25,0.46,0.45,0.94) 0.15s;
-    }
-    .steps-list.timeline-visible::before { transform: scaleY(1); }
-    .step-circle {
-      width: 56px; height: 56px; border-radius: 50%;
-      background: var(--card);
-      border: 1px solid rgba(255,44,50,0.28);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      box-shadow: 0 0 0 4px rgba(255,44,50,0.04);
-      opacity: 0; transform: scale(0.4);
-      transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.34,1.56,0.64,1);
-    }
-    .step-body {
-      flex: 1; padding-top: 12px;
-      opacity: 0; transform: translateX(22px);
-      transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94);
-    }
-    .step-row:nth-child(1) .step-circle { transition-delay: 0.20s; }
-    .step-row:nth-child(1) .step-body   { transition-delay: 0.28s; }
-    .step-row:nth-child(2) .step-circle { transition-delay: 0.44s; }
-    .step-row:nth-child(2) .step-body   { transition-delay: 0.52s; }
-    .step-row:nth-child(3) .step-circle { transition-delay: 0.68s; }
-    .step-row:nth-child(3) .step-body   { transition-delay: 0.76s; }
-    .steps-list.timeline-visible .step-circle,
-    .steps-list.timeline-visible .step-body { opacity: 1; transform: none; }
-    .step-row { display: flex; gap: 36px; padding: 0 0 52px; position: relative; }
-    .step-row:last-child { padding-bottom: 0; }
-    .step-marker { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
-    .step-circle-num {
-      font-family: 'Clash Display', sans-serif;
-      font-size: 20px; font-weight: 700;
-      background: var(--grad);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .step-time-pill {
-      display: inline-block;
-      font-size: 12px; font-weight: 700;
-      letter-spacing: 0.10em; text-transform: uppercase;
-      color: rgba(255,44,50,0.60);
-      background: rgba(255,44,50,0.07);
-      border: 1px solid rgba(255,44,50,0.13);
-      border-radius: 100px; padding: 3px 10px;
-      margin-bottom: 10px;
-    }
-    .step-title {
-      font-family: 'Clash Display', sans-serif;
-      font-size: clamp(21px, 3vw, 28px); font-weight: 700;
-      letter-spacing: -0.025em; line-height: 1.1;
-      margin-bottom: 10px;
-    }
-    .step-desc { font-size: 15px; color: var(--text); line-height: 1.70; max-width: 520px; }
-    .step-highlight {
-      display: inline-flex; align-items: center; gap: 8px;
-      margin-top: 14px; padding: 10px 16px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 12px;
-      font-size: 13px; color: rgba(255,255,255,0.50);
-      letter-spacing: -0.01em;
-    }
-    .step-highlight strong { color: rgba(255,255,255,0.80); font-weight: 600; }
-
-    /* ─── Scene animate degli step ─── */
-    .step-visual {
-      flex: 0 0 250px; align-self: center;
-      position: relative; overflow: hidden;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 18px; min-height: 186px;
-      display: flex; flex-direction: column; justify-content: center;
-    }
-
-    /* Scena 1 — la chat che si scrive */
-    .sv-chat { gap: 8px; }
-    .sv-bubble {
-      display: flex; flex-direction: column; gap: 5px;
-      padding: 9px 11px; border-radius: 12px;
-      opacity: 0; transform: translateY(10px) scale(0.94);
-    }
-    .sv-bubble--out {
-      align-self: flex-end; width: 78%;
-      background: rgba(37,211,102,0.15);
-      border: 1px solid rgba(37,211,102,0.22);
-      border-bottom-right-radius: 4px;
-    }
-    .sv-bubble--in {
-      align-self: flex-start; width: 70%;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-bottom-left-radius: 4px;
-    }
-    .sv-line { display: block; height: 5px; border-radius: 3px; background: rgba(255,255,255,0.18); }
-    .sv-bubble--out .sv-line { background: rgba(37,211,102,0.45); }
-    .sv-bubble.sv-typing { flex-direction: row; align-items: center; gap: 4px; width: auto; padding: 12px; }
-    .sv-dot { display: block; width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.32); }
-    .step-row.visible .sv-bubble { animation: sv-pop 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards; }
-    .step-row.visible .sv-bubble:nth-child(1) { animation-delay: 0.30s; }
-    .step-row.visible .sv-bubble:nth-child(2) { animation-delay: 0.85s; }
-    .step-row.visible .sv-bubble:nth-child(3) { animation-delay: 1.35s; }
-    .step-row.visible .sv-typing .sv-dot { animation: sv-blink 1.1s ease-in-out 1.6s 5; }
-    .step-row.visible .sv-typing .sv-dot:nth-child(2) { animation-delay: 1.75s; }
-    .step-row.visible .sv-typing .sv-dot:nth-child(3) { animation-delay: 1.90s; }
-    @keyframes sv-pop {
-      to { opacity: 1; transform: none; }
-    }
-    @keyframes sv-blink {
-      0%, 60%, 100% { opacity: 0.32; transform: none; }
-      30%           { opacity: 1;    transform: translateY(-2px); }
-    }
-
-    /* Scena 2 — il cantiere: le lavorazioni che si chiudono una a una */
-    .sv-build-head {
-      display: flex; align-items: center; gap: 9px;
-      padding-bottom: 11px; margin-bottom: 14px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    .sv-spin {
-      flex: 0 0 12px; width: 12px; height: 12px; border-radius: 50%;
-      border: 1.5px solid rgba(255,44,50,0.22);
-      border-top-color: var(--red);
-    }
-    .step-row.visible .sv-spin { animation: sv-spin 0.9s linear infinite; }
-    .sv-build-label {
-      font-size: 10px; font-weight: 700;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: rgba(255,255,255,0.34);
-    }
-    .sv-tasks { display: flex; flex-direction: column; gap: 10px; }
-    .sv-task {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 12.5px; letter-spacing: -0.01em;
-      color: rgba(255,255,255,0.26);
-      opacity: 0; transform: translateX(-8px);
-    }
-    .sv-task-dot {
-      flex: 0 0 15px; width: 15px; height: 15px; border-radius: 50%;
-      border: 1.5px solid rgba(255,255,255,0.13);
-      background-color: transparent;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .sv-task-dot svg { width: 9px; height: 9px; opacity: 0; }
-    .sv-task--now .sv-task-dot { border-color: rgba(255,44,50,0.22); border-top-color: var(--red); }
-    .step-row.visible .sv-task--now .sv-task-dot { animation: sv-spin 0.9s linear infinite; }
-
-    .step-row.visible .sv-task { animation: sv-slide 0.42s ease-out forwards; }
-    .step-row.visible .sv-task--done { animation: sv-slide 0.42s ease-out forwards, sv-task-done 0.3s ease-out forwards; }
-    .step-row.visible .sv-task--done .sv-task-dot { animation: sv-dot-fill 0.34s cubic-bezier(0.34,1.56,0.64,1) forwards; }
-    .step-row.visible .sv-task--done .sv-task-dot svg { animation: sv-tick 0.22s ease-out forwards; }
-
-    .step-row.visible .sv-task:nth-child(1) { animation-delay: 0.26s, 0.70s; }
-    .step-row.visible .sv-task:nth-child(2) { animation-delay: 0.40s, 1.05s; }
-    .step-row.visible .sv-task:nth-child(3) { animation-delay: 0.54s, 1.40s; }
-    .step-row.visible .sv-task:nth-child(4) { animation-delay: 0.68s; }
-    .step-row.visible .sv-task:nth-child(1) .sv-task-dot,
-    .step-row.visible .sv-task:nth-child(1) .sv-task-dot svg { animation-delay: 0.70s; }
-    .step-row.visible .sv-task:nth-child(2) .sv-task-dot,
-    .step-row.visible .sv-task:nth-child(2) .sv-task-dot svg { animation-delay: 1.05s; }
-    .step-row.visible .sv-task:nth-child(3) .sv-task-dot,
-    .step-row.visible .sv-task:nth-child(3) .sv-task-dot svg { animation-delay: 1.40s; }
-
-    .sv-bar {
-      height: 3px; border-radius: 3px; margin-top: 18px;
-      background: rgba(255,255,255,0.06); overflow: hidden;
-    }
-    .sv-bar-fill {
-      display: block; height: 100%; border-radius: 3px;
-      background: var(--grad);
-      transform: scaleX(0); transform-origin: left center;
-    }
-    .step-row.visible .sv-bar-fill { animation: sv-fill 1.6s cubic-bezier(0.25,0.46,0.45,0.94) 0.30s forwards; }
-    @keyframes sv-slide {
-      to { opacity: 1; transform: none; }
-    }
-    @keyframes sv-task-done {
-      to { color: rgba(255,255,255,0.62); }
-    }
-    @keyframes sv-dot-fill {
-      55%  { transform: scale(1.22); background-color: var(--red); border-color: var(--red); }
-      100% { transform: scale(1);    background-color: var(--red); border-color: var(--red); }
-    }
-    @keyframes sv-tick {
-      to { opacity: 1; }
-    }
-    @keyframes sv-spin {
-      to { transform: rotate(360deg); }
-    }
-    @keyframes sv-fill {
-      to { transform: scaleX(0.72); }
-    }
-
-    /* Scena 3 — il sito finito, poi approvato */
-    .sv-win {
-      display: flex; gap: 4px;
-      padding-bottom: 10px; margin-bottom: 12px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    .sv-win i { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.13); }
-    .sv-blocks { display: flex; flex-direction: column; gap: 8px; }
-    .sv-block {
-      display: block; width: 100%; height: 7px; border-radius: 4px;
-      background: rgba(255,255,255,0.09);
-    }
-    .sv-block--hero { height: 34px; border-radius: 8px; background: rgba(255,255,255,0.06); }
-    .sv-block--btn {
-      width: 40%; height: 13px; border-radius: 100px;
-      background: linear-gradient(90deg, rgba(255,44,50,0.35) 0%, rgba(250,104,0,0.35) 100%);
-      margin-top: 2px;
-    }
-    /* Scena 3 — approvazione */
-    .sv-approve .sv-blocks { opacity: 0.35; }
-    .sv-stamp {
-      position: absolute; left: 50%; top: 50%;
-      width: 62px; height: 62px; margin: -31px 0 0 -31px;
-      border-radius: 50%;
-      background: rgba(37,211,102,0.14);
-      border: 1px solid rgba(37,211,102,0.35);
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; transform: scale(0.4);
-    }
-    .sv-stamp::after {
-      content: ''; position: absolute; inset: -6px;
-      border-radius: 50%; border: 1px solid rgba(37,211,102,0.35);
-      opacity: 0;
-    }
-    .sv-check { stroke-dasharray: 32; stroke-dashoffset: 32; }
-    .sv-cap {
-      position: absolute; left: 0; right: 0; bottom: 16px;
-      text-align: center;
-      font-size: 11px; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: rgba(37,211,102,0.70);
-      opacity: 0;
-    }
-    .step-row.visible .sv-stamp        { animation: sv-pop 0.55s cubic-bezier(0.34,1.56,0.64,1) 0.45s forwards; }
-    .step-row.visible .sv-stamp::after { animation: sv-ring 1.6s ease-out 0.85s 2; }
-    .step-row.visible .sv-check        { animation: sv-draw 0.5s ease-out 0.85s forwards; }
-    .step-row.visible .sv-cap          { animation: sv-pop 0.5s ease-out 1.10s forwards; }
-    @keyframes sv-ring {
-      0%   { opacity: 0.7; transform: scale(1); }
-      100% { opacity: 0;   transform: scale(1.5); }
-    }
-    @keyframes sv-draw {
-      to { stroke-dashoffset: 0; }
-    }
-
-    /* ══════════════════════════════════════════════════════════════
-       CHI SONO
-    ══════════════════════════════════════════════════════════════ */
-    .about-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 28px; overflow: hidden;
-      display: grid; grid-template-columns: 1fr 1fr;
-    }
-    .about-photo { position: relative; min-height: 440px; background: #111; overflow: hidden; }
-    .about-photo img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: top center; display: block;
-      filter: grayscale(20%); transition: filter 0.4s ease;
-    }
-    .about-photo:hover img { filter: grayscale(0%); }
-    .about-photo-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to right, transparent 60%, var(--card) 100%),
-                  linear-gradient(135deg, rgba(255,44,50,0.08), transparent 60%);
-      pointer-events: none;
-    }
-    .about-photo-placeholder {
-      width: 100%; height: 100%; min-height: 440px;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 14px;
-      background: linear-gradient(135deg, #111 0%, #1a0505 100%);
-      color: rgba(255,255,255,0.18);
-      font-size: 13px;
-      letter-spacing: 0.06em; text-transform: uppercase;
-    }
-    .about-photo-placeholder-icon {
-      width: 72px; height: 72px; border-radius: 50%;
-      background: rgba(255,44,50,0.08); border: 1px solid rgba(255,44,50,0.20);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .about-text { padding: 52px 48px; display: flex; flex-direction: column; justify-content: center; }
-    .about-text .label { margin-bottom: 16px; }
-    .about-name {
-      font-family: 'Clash Display', sans-serif;
-      font-size: clamp(26px, 3.5vw, 42px);
-      font-weight: 700; letter-spacing: -0.03em; margin-bottom: 6px;
-    }
-    .about-role {
-      font-size: 13px; font-weight: 600;
-      letter-spacing: 0.09em; text-transform: uppercase;
-      color: rgba(255,44,50,0.70); margin-bottom: 22px;
-    }
-    .about-bio { font-size: 15px; color: var(--text); line-height: 1.78; margin-bottom: 28px; }
-    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 28px; }
-    .about-stat {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border);
-      border-radius: 14px; padding: 16px 18px;
-    }
-    .about-stat-num {
-      font-family: 'Clash Display', sans-serif;
-      font-size: 28px; font-weight: 700; letter-spacing: -0.03em;
-      background: var(--grad);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .about-stat-label { font-size: 13px; color: var(--text); margin-top: 3px; letter-spacing: -0.01em; }
-
-    /* ══════════════════════════════════════════════════════════════
-       CONFRONTO
-    ══════════════════════════════════════════════════════════════ */
-    .compare-intro { text-align: center; margin-bottom: 52px; }
-    .compare-intro .h2 { margin-bottom: 10px; }
-    .compare-intro p { font-size: 17px; color: var(--text); margin-top: 12px; line-height: 1.7; }
-
-    .compare-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .compare-table {
-      min-width: 560px;
-      border: 1px solid var(--border);
-      border-radius: 20px; overflow: hidden;
-    }
-    .compare-row {
-      display: grid;
-      grid-template-columns: 1.6fr 1fr 1fr 1fr;
-    }
-    .compare-row:not(:last-child) { border-bottom: 1px solid var(--border); }
-    .compare-cell {
-      padding: 16px 20px;
-      font-size: 14px; color: var(--text);
-      display: flex; align-items: center; gap: 6px;
-    }
-    .compare-feature {
-      font-weight: 600; font-size: 13px;
-      color: rgba(255,255,255,0.60);
-    }
-    .compare-me {
-      background: rgba(255,44,50,0.04);
-      border-left: 1px solid rgba(255,44,50,0.15);
-      border-right: 1px solid rgba(255,44,50,0.15);
-      color: #fff; align-items: center; gap: 6px;
-    }
-    .compare-header .compare-me {
-      flex-direction: column; align-items: flex-start; gap: 2px;
-    }
-    .compare-header { background: rgba(255,255,255,0.025); }
-    .compare-header .compare-cell { padding: 18px 20px; }
-    .compare-me-label {
-      font-family: 'Clash Display', sans-serif;
-      font-weight: 700; font-size: 14px; color: #fff; letter-spacing: -0.01em;
-    }
-    .compare-me-sub {
-      font-size: 11px; color: var(--red); font-weight: 700;
-      letter-spacing: 0.07em; text-transform: uppercase;
-    }
-    .compare-check { color: var(--green); font-weight: 700; flex-shrink: 0; }
-    .compare-cross { color: rgba(255,80,80,0.55); font-weight: 700; flex-shrink: 0; }
-    .compare-val-me { font-size: 14px; color: rgba(255,255,255,0.90); font-weight: 500; }
-    .compare-val { font-size: 13px; color: rgba(255,255,255,0.38); }
-    .compare-col-head { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.42); }
-
-    /* ══════════════════════════════════════════════════════════════
-       FAQ
-    ══════════════════════════════════════════════════════════════ */
-    .faq-intro { text-align: center; margin-bottom: 44px; }
-    .faq-list {
-      max-width: 740px; margin: 0 auto;
-      border: 1px solid var(--border);
-      border-radius: 20px; overflow: hidden;
-    }
-    .faq-item { border-bottom: 1px solid rgba(255,255,255,0.05); }
-    .faq-item:last-child { border-bottom: none; }
-    .faq-trigger {
-      width: 100%;
-      display: flex; align-items: center; justify-content: space-between; gap: 14px;
-      padding: 20px 24px; background: transparent; border: none;
-      cursor: pointer; text-align: left;
-      transition: background 0.2s;
-    }
-    .faq-trigger:hover { background: rgba(255,255,255,0.02); }
-    .faq-item.open .faq-trigger { background: rgba(255,44,50,0.04); }
-    .faq-q {
-      font-size: 15px; font-weight: 500; color: #fff;
-      line-height: 1.4; flex: 1; letter-spacing: -0.01em;
-    }
-    .faq-item.open .faq-q { color: var(--red); }
-    .faq-chevron { flex-shrink: 0; color: var(--red); transition: transform 0.35s ease; }
-    .faq-item.open .faq-chevron { transform: rotate(180deg); }
-    .faq-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.38s ease; }
-    .faq-item.open .faq-body { grid-template-rows: 1fr; }
-    .faq-body-inner { overflow: hidden; }
-    .faq-a { padding: 2px 24px 20px; font-size: 14px; line-height: 1.73; color: var(--text); }
-    .faq-a strong { color: rgba(255,255,255,0.80); font-weight: 600; }
-
-    .faq-contact {
-      max-width: 740px; margin: 24px auto 0;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 26px 30px;
-      display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
-    }
-    .faq-contact-left { display: flex; align-items: center; gap: 16px; flex: 1; min-width: 180px; }
-    .faq-contact-avatar-wrap { position: relative; flex-shrink: 0; }
-    .faq-contact-avatar-img {
-      width: 54px; height: 54px; border-radius: 50%;
-      background: linear-gradient(135deg, rgba(255,44,50,0.10), rgba(250,104,0,0.10));
-      border: 1.5px solid rgba(255,44,50,0.22);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 20px; font-weight: 700; color: var(--red);
-      overflow: hidden;
-    }
-    .faq-contact-avatar-img img { width: 100%; height: 100%; object-fit: cover; object-position: top; filter: grayscale(15%); }
-    .faq-contact-status {
-      position: absolute; bottom: 2px; right: 2px;
-      width: 12px; height: 12px; border-radius: 50%;
-      background: var(--green); border: 2px solid var(--card);
-    }
-    .faq-contact-title {
-      font-size: 19px; font-weight: 700;
-      letter-spacing: -0.02em; margin-bottom: 3px;
-    }
-    .faq-contact-sub { font-size: 14px; color: var(--text); line-height: 1.5; }
-
-    /* ══════════════════════════════════════════════════════════════
-       CTA FINALE
-    ══════════════════════════════════════════════════════════════ */
-    .cta-box {
-      background: var(--card);
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 28px; padding: 88px 40px 72px;
-      text-align: center; position: relative; overflow: hidden;
-    }
-    .cta-box::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 90% 60% at 50% 0%, rgba(255,44,50,0.14) 0%, transparent 68%);
-      pointer-events: none;
-    }
-    .cta-box::after {
-      content: '';
-      position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(250,104,0,0.25), transparent);
-      pointer-events: none;
-    }
-    .cta-box .h2 { margin-bottom: 16px; position: relative; }
-    .cta-sub {
-      font-size: clamp(17px, 1.9vw, 20px); color: rgba(255,255,255,0.40);
-      max-width: 380px; margin: 0 auto 40px;
-      line-height: 1.68; position: relative;
-      letter-spacing: -0.01em;
-    }
-    .cta-buttons {
-      display: flex; align-items: center; justify-content: center;
-      gap: 12px; flex-wrap: wrap; position: relative;
-    }
-    .cta-trust {
-      display: flex; align-items: center; justify-content: center;
-      gap: 24px; flex-wrap: wrap;
-      margin-top: 28px; position: relative;
-    }
-    .cta-trust-item {
-      display: flex; align-items: center; gap: 7px;
-      font-size: 13px; color: rgba(255,255,255,0.30);
-      font-weight: 500; letter-spacing: -0.01em;
-    }
-    .cta-trust-item svg { color: var(--green); flex-shrink: 0; }
-    /* ══════════════════════════════════════════════════════════════
-       CHECK-UP — cattura di chi non è pronto a scrivere adesso.
-       Deliberatamente più sobrio della .cta-box qui sopra: è la
-       seconda scelta, non deve competere con la CTA WhatsApp.
-       Il submit è gradient, MAI verde: il verde resta riservato a
-       WhatsApp / garanzia / conferme.
-    ══════════════════════════════════════════════════════════════ */
-    /* Ponte fra la CTA WhatsApp e il check-up: senza, sono due box
-       identici impilati e non si capisce quale sia la strada principale. */
-    .cu-split {
-      display: flex; align-items: center; gap: 18px;
-      max-width: 820px; margin: 0 auto 34px;
-    }
-    .cu-split::before,
-    .cu-split::after {
-      content: ''; flex: 1; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent);
-    }
-    .cu-split span {
-      font-size: 11px; font-weight: 600;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      color: rgba(255,255,255,0.22);
-    }
-
-    .cu-box {
-      position: relative; overflow: hidden;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.025) 0%, transparent 38%),
-        var(--card);
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      padding: 60px 56px 56px;
-      max-width: 820px; margin: 0 auto;
-      text-align: center;
-    }
-    /* Filo luminoso in alto: specchia il ::after della .cta-box, ma bianco.
-       Questo blocco resta la seconda scelta, non deve accendersi di rosso. */
-    .cu-box::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.16), transparent);
-      pointer-events: none;
-    }
-    .cu-box [hidden] { display: none !important; }
-
-    /* Due colonne: la prova (il sito) a sinistra, la richiesta a destra. */
-    .cu-grid {
-      display: grid; grid-template-columns: 208px 1fr;
-      gap: 52px; align-items: center; text-align: left;
-      position: relative;
-    }
-    .cu-copy { min-width: 0; }
-    /* Titolo sotto la scala standard: subito dopo la CTA principale
-       questo blocco non deve gridare piu' forte di lei. */
-    .cu-box .h2 {
-      font-size: clamp(25px, 3.1vw, 36px);
-      margin-bottom: 14px;
-    }
-    .cu-sub {
-      font-size: 15px; line-height: 1.66;
-      color: var(--text); letter-spacing: -0.01em;
-      margin: 0 0 30px;
-    }
-
-    /* --- Mockup telefono: stesso vocabolario di .pkg-browser --- */
-    .cu-visual {
-      position: relative;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .cu-visual::before {
-      content: ''; position: absolute; inset: -14% -10%;
-      background: radial-gradient(ellipse 58% 50% at 50% 50%, rgba(255,44,50,0.13) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .cu-phone {
-      position: relative; width: 172px;
-      background: #101010;
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 26px; padding: 9px;
-      box-shadow: 0 28px 60px rgba(0,0,0,0.60);
-    }
-    .cu-phone::before {
-      content: ''; position: absolute; top: 16px; left: 50%;
-      transform: translateX(-50%);
-      width: 36px; height: 4px; border-radius: 4px;
-      background: rgba(255,255,255,0.10); z-index: 2;
-    }
-    .cu-box.visible .cu-phone { animation: float 6s ease-in-out 0.7s infinite; }
-    .cu-screen {
-      background: #0a0a0a; border-radius: 19px;
-      padding: 15px 13px 16px; overflow: hidden;
-    }
-    .cu-hero {
-      height: 76px; border-radius: 10px; margin-bottom: 14px;
-      background: radial-gradient(ellipse 70% 120% at 50% 45%, #fa6800 0%, #ff2c32 55%, #7a1a10 100%);
-      filter: blur(3px); opacity: 0.85;
-    }
-    .cu-sk {
-      height: 6px; border-radius: 4px; margin-bottom: 7px;
-      background: rgba(255,255,255,0.085);
-      position: relative; overflow: hidden;
-    }
-    .cu-sk--sm { width: 60%; }
-    .cu-sk::after {
-      content: ''; position: absolute; top: 0; left: 0;
-      width: 45%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.20), transparent);
-      transform: translateX(-100%) skewX(-12deg);
-    }
-    .cu-box.visible .cu-sk::after     { animation: shimmer 2.8s ease-in-out infinite; }
-    .cu-box.visible .cu-sk--sm::after { animation-delay: 0.18s; }
-    .cu-tiles {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 7px;
-      margin: 13px 0 14px;
-    }
-    .cu-tile {
-      height: 34px; border-radius: 8px;
-      background: rgba(255,255,255,0.045);
-      border: 1px solid rgba(255,255,255,0.05);
-    }
-    .cu-phone-cta { height: 24px; border-radius: 100px; background: var(--grad); }
-
-    /* ─── Selettore attività ─── */
-    .cu-fieldset { border: none; margin: 0 0 24px; padding: 0; }
-    .cu-legend {
-      font-size: 12px; font-weight: 600;
-      letter-spacing: 0.10em; text-transform: uppercase;
-      color: rgba(255,255,255,0.30);
-      margin-bottom: 13px; padding: 0;
-      display: block; width: 100%; text-align: inherit;
-    }
-    .cu-chips {
-      display: flex; flex-wrap: wrap;
-      justify-content: flex-start; gap: 9px;
-    }
-    .cu-chip { position: relative; cursor: pointer; }
-    .cu-chip input {
-      position: absolute; opacity: 0;
-      width: 100%; height: 100%; left: 0; top: 0;
-      margin: 0; cursor: pointer;
-    }
-    .cu-chip span {
-      display: block;
-      padding: 10px 18px;
-      font-size: 14px; font-weight: 500; letter-spacing: -0.01em;
-      color: rgba(255,255,255,0.55);
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 100px;
-      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-    }
-    .cu-chip:hover span { color: rgba(255,255,255,0.80); border-color: rgba(255,255,255,0.20); }
-    .cu-chip input:checked + span {
-      color: #fff;
-      border-color: rgba(255,44,50,0.55);
-      background: rgba(255,44,50,0.10);
-    }
-    .cu-chip input:focus-visible + span {
-      outline: 2px solid rgba(255,44,50,0.65);
-      outline-offset: 2px;
-    }
-
-    /* ─── Riga email + submit ─── */
-    .cu-row {
-      display: flex; gap: 10px;
-      max-width: 100%; margin: 0;
-    }
-    .cu-input {
-      flex: 1; min-width: 0;
-      padding: 15px 22px;
-      font-family: 'Inter', sans-serif;
-      font-size: 15px; letter-spacing: -0.01em;
-      color: #fff;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 100px;
-      transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-    }
-    .cu-input::placeholder { color: rgba(255,255,255,0.30); }
-    .cu-input:focus {
-      outline: none;
-      border-color: rgba(255,44,50,0.55);
-      background: rgba(255,255,255,0.06);
-      box-shadow: 0 0 0 3px rgba(255,44,50,0.11);
-    }
-    .cu-input:disabled { opacity: 0.5; }
-    .cu-submit {
-      background: var(--grad); color: #fff;
-      box-shadow: 0 6px 24px rgba(255,44,50,0.22);
-      font-family: 'Inter', sans-serif;
-    }
-    .cu-submit:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 34px rgba(255,44,50,0.35);
-      filter: brightness(1.06);
-    }
-    .cu-submit:disabled { opacity: 0.55; cursor: default; }
-    .cu-submit svg { transition: transform 0.2s ease; }
-    .cu-submit:hover:not(:disabled) svg { transform: translateX(3px); }
-
-    /* Honeypot — invisibile e fuori dal flusso di tab */
-    .cu-hp {
-      position: absolute !important;
-      width: 1px; height: 1px;
-      overflow: hidden; clip: rect(0 0 0 0);
-      white-space: nowrap;
-    }
-    .cu-sr {
-      position: absolute; width: 1px; height: 1px;
-      overflow: hidden; clip: rect(0 0 0 0);
-      white-space: nowrap;
-    }
-
-    .cu-error {
-      font-size: 13.5px; color: #ff5a5f;
-      margin-top: 14px; letter-spacing: -0.01em;
-    }
-    .cu-note {
-      display: flex; align-items: baseline; gap: 7px;
-      font-size: 13px; color: rgba(255,255,255,0.30);
-      margin-top: 22px; letter-spacing: -0.01em;
-    }
-    .cu-note::before {
-      content: '✦'; color: rgba(255,44,50,0.75);
-      font-size: 11px; line-height: 1;
-    }
-    .cu-privacy {
-      font-size: 12px; color: rgba(255,255,255,0.18);
-      margin-top: 8px; letter-spacing: -0.01em;
-    }
-    .cu-privacy a { color: rgba(255,255,255,0.34); text-decoration: underline; }
-    .cu-privacy a:hover { color: rgba(255,255,255,0.60); }
-
-    /* ─── Stato di conferma ─── */
-    .cu-done { animation: cu-in 0.45s ease both; }
-    @keyframes cu-in {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .cu-done-icon {
-      width: 46px; height: 46px; margin: 0 auto 18px;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: 50%;
-      color: var(--green);
-      background: rgba(37,211,102,0.10);
-      border: 1px solid rgba(37,211,102,0.30);
-    }
-    .cu-done-title {
-      font-family: 'Clash Display', sans-serif;
-      font-size: clamp(22px, 2.8vw, 28px); font-weight: 700;
-      letter-spacing: -0.03em; line-height: 1.14;
-      margin-bottom: 10px;
-    }
-    .cu-done-sub {
-      font-size: 15px; color: var(--text);
-      line-height: 1.6; letter-spacing: -0.01em;
-      margin-bottom: 24px;
-    }
-
-    @media (max-width: 860px) {
-      .cu-grid {
-        grid-template-columns: 1fr; gap: 34px;
-        text-align: center; justify-items: center;
-      }
-      .cu-visual { order: -1; }
-      .cu-copy { width: 100%; }
-      .cu-sub { max-width: 460px; margin-left: auto; margin-right: auto; }
-      .cu-chips { justify-content: center; }
-      .cu-row { max-width: 520px; margin: 0 auto; }
-      .cu-note { justify-content: center; }
-    }
-    @media (max-width: 680px) {
-      .cu-box { padding: 46px 20px 40px; border-radius: 22px; }
-      .cu-split { margin-bottom: 26px; gap: 14px; }
-      .cu-phone { width: 150px; }
-      .cu-grid { gap: 30px; }
-      .cu-box .h2 { margin-bottom: 16px; }
-      .cu-sub { font-size: 14.5px; margin-bottom: 30px; }
-      .cu-fieldset { margin-bottom: 22px; }
-      .cu-legend { font-size: 12.5px; margin-bottom: 12px; }
-      .cu-chips { gap: 8px; }
-      .cu-chip span { padding: 9px 14px; font-size: 13px; }
-      .cu-row { flex-direction: column; gap: 10px; max-width: 100%; }
-      /* 16px: sotto questa soglia iOS zooma la pagina al focus del campo */
-      .cu-input { padding: 14px 20px; font-size: 16px; }
-      .cu-submit { justify-content: center; width: 100%; padding: 16px 24px; }
-      .cu-note { font-size: 12.5px; margin-top: 20px; }
-      .cu-done .btn { width: 100%; justify-content: center; }
-    }
-    @media (max-width: 400px) {
-      .cu-box { padding: 40px 16px 34px; }
-      .cu-chip span { padding: 9px 12px; font-size: 12.5px; }
-      .cu-phone { width: 138px; }
-    }
-
-
-    /* ══════════════════════════════════════════════════════════════
-       FOOTER
-    ══════════════════════════════════════════════════════════════ */
-    footer {
-      background: #030303;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      padding: 30px 24px;
-    }
+    footer { border-top: 1px solid var(--line); }
     .footer-inner {
-      max-width: 1080px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 14px;
+      max-width: 1120px; margin: 0 auto; padding: 36px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap;
     }
-    .footer-logo {
-      font-family: 'Clash Display', sans-serif;
-      font-size: 16px; font-weight: 700;
-      color: rgba(255,255,255,0.40); text-decoration: none;
+    .footer-links { display: flex; gap: 22px; flex-wrap: wrap; }
+    .footer-link, .footer-copy { font-size: 13px; color: var(--soft); text-decoration: none; }
+    .footer-link:hover { color: var(--ink); }
+
+    #sticky-wa {
+      display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 900;
+      padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+      background: linear-gradient(to top, rgba(255,255,255,.96) 60%, rgba(255,255,255,0));
+      transform: translateY(110%); transition: transform .35s var(--ease);
     }
-    .footer-logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .footer-links { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-    .footer-link {
-      font-size: 12px; color: rgba(255,255,255,0.18);
-      text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase;
-      transition: color 0.2s;
+    #sticky-wa.show { transform: none; }
+    #sticky-wa a {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 15px; border-radius: 100px; background: var(--wa); color: #fff;
+      font-weight: 800; font-size: 15px; text-decoration: none;
+      box-shadow: 0 14px 30px -12px rgba(37,211,102,.65);
     }
-    .footer-link:hover { color: rgba(255,255,255,0.42); }
-    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.14); }
 
     /* ══════════════════════════════════════════════════════════════
-       STICKY BOTTOM BAR — mobile
+       ANIMAZIONI DI INGRESSO
+       Nascosto solo con JS attivo (html.js): senza JS tutto resta visibile.
     ══════════════════════════════════════════════════════════════ */
-    #sticky-wa {
-      display: none;
-      position: fixed; bottom: 0; left: 0; right: 0;
-      z-index: 9000;
-      background: rgba(5,5,5,0.97);
-      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      border-top: 1px solid rgba(37,211,102,0.14);
-      padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
-    }
-    #sticky-wa a {
-      display: flex; align-items: center; justify-content: center;
-      gap: 9px; width: 100%;
-      padding: 14px;
-      background: var(--green); color: #fff;
-      font-size: 15px; font-weight: 700;
-      letter-spacing: -0.01em;
-      border-radius: 13px; text-decoration: none;
-      box-shadow: 0 4px 20px rgba(37,211,102,0.28);
-    }
+    .js .reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+    .js .reveal.is-in { opacity: 1; transform: none; }
+    .js .reveal.d1 { transition-delay: .08s; }
+    .js .reveal.d2 { transition-delay: .16s; }
+    .js .reveal.d3 { transition-delay: .24s; }
 
     /* ══════════════════════════════════════════════════════════════
        RESPONSIVE
     ══════════════════════════════════════════════════════════════ */
     @media (max-width: 860px) {
-      .pkg-card {
-        grid-template-columns: 1fr; gap: 28px;
-        padding: 32px 26px; border-radius: 22px;
-      }
-      .pkg-card:nth-child(even) .pkg-text { order: 0; }
-      .pkg-visual { order: -1; min-height: 240px; padding: 24px; }
-      .step-row { flex-wrap: wrap; }
-      .step-visual { flex: 1 1 100%; max-width: 340px; margin-left: 92px; }
-      .about-card { grid-template-columns: 1fr; }
-      .about-photo { min-height: 320px; }
-      .about-photo-placeholder { min-height: 320px; }
+      .section { padding: 92px 22px; }
+    }
+    @media (max-width: 740px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: inline-flex; }
+      #nav.menu-open .nav-drawer { display: block; }
     }
     @media (max-width: 680px) {
-      /* ─── Global ─── */
-      html, body { overflow-x: hidden; max-width: 100%; }
-
-      /* ─── Hero ─── */
-      #hero { padding: 48px 24px 68px; min-height: 100svh; }
-      .hero-badge { margin-bottom: 28px; }
-      .hero-h1 { font-size: clamp(60px, 16vw, 92px); line-height: 0.93; margin-bottom: 20px; }
-      .hero-kicker { font-size: 15px; gap: 6px; margin-bottom: 32px; line-height: 1.55; }
-
-      .hero-ctas {
-        flex-direction: column; align-items: stretch;
-        gap: 10px; margin-bottom: 48px;
-      }
-      .hero-ctas .btn {
-        width: 100%; justify-content: center;
-        padding: 17px 24px; font-size: 15px;
-      }
-
-      /* ─── Sections ─── */
-      .section { padding: 76px 30px; }
-
-      /* ─── Problema ─── */
-      .pain-grid { grid-template-columns: 1fr; gap: 12px; }
-
-      /* ─── Come funziona ─── */
-      .steps-list::before { display: none; }
-      .step-row { flex-direction: column; gap: 12px; padding-bottom: 36px; }
-      .step-marker { flex-direction: row; }
-      .step-visual { width: 100%; max-width: none; margin: 4px 0 0; min-height: 170px; }
-
-      /* ─── Pacchetto ─── */
-      .pkg-list { gap: 14px; }
-      .pkg-card { padding: 28px 22px; }
-      .pkg-title { font-size: 27px; }
-      .pkg-visual { min-height: 210px; }
-      .pkg-qr { width: 116px; height: 116px; }
-
-      /* ─── Prezzo ─── */
-      .price-card { padding: 32px 24px; }
-      .price-addon { flex-direction: column; align-items: flex-start; gap: 6px; }
-
-      /* ─── Chi sono — flatten card → plain section ─── */
-      .about-card {
-        background: transparent; border: none;
-        border-radius: 0; overflow: visible;
-      }
-      .about-photo { min-height: 280px; border-radius: 18px; overflow: hidden; }
-      .about-photo-overlay { display: none; }
-      .about-photo-placeholder { min-height: 280px; border-radius: 18px; }
-      .about-text { padding: 32px 0 0; }
-
-      /* ─── FAQ ─── */
-      .faq-trigger { padding: 18px 20px; }
-      .faq-a { padding: 2px 20px 20px; }
-      .faq-contact {
-        flex-direction: column; align-items: flex-start;
-        gap: 14px; padding: 22px;
-      }
-      .faq-contact .btn { width: 100%; justify-content: center; }
-
-      /* ─── CTA finale ─── */
-      .cta-box { padding: 56px 24px 48px; border-radius: 22px; }
-      .cta-trust { gap: 14px; }
-      .cta-buttons { flex-direction: column; align-items: stretch; gap: 10px; }
-      .cta-buttons .btn { justify-content: center; padding: 17px 24px !important; font-size: 15px !important; width: 100% !important; }
-
-      /* ─── Sticky bar ─── */
+      .section { padding: 72px 20px; }
+      .section-head { margin-bottom: 44px; }
+      #nav-inner { height: 64px; padding: 0 16px; }
+      .nav-wa { padding: 9px 14px; font-size: 13px; }
       #sticky-wa { display: block; }
-      body { padding-bottom: 82px; }
+      body { padding-bottom: 84px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
     }
     @media (max-width: 400px) {
-      .hero-h1 { font-size: 52px; }
-      .h2 { font-size: 28px; }
+      .nav-wa .nav-wa-label { display: none; }
     }
 
-    /* ══ COMPARE MOBILE CARDS ══ */
-    .compare-mobile { display: none; }
-    .cmc-card {
-      border: 1px solid var(--border);
-      border-radius: 16px; overflow: hidden;
-      background: var(--card);
-    }
-    .cmc-card.cmc-me {
-      border-color: rgba(255,44,50,0.35);
-      background: rgba(255,44,50,0.03);
-    }
-    .cmc-head {
-      padding: 14px 18px;
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; gap: 8px;
-    }
-    .cmc-card.cmc-me .cmc-head {
-      background: rgba(255,44,50,0.07);
-      border-bottom-color: rgba(255,44,50,0.15);
-    }
-    .cmc-title { font-weight: 700; font-size: 15px; color: #fff; }
-    .cmc-badge {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
-      text-transform: uppercase;
-      background: var(--grad); color: #fff;
-      padding: 2px 8px; border-radius: 100px;
-    }
-    .cmc-row {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 11px 18px; gap: 12px;
-    }
-    .cmc-row:not(:last-child) { border-bottom: 1px solid rgba(255,255,255,0.04); }
-    .cmc-label {
-      font-size: 12px; font-weight: 600;
-      color: rgba(255,255,255,0.40);
-      text-transform: uppercase; letter-spacing: 0.05em;
-      flex-shrink: 0; min-width: 76px;
-    }
-    .cmc-val { font-size: 14px; color: rgba(255,255,255,0.65); text-align: right; }
-    .cmc-card.cmc-me .cmc-val { color: rgba(255,255,255,0.88); }
-    .cmc-check { color: #25d366; margin-right: 3px; }
-    .cmc-cross { color: rgba(255,80,80,0.70); margin-right: 3px; }
+    /* @@RESPONSIVE-CSS@@ */
 
-    @media (max-width: 680px) {
-      .compare-wrap { display: none; }
-      .compare-mobile { display: flex; flex-direction: column; gap: 12px; }
-    }
-    @media (hover: none) {
-      .btn-wa:hover, .btn-ghost:hover { transform: none; filter: none; }
-    }
     @media (prefers-reduced-motion: reduce) {
-      .price-card { animation: none; }
-      .hero-badge { animation: none; }
-      .btn-wa::after { animation: none; }
-      .step-circle, .step-body { transition: none !important; }
-      .steps-list::before { transition: none !important; transform: scaleY(1); }
-      .pkg-card.visible .pkg-sk::after,
-      .pkg-card.visible .pkg-scanline,
-      .pkg-card.visible .pkg-shield::after { animation: none !important; }
-      .pkg-scanline { display: none; }
-      .pkg-tl-fill, .pkg-tl-dot { transition: none !important; }
-      .pkg-tl-fill { transform: scaleX(1); }
-      .pkg-tl-dot { opacity: 1; transform: none; }
-      .step-row.visible .sv-bubble,
-      .step-row.visible .sv-dot,
-      .step-row.visible .sv-spin,
-      .step-row.visible .sv-task,
-      .step-row.visible .sv-task-dot,
-      .step-row.visible .sv-task-dot svg,
-      .step-row.visible .sv-bar-fill,
-      .step-row.visible .sv-stamp,
-      .step-row.visible .sv-check,
-      .step-row.visible .sv-cap { animation: none !important; }
-      .step-row.visible .sv-stamp::after { animation: none !important; }
-      .sv-bubble, .sv-task, .sv-stamp, .sv-cap { opacity: 1; transform: none; }
-      .sv-task--done { color: rgba(255,255,255,0.62); }
-      .sv-task--done .sv-task-dot { background-color: var(--red); border-color: var(--red); }
-      .sv-task--done .sv-task-dot svg { opacity: 1; }
-      .sv-bar-fill { transform: scaleX(0.72); }
-      .sv-check { stroke-dashoffset: 0; }
-      .cu-chip span, .cu-input, .cu-submit { transition: none !important; }
-      .cu-submit svg { transition: none !important; }
-      .cu-done { animation: none; }
-      .cu-box.visible .cu-phone { animation: none !important; }
-      .cu-sk::after { display: none; }
-    }
-      @media (prefers-reduced-motion: reduce) {
-      .pkg-quote-opt, .pkg-quote-send, .pkg-serp-row { opacity: 1 !important; transform: none !important; transition: none !important; }
-      .pkg-serp-row--dim { opacity: 0.45 !important; }
+      *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+      .js .reveal { opacity: 1; transform: none; }
     }
   </style>
 </head>
@@ -1934,7 +374,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
 <!-- ═══════════ NAV ═══════════ -->
 <nav id="nav">
   <div id="nav-inner">
-    <a href="/" class="nav-logo">giacomo<span>studio</span></a>
+    <a href="/" class="logo">giacomo<span>studio</span></a>
 
     <ul class="nav-links" id="nav-links">
       <li><a href="#pacchetto"     class="nav-link">Pacchetto</a></li>
@@ -1945,13 +385,12 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     </ul>
 
     <div class="nav-right">
+      <a href="https://wa.me/393493457558?text=Ciao%20Giacomo%2C%20ho%20un%27impresa%20di%20infissi%20e%20vorrei%20vedere%20gratis%20il%20sito%20che%20mi%20prepari." class="nav-wa" data-wa target="_blank" rel="noopener">
+        <span class="wa-dot"></span><span class="nav-wa-label">Scrivimi</span>
+      </a>
       <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-      <a href="https://wa.me/393493457558?text=Ciao%20Giacomo%2C%20ho%20un%27impresa%20di%20infissi%20e%20vorrei%20vedere%20gratis%20il%20sito%20che%20mi%20prepari." class="nav-wa" target="_blank" rel="noopener">
-        <img src="whatsapp.svg" alt="" width="15" height="15" class="wa-mark">
-        Scrivimi
-      </a>
     </div>
   </div>
 
@@ -1966,953 +405,33 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
   </div>
 </nav>
 
-<!-- ═══════════ HERO ═══════════ -->
-<section id="hero">
-  <div class="hero-orb"></div>
-  <div class="hero-grid"></div>
-
-  <div class="hero-content">
-
-    <div class="hero-badge">
-      <span class="hero-badge-dot"></span>
-      <span class="hero-badge-text">Per imprese di infissi e serramenti · Puglia</span>
-    </div>
-
-    <h1 class="hero-h1">
-      Il sito per la tua<br>
-      <span class="gradient-text">impresa di infissi.</span>
-    </h1>
-
-    <div class="hero-kicker">
-      <span class="hero-kicker-price">Gratis</span>
-      <span class="hero-kicker-sep">·</span>
-      <span class="hero-kicker-claim">Lo vedi in 48 ore, paghi 150€ solo se ti piace</span>
-    </div>
-
-    <div class="hero-ctas">
-      <a href="https://wa.me/393493457558?text=Ciao%20Giacomo%2C%20ho%20un%27impresa%20di%20infissi%20e%20vorrei%20vedere%20gratis%20il%20sito%20che%20mi%20prepari." class="btn btn-wa" target="_blank" rel="noopener">
-        <img src="whatsapp.svg" alt="" width="19" height="19" class="wa-mark">
-        Scrivimi su WhatsApp
-      </a>
-      <a href="#pacchetto" class="btn btn-ghost">Cosa c'è nel pacchetto</a>
-    </div>
-
-  </div>
-</section>
-
-<!-- ═══════════ PROBLEMA ═══════════ -->
-<section id="problema">
-  <div class="section">
-    <div class="problem-intro fade-up">
-      <div class="label" style="justify-content:center;">
-        <div class="label-line"></div>
-        <span class="label-text">Il problema</span>
-        <div class="label-line"></div>
-      </div>
-      <h2 class="h2" style="margin-bottom:14px;">
-        Chi cerca infissi nella tua zona<br>
-        <span class="gradient-text">non ti trova.</span>
-      </h2>
-      <p class="problem-sub">
-        Cambiare le finestre costa migliaia di euro. Prima di chiamare, il cliente cerca su Google e confronta.
-      </p>
-    </div>
-
-    <div class="pain-grid">
-      <div class="pain-card fade-up">
-        <div class="pain-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        </div>
-        <div class="pain-title">Ti cercano su Google</div>
-        <p class="pain-desc">Scrivono "infissi" e il nome del paese. Se non hai un sito, o ce l'hai vecchio, chiamano chi compare prima di te.</p>
-      </div>
-      <div class="pain-card fade-up d1">
-        <div class="pain-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        </div>
-        <div class="pain-title">I preventivi si perdono</div>
-        <p class="pain-desc">Sei in cantiere e non rispondi. La sera nessuno chiama. Chi voleva un preventivo lo chiede al concorrente.</p>
-      </div>
-      <div class="pain-card fade-up d2">
-        <div class="pain-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <div class="pain-title">Sembri meno serio di quello accanto</div>
-        <p class="pain-desc">Per un lavoro da migliaia di euro il cliente vuole fidarsi. Chi mostra lavori, recensioni e contatti chiari parte avanti, anche se monta peggio di te.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ PACCHETTO ═══════════ -->
-<section id="pacchetto">
-  <div class="section">
-
-    <div class="pkg-intro fade-up">
-      <div class="label" style="justify-content:center;">
-        <div class="label-line"></div>
-        <span class="label-text">Il pacchetto</span>
-        <div class="label-line"></div>
-      </div>
-      <h2 class="h2">
-        Tutto quello che ti serve.<br>
-        <span class="gradient-text">Tutto compreso.</span>
-      </h2>
-      <p>Il sito, i preventivi su WhatsApp e la scheda Google sistemata. Niente altro da comprare dopo.</p>
-    </div>
-
-    <div class="pkg-list">
-
-      <!-- 1 — SITO COMPLETO -->
-      <article class="pkg-card fade-up">
-        <div class="pkg-text">
-          <div class="pkg-head">
-            <span class="pkg-num">1</span>
-            <span class="pkg-label">Sito completo</span>
-          </div>
-          <h3 class="pkg-title">Prodotti, lavori, contatti.<br><span class="pkg-hl">Tutto in un sito solo.</span></h3>
-          <p class="pkg-desc">
-            Pensato per chi ti cerca dal telefono mentre decide a chi chiedere il preventivo. Veloce, chiaro, con il tuo nome in grande.
-          </p>
-          <ul class="checklist">
-            <li>
-              <span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>
-              Home, prodotti (PVC, alluminio, legno, persiane, porte)
-            </li>
-            <li>
-              <span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>
-              Lavori realizzati con le foto dei tuoi cantieri
-            </li>
-            <li>
-              <span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>
-              Contatti, mappa, orari e zone in cui lavori
-            </li>
-            <li>
-              <span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>
-              Dominio e hosting del primo anno inclusi
-            </li>
-          </ul>
-          <span class="pkg-pill">150€ · tutto incluso</span>
-        </div>
-
-        <div class="pkg-visual" aria-hidden="true">
-          <div class="pkg-browser">
-            <div class="pkg-browser-hero"></div>
-            <div class="pkg-sk" style="width:78%"></div>
-            <div class="pkg-sk" style="width:60%"></div>
-            <div class="pkg-sk" style="width:44%"></div>
-            <div class="pkg-browser-cta"></div>
-          </div>
-        </div>
-      </article>
-
-      <!-- 2 — PREVENTIVI SU WHATSAPP -->
-      <article class="pkg-card fade-up">
-        <div class="pkg-text">
-          <div class="pkg-head">
-            <span class="pkg-num">2</span>
-            <span class="pkg-label">Preventivi su WhatsApp</span>
-          </div>
-          <h3 class="pkg-title">Quattro tocchi.<br><span class="pkg-hl">Preventivo su WhatsApp.</span></h3>
-          <p class="pkg-desc">
-            Il cliente sceglie cosa gli serve, il materiale, quanti pezzi e il comune. Si apre WhatsApp con il messaggio già scritto: tu rispondi quando esci dal cantiere.
-          </p>
-          <ul class="checklist">
-            <li>
-              <span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>
-              Finestre, porte, persiane, zanzariere
-            </li>
-            <li>
-              <span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>
-              PVC, alluminio, legno-alluminio
-            </li>
-            <li>
-              <span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>
-              Quantità e comune già nel messaggio
-            </li>
-          </ul>
-          <span class="pkg-pill">Incluso</span>
-        </div>
-
-        <div class="pkg-visual" aria-hidden="true">
-          <div class="pkg-quote">
-            <div class="pkg-quote-q">Cosa ti serve?</div>
-            <div class="pkg-quote-opts">
-              <span class="pkg-quote-opt is-on">Finestre</span>
-              <span class="pkg-quote-opt">Porte</span>
-              <span class="pkg-quote-opt is-on">Persiane</span>
-              <span class="pkg-quote-opt">Zanzariere</span>
-            </div>
-            <div class="pkg-quote-send"><img src="whatsapp.svg" alt="">Invia su WhatsApp</div>
-          </div>
-        </div>
-      </article>
-
-      <!-- 3 — GOOGLE -->
-      <article class="pkg-card fade-up">
-        <div class="pkg-text">
-          <div class="pkg-head">
-            <span class="pkg-num">3</span>
-            <span class="pkg-label">Google</span>
-          </div>
-          <h3 class="pkg-title">Ti cercano su Google.<br><span class="pkg-hl">Fatti trovare.</span></h3>
-          <p class="pkg-desc">
-            Sistemo la tua scheda Google e preparo il sito per farti trovare da chi cerca infissi nella tua zona. Il primo posto non lo promette nessuno onesto. Farti trovare sì.
-          </p>
-          <ul class="checklist">
-            <li>
-              <span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>
-              Scheda Google sistemata: foto, orari, servizi
-            </li>
-            <li>
-              <span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>
-              Sito pronto per le ricerche nel tuo comune
-            </li>
-            <li>
-              <span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>
-              Recensioni Google in evidenza
-            </li>
-          </ul>
-          <span class="pkg-pill">Incluso</span>
-        </div>
-
-        <div class="pkg-visual" aria-hidden="true">
-          <div class="pkg-serp">
-            <div class="pkg-serp-bar">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-              infissi vicino a me
-            </div>
-            <div class="pkg-serp-row pkg-serp-row--you">
-              <div><b>La tua impresa</b><small><i>★★★★★</i> 4,9 · Sito · WhatsApp</small></div>
-              <span class="pkg-serp-tag">Ti chiamano</span>
-            </div>
-            <div class="pkg-serp-row pkg-serp-row--dim">
-              <div><b>Concorrente A</b><small><i>★★★★</i> 4,1 · Nessun sito</small></div>
-              <span class="pkg-serp-tag">Saltato</span>
-            </div>
-            <div class="pkg-serp-row pkg-serp-row--dim">
-              <div><b>Concorrente B</b><small><i>★★★</i> 3,6 · Sito vecchio</small></div>
-              <span class="pkg-serp-tag">Saltato</span>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- 4 — TEMPI -->
-      <article class="pkg-card fade-up">
-        <div class="pkg-text">
-          <div class="pkg-head">
-            <span class="pkg-num">4</span>
-            <span class="pkg-label">Tempi</span>
-          </div>
-          <h3 class="pkg-title">Lo vedi in 48 ore.<br><span class="pkg-hl">Non in 3 mesi.</span></h3>
-          <p class="pkg-desc">
-            Lavoro io direttamente: nessuna agenzia, nessun passaggio di consegne, nessuna coda. Tu non devi fare praticamente niente.
-          </p>
-          <ul class="checklist">
-            <li>
-              <span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>
-              Oggi — mi scrivi, cinque minuti di chat
-            </li>
-            <li>
-              <span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>
-              Entro 24 ore — costruisco tutto
-            </li>
-            <li>
-              <span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>
-              Entro 48 ore — lo vedi finito e decidi tu
-            </li>
-          </ul>
-          <span class="pkg-pill">48 ore</span>
-        </div>
-
-        <div class="pkg-visual" aria-hidden="true">
-          <div class="pkg-timeline">
-            <div class="pkg-tl-track"><span class="pkg-tl-fill"></span></div>
-            <div class="pkg-tl-nodes">
-              <div class="pkg-tl-node">
-                <span class="pkg-tl-dot"></span>
-                <span class="pkg-tl-day">Oggi</span>
-                <span class="pkg-tl-cap">Mi scrivi</span>
-              </div>
-              <div class="pkg-tl-node">
-                <span class="pkg-tl-dot"></span>
-                <span class="pkg-tl-day">24 ore</span>
-                <span class="pkg-tl-cap">Costruisco</span>
-              </div>
-              <div class="pkg-tl-node">
-                <span class="pkg-tl-dot"></span>
-                <span class="pkg-tl-day">48 ore</span>
-                <span class="pkg-tl-cap">Lo vedi finito</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- 5 — GARANZIA -->
-      <article class="pkg-card pkg-card--green fade-up">
-        <div class="pkg-text">
-          <div class="pkg-head">
-            <span class="pkg-num">5</span>
-            <span class="pkg-label">Garanzia</span>
-          </div>
-          <h3 class="pkg-title">Lo vedi prima.<br><span class="pkg-hl">Paghi solo se ti piace.</span></h3>
-          <p class="pkg-desc">
-            Nessun anticipo. Preparo il sito con il nome della tua impresa, te lo mostro finito, e paghi i 150€ solo se decidi di metterlo online. Se non ti convince, non paghi niente.
-          </p>
-          <ul class="checklist">
-            <li>
-              <span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>
-              Zero anticipi, zero carta di credito bloccata
-            </li>
-            <li>
-              <span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>
-              Modifiche finché non sei soddisfatto
-            </li>
-            <li>
-              <span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>
-              Se non ti piace, ci salutiamo. Fine.
-            </li>
-          </ul>
-          <span class="pkg-pill">Zero rischio garantito</span>
-        </div>
-
-        <div class="pkg-visual" aria-hidden="true">
-          <div class="pkg-shield">
-            <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-          </div>
-        </div>
-      </article>
-
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ PREZZO ═══════════ -->
-<section id="prezzi">
-  <div class="section">
-
-    <div class="price-intro fade-up">
-      <div class="label" style="justify-content:center;">
-        <div class="label-line"></div>
-        <span class="label-text">L'offerta</span>
-        <div class="label-line"></div>
-      </div>
-      <h2 class="h2">
-        Te lo preparo gratis.<br>
-        <span class="gradient-text">Paghi solo se ti piace.</span>
-      </h2>
-      <p>Non paghi niente adesso. Preparo il sito, te lo mostro finito, e decidi tu.</p>
-    </div>
-
-    <div class="price-wrap fade-up d1">
-      <div class="price-card">
-
-        <div class="price-label">Per vederlo</div>
-        <div class="price-number gradient-text">0€</div>
-        <div class="price-sub">Nessun acconto · nessuna carta · nessun impegno</div>
-
-        <div class="price-zero-risk">
-          <svg class="price-zero-risk-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <div class="price-zero-risk-text">
-            Lo vedi finito prima di pagare
-            <small>Te lo mando entro 48 ore. Se non ti convince, ci salutiamo. Non mi devi niente.</small>
-          </div>
-        </div>
-
-        <div class="price-addon">
-          <span class="price-addon-name">
-            Se ti piace e lo pubblichi
-            <small>Una volta sola, tutto incluso</small>
-          </span>
-          <span class="price-addon-val">150€ <span class="price-orig">390€</span></span>
-        </div>
-
-        <a href="https://wa.me/393493457558?text=Ciao%20Giacomo%2C%20ho%20un%27impresa%20di%20infissi%20e%20vorrei%20vedere%20gratis%20il%20sito%20che%20mi%20prepari." class="price-cta-btn" target="_blank" rel="noopener">
-          <img src="whatsapp.svg" alt="" width="19" height="19" class="wa-mark">
-          Scrivimi su WhatsApp
-        </a>
-        <p class="price-note">✦ Rispondo subito · anche la sera</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ═══════════ COME FUNZIONA ═══════════ -->
-<section id="come-funziona">
-  <div class="section">
-    <div class="steps-intro fade-up">
-      <div class="label" style="justify-content:center;">
-        <div class="label-line"></div>
-        <span class="label-text">Come funziona</span>
-        <div class="label-line"></div>
-      </div>
-      <h2 class="h2" style="margin-bottom:12px;">
-        Il tuo sito pronto<br>
-        <span class="gradient-text">in 48 ore.</span>
-      </h2>
-      <p style="font-size:clamp(16px,1.8vw,18px);color:var(--text);line-height:1.68;max-width:420px;margin:0 auto;letter-spacing:-0.01em;">
-        Non devi capire niente di siti. Tu continui a lavorare, al resto penso io.
-      </p>
-    </div>
-
-    <div class="steps-list">
-
-      <div class="step-row">
-        <div class="step-marker">
-          <div class="step-circle"><span class="step-circle-num">1</span></div>
-        </div>
-        <div class="step-body">
-          <span class="step-time-pill">Oggi</span>
-          <div class="step-title">Mi scrivi su WhatsApp</div>
-          <p class="step-desc">
-            Niente riunioni, niente sopralluoghi. Mi mandi il nome della tua impresa e il comune, e se le hai qualche foto dei tuoi lavori. In cinque minuti ho tutto per iniziare.
-          </p>
-          <div class="step-highlight">
-            <img src="whatsapp.svg" alt="" width="14" height="14" class="wa-mark">
-            <span><strong>Rispondo subito.</strong> Anche la sera.</span>
-          </div>
-        </div>
-        <div class="step-visual sv-chat" aria-hidden="true">
-          <div class="sv-bubble sv-bubble--out">
-            <span class="sv-line" style="width:88%"></span>
-            <span class="sv-line" style="width:56%"></span>
-          </div>
-          <div class="sv-bubble sv-bubble--in">
-            <span class="sv-line" style="width:76%"></span>
-            <span class="sv-line" style="width:46%"></span>
-          </div>
-          <div class="sv-bubble sv-bubble--in sv-typing">
-            <i class="sv-dot"></i><i class="sv-dot"></i><i class="sv-dot"></i>
-          </div>
-        </div>
-      </div>
-
-      <div class="step-row">
-        <div class="step-marker">
-          <div class="step-circle"><span class="step-circle-num">2</span></div>
-        </div>
-        <div class="step-body">
-          <span class="step-time-pill">Entro 24 ore</span>
-          <div class="step-title">Costruisco il tuo sito</div>
-          <p class="step-desc">
-            Prodotti, lavori, preventivo su WhatsApp, scheda Google. Scrivo io i testi. Tu vai avanti in cantiere, non devi fare nulla.
-          </p>
-          <div class="step-highlight">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            <span>Nessun anticipo richiesto. <strong>Parti senza rischio.</strong></span>
-          </div>
-        </div>
-        <div class="step-visual sv-build" aria-hidden="true">
-          <div class="sv-build-head">
-            <span class="sv-spin"></span>
-            <span class="sv-build-label">In lavorazione</span>
-          </div>
-          <div class="sv-tasks">
-            <div class="sv-task sv-task--done"><span class="sv-task-dot"><svg viewBox="0 0 24 24" fill="none" stroke="#050505" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Design</div>
-            <div class="sv-task sv-task--done"><span class="sv-task-dot"><svg viewBox="0 0 24 24" fill="none" stroke="#050505" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Sviluppo</div>
-            <div class="sv-task sv-task--done"><span class="sv-task-dot"><svg viewBox="0 0 24 24" fill="none" stroke="#050505" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Contenuti</div>
-            <div class="sv-task sv-task--now"><span class="sv-task-dot"></span>Google e preventivi</div>
-          </div>
-          <div class="sv-bar"><span class="sv-bar-fill"></span></div>
-        </div>
-      </div>
-
-      <div class="step-row">
-        <div class="step-marker">
-          <div class="step-circle"><span class="step-circle-num">3</span></div>
-        </div>
-        <div class="step-body">
-          <span class="step-time-pill">Entro 48 ore</span>
-          <div class="step-title">Vedi il risultato. Poi decidi.</div>
-          <p class="step-desc">
-            Ti mando il sito finito da aprire dal telefono. Se ti piace, lo mettiamo online e paghi i 150€. Se qualcosa non va, lo sistemiamo insieme. Niente va online senza il tuo ok.
-          </p>
-          <div class="step-highlight" style="border-color:rgba(37,211,102,0.20);background:rgba(37,211,102,0.05);">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <span style="color:rgba(37,211,102,0.75);"><strong style="color:#25d366;">Paghi solo se ti piace.</strong> Zero rischio garantito.</span>
-          </div>
-        </div>
-        <div class="step-visual sv-approve" aria-hidden="true">
-          <div class="sv-win"><i></i><i></i><i></i></div>
-          <div class="sv-blocks">
-            <span class="sv-block sv-block--hero"></span>
-            <span class="sv-block" style="width:72%"></span>
-            <span class="sv-block" style="width:50%"></span>
-            <span class="sv-block sv-block--btn"></span>
-          </div>
-          <div class="sv-stamp">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline class="sv-check" points="20 6 9 17 4 12"/></svg>
-          </div>
-          <span class="sv-cap">Approvato</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ CHI SONO ═══════════ -->
-<section id="chi-sono">
-  <div class="section">
-    <div class="about-card fade-up">
-
-      <div class="about-photo">
-        <img src="giacomo-brand-designer-developer-freelance.webp" alt="Giacomo, Brand Designer e Developer Freelance" loading="lazy">
-        <div class="about-photo-overlay"></div>
-      </div>
-
-      <div class="about-text">
-        <div class="label">
-          <div class="label-line"></div>
-          <span class="label-text">Chi sono</span>
-        </div>
-        <div class="about-name">Ciao, sono Giacomo.</div>
-        <div class="about-role">Brand Designer &amp; Developer Freelance</div>
-        <p class="about-bio">
-          Lavoro con imprese di infissi e serramenti in Puglia. Gente che monta finestre a regola d'arte, ma online non si vede.<br><br>
-          Non faccio siti vetrina da guardare: faccio siti che portano richieste di preventivo, dritte sul tuo WhatsApp.<br><br>
-          Il sito è il primo passo. Quando funziona, c'è il resto: portarti più richieste con gli annunci e curare i social. Ma prima il sito.
-        </p>
-        <div class="about-stats">
-          <div class="about-stat">
-            <div class="about-stat-num" data-count="48" data-suffix="h">48h</div>
-            <div class="about-stat-label">Per vedere il tuo sito</div>
-          </div>
-          <div class="about-stat">
-            <div class="about-stat-num" data-count="0" data-suffix="€">0€</div>
-            <div class="about-stat-label">Di anticipo richiesto</div>
-          </div>
-        </div>
-        <a href="https://wa.me/393493457558?text=Ciao%20Giacomo%2C%20ho%20un%27impresa%20di%20infissi%20e%20vorrei%20vedere%20gratis%20il%20sito%20che%20mi%20prepari." class="btn btn-wa" style="width:fit-content;" target="_blank" rel="noopener">
-        <img src="whatsapp.svg" alt="" width="17" height="17" class="wa-mark">
-        Scrivimi
-      </a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ CONFRONTO ═══════════ -->
-<section id="confronto">
-  <div class="section">
-    <div class="compare-intro fade-up">
-      <div class="label" style="justify-content:center;">
-        <div class="label-line"></div>
-        <span class="label-text">Perché scegliermi</span>
-        <div class="label-line"></div>
-      </div>
-      <h2 class="h2">La scelta <span class="gradient-text">più intelligente.</span></h2>
-      <p>Prima di scegliere, confronta.</p>
-    </div>
-
-    <div class="compare-wrap fade-up d1">
-      <div class="compare-table">
-
-        <!-- Header -->
-        <div class="compare-row compare-header">
-          <div class="compare-cell compare-feature"></div>
-          <div class="compare-cell compare-me">
-            <div class="compare-me-label">Giacomo Studio</div>
-            <div class="compare-me-sub">consigliato</div>
-          </div>
-          <div class="compare-cell"><span class="compare-col-head">Agenzia web</span></div>
-          <div class="compare-cell"><span class="compare-col-head">Portali di preventivi</span></div>
-        </div>
-
-        <div class="compare-row fade-row">
-          <div class="compare-cell compare-feature">Prezzo</div>
-          <div class="compare-cell compare-me"><span class="compare-val-me">150€ fisso</span></div>
-          <div class="compare-cell"><span class="compare-val">1.500 – 8.000€</span></div>
-          <div class="compare-cell"><span class="compare-val">Paghi ogni contatto</span></div>
-        </div>
-
-        <div class="compare-row fade-row">
-          <div class="compare-cell compare-feature">Tempi</div>
-          <div class="compare-cell compare-me"><span class="compare-val-me">48 ore</span></div>
-          <div class="compare-cell"><span class="compare-val">4 – 12 settimane</span></div>
-          <div class="compare-cell"><span class="compare-val">Subito, ma non è tuo</span></div>
-        </div>
-
-        <div class="compare-row fade-row">
-          <div class="compare-cell compare-feature">Anticipo</div>
-          <div class="compare-cell compare-me"><span class="compare-check">✓</span><span class="compare-val-me">Zero. Paghi dopo</span></div>
-          <div class="compare-cell"><span class="compare-cross">✗</span><span class="compare-val">30 – 50% subito</span></div>
-          <div class="compare-cell"><span class="compare-cross">✗</span><span class="compare-val">Ricariche o abbonamento</span></div>
-        </div>
-
-        <div class="compare-row fade-row">
-          <div class="compare-cell compare-feature">Contatti</div>
-          <div class="compare-cell compare-me"><span class="compare-check">✓</span><span class="compare-val-me">Solo tuoi</span></div>
-          <div class="compare-cell"><span class="compare-check" style="color:rgba(255,255,255,0.28);">✓</span><span class="compare-val">Solo tuoi</span></div>
-          <div class="compare-cell"><span class="compare-cross">✗</span><span class="compare-val">Spesso girati a più imprese</span></div>
-        </div>
-
-        <div class="compare-row fade-row">
-          <div class="compare-cell compare-feature">Assistenza</div>
-          <div class="compare-cell compare-me"><span class="compare-check">✓</span><span class="compare-val-me">Diretta con me</span></div>
-          <div class="compare-cell"><span class="compare-val">Ticket / agenzia</span></div>
-          <div class="compare-cell"><span class="compare-cross">✗</span><span class="compare-val">Centralino</span></div>
-        </div>
-
-        <div class="compare-row fade-row">
-          <div class="compare-cell compare-feature">Hosting</div>
-          <div class="compare-cell compare-me"><span class="compare-check">✓</span><span class="compare-val-me">Incluso 1 anno</span></div>
-          <div class="compare-cell"><span class="compare-cross">✗</span><span class="compare-val">Solitamente escluso</span></div>
-          <div class="compare-cell"><span class="compare-cross">✗</span><span class="compare-val">Nessun sito tuo</span></div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ═══ COMPARE MOBILE CARDS (solo mobile, nascosto su desktop) ═══ -->
-    <div class="compare-mobile">
-
-      <div class="cmc-card cmc-me">
-        <div class="cmc-head">
-          <span class="cmc-title">Giacomo Studio</span>
-          <span class="cmc-badge">consigliato</span>
-        </div>
-        <div class="cmc-row">
-          <span class="cmc-label">Prezzo</span>
-          <span class="cmc-val"><span class="cmc-check">✓</span>150€ fisso</span>
-        </div>
-        <div class="cmc-row">
-          <span class="cmc-label">Tempi</span>
-          <span class="cmc-val"><span class="cmc-check">✓</span>48 ore</span>
-        </div>
-        <div class="cmc-row">
-          <span class="cmc-label">Anticipo</span>
-          <span class="cmc-val"><span class="cmc-check">✓</span>Zero. Paghi dopo</span>
-        </div>
-        <div class="cmc-row">
-          <span class="cmc-label">Contatti</span>
-          <span class="cmc-val"><span class="cmc-check">✓</span>Solo tuoi</span>
-        </div>
-        <div class="cmc-row">
-          <span class="cmc-label">Assistenza</span>
-          <span class="cmc-val"><span class="cmc-check">✓</span>Diretta con me</span>
-        </div>
-        <div class="cmc-row">
-          <span class="cmc-label">Hosting</span>
-          <span class="cmc-val"><span class="cmc-check">✓</span>Incluso 1 anno</span>
-        </div>
-      </div>
-
-      <div class="cmc-card">
-        <div class="cmc-head">
-          <span class="cmc-title">Agenzia web</span>
-        </div>
-        <div class="cmc-row">
-          <span class="cmc-label">Prezzo</span>
-          <span class="cmc-val">1.500 – 8.000€</span>
-        </div>
-        <div class="cmc-row">
-          <span class="cmc-label">Tempi</span>
-          <span class="cmc-val">4 – 12 settimane</span>
-        </div>
-        <div class="cmc-row">
-          <span class="cmc-label">Anticipo</span>
-          <span class="cmc-val"><span class="cmc-cross">✗</span>30 – 50% subito</span>
-        </div>
-        <div class="cmc-row">
-          <span class="cmc-label">Contatti</span>
-          <span class="cmc-val">Solo tuoi</span>
-        </div>
-        <div class="cmc-row">
-          <span class="cmc-label">Assistenza</span>
-          <span class="cmc-val">Ticket / agenzia</span>
-        </div>
-        <div class="cmc-row">
-          <span class="cmc-label">Hosting</span>
-          <span class="cmc-val"><span class="cmc-cross">✗</span>Solitamente escluso</span>
-        </div>
-      </div>
-
-      <div class="cmc-card">
-        <div class="cmc-head">
-          <span class="cmc-title">Portali di preventivi</span>
-        </div>
-        <div class="cmc-row">
-          <span class="cmc-label">Prezzo</span>
-          <span class="cmc-val">Paghi ogni contatto</span>
-        </div>
-        <div class="cmc-row">
-          <span class="cmc-label">Tempi</span>
-          <span class="cmc-val">Subito, ma non è tuo</span>
-        </div>
-        <div class="cmc-row">
-          <span class="cmc-label">Anticipo</span>
-          <span class="cmc-val"><span class="cmc-cross">✗</span>Ricariche o abbonamento</span>
-        </div>
-        <div class="cmc-row">
-          <span class="cmc-label">Contatti</span>
-          <span class="cmc-val"><span class="cmc-cross">✗</span>Spesso girati a più imprese</span>
-        </div>
-        <div class="cmc-row">
-          <span class="cmc-label">Assistenza</span>
-          <span class="cmc-val"><span class="cmc-cross">✗</span>Centralino</span>
-        </div>
-        <div class="cmc-row">
-          <span class="cmc-label">Hosting</span>
-          <span class="cmc-val"><span class="cmc-cross">✗</span>Nessun sito tuo</span>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- ═══════════ FAQ ═══════════ -->
-<section id="faq">
-  <div class="section">
-    <div class="faq-intro fade-up">
-      <div class="label" style="justify-content:center;">
-        <div class="label-line"></div>
-        <span class="label-text">Domande frequenti</span>
-        <div class="label-line"></div>
-      </div>
-      <h2 class="h2">
-        Tutto quello che<br>
-        vuoi <span class="gradient-text">sapere.</span>
-      </h2>
-    </div>
-
-    <div class="faq-list fade-up d1">
-
-      <div class="faq-item">
-        <button class="faq-trigger" aria-expanded="false">
-          <span class="faq-q">Davvero me lo fai vedere gratis? Dov'è il trucco?</span>
-          <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="faq-body"><div class="faq-body-inner">
-          <p class="faq-a"><strong>Nessun trucco.</strong> Non chiedo anticipi e non blocco carte. Ti preparo il sito con il nome della tua impresa, te lo mando entro 48 ore e lo guardi con calma dal telefono. Se ti piace, lo mettiamo online e paghi 150€. Se non ti convince, non paghi niente e ci salutiamo.</p>
-        </div></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-trigger" aria-expanded="false">
-          <span class="faq-q">Davvero in 48 ore? Non è troppo poco?</span>
-          <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="faq-body"><div class="faq-body-inner">
-          <p class="faq-a">Sì, davvero. <strong>Lavoro io direttamente:</strong> nessuna agenzia, nessun passaggio di consegne, nessuna coda. Mi bastano il nome della tua impresa, il comune e, se le hai, qualche foto dei tuoi lavori. In 48 ore hai l'anteprima pronta da vedere.</p>
-        </div></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-trigger" aria-expanded="false">
-          <span class="faq-q">Cosa include esattamente il pacchetto da 150€?</span>
-          <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="faq-body"><div class="faq-body-inner">
-          <p class="faq-a">Sito completo pensato per il telefono: home, prodotti (PVC, alluminio, legno, persiane, porte), lavori realizzati, contatti con mappa e orari. Preventivo guidato che ti arriva su WhatsApp, scheda Google sistemata, SEO locale e Google Analytics. <strong>Dominio e hosting del primo anno inclusi.</strong> Il prezzo che vedi è quello che paghi.</p>
-        </div></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-trigger" aria-expanded="false">
-          <span class="faq-q">Come mi arrivano i preventivi?</span>
-          <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="faq-body"><div class="faq-body-inner">
-          <p class="faq-a">Chi visita il sito risponde a quattro domande con un tocco: cosa gli serve, che materiale, quanti pezzi, in che comune. Alla fine si apre WhatsApp con il messaggio già scritto e <strong>ti arriva sul telefono con tutti i dati per rispondere.</strong> Niente moduli lunghi, niente email perse.</p>
-        </div></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-trigger" aria-expanded="false">
-          <span class="faq-q">Mi servono foto o testi? Devo capire di tecnologia?</span>
-          <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="faq-body"><div class="faq-body-inner">
-          <p class="faq-a">No. <strong>Se hai foto dei tuoi lavori le uso, altrimenti parto da quelle della tua scheda Google o della tua pagina Facebook.</strong> I testi li scrivo io. Tu continui a montare finestre: al resto penso io.</p>
-        </div></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-trigger" aria-expanded="false">
-          <span class="faq-q">Perché solo 150€? E chi gestisce il sito dopo?</span>
-          <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="faq-body"><div class="faq-body-inner">
-          <p class="faq-a">Perché per me il sito è il primo lavoro insieme, non l'ultimo: <strong>preferisco farti partire senza rischio e senza discutere sul prezzo.</strong> Il sito è tuo al 100%. Vuoi gestirlo da solo? Ti lascio una guida pratica. Preferisci che me ne occupi io? Concordiamo un piano mensile senza vincoli, che disdici quando vuoi.</p>
-        </div></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-trigger" aria-expanded="false">
-          <span class="faq-q">Lavori in tutta la Puglia? Ci dobbiamo vedere?</span>
-          <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="faq-body"><div class="faq-body-inner">
-          <p class="faq-a">Sì, lavoro con imprese di tutta la Puglia. <strong>Non serve vederci: si fa tutto su WhatsApp e al telefono,</strong> nei tuoi orari. Così non perdi mezza giornata e io rispondo più in fretta.</p>
-        </div></div>
-      </div>
-
-    </div>
-
-    <!-- Hai altre domande? -->
-    <div class="faq-contact fade-up d2">
-      <div class="faq-contact-left">
-        <div class="faq-contact-avatar-wrap">
-          <div class="faq-contact-avatar-img">
-            <img src="face.webp" alt="Giacomo">
-          </div>
-          <div class="faq-contact-status"></div>
-        </div>
-        <div>
-          <div class="faq-contact-title">Hai altre domande?</div>
-          <div class="faq-contact-sub">Scrivimi direttamente. Rispondo subito.</div>
-        </div>
-      </div>
-      <a href="https://wa.me/393493457558?text=Ciao%20Giacomo%2C%20ho%20un%27impresa%20di%20infissi%20e%20vorrei%20vedere%20gratis%20il%20sito%20che%20mi%20prepari." class="btn btn-wa" target="_blank" rel="noopener">
-        <img src="whatsapp.svg" alt="" width="18" height="18" class="wa-mark">
-        Scrivimi
-      </a>
-    </div>
-
-  </div>
-</section>
-
-<!-- ═══════════ CTA FINALE ═══════════ -->
-<section id="contatto">
-  <div class="section" style="padding-bottom:64px;">
-    <div class="cta-box fade-up">
-      <h2 class="h2" style="margin-bottom:16px;">
-        La tua impresa, trovata su Google.<br>
-        <span class="gradient-text">Vederla non ti costa niente.</span>
-      </h2>
-      <p class="cta-sub">
-        Te lo preparo gratis e lo vedi in 48 ore.<br>Solo se ti piace, lo mettiamo online.
-      </p>
-      <div class="cta-buttons">
-        <a href="https://wa.me/393493457558?text=Ciao%20Giacomo%2C%20ho%20un%27impresa%20di%20infissi%20e%20vorrei%20vedere%20gratis%20il%20sito%20che%20mi%20prepari." class="btn btn-wa" style="padding:17px 40px;font-size:17px;" target="_blank" rel="noopener">
-        <img src="whatsapp.svg" alt="" width="23" height="23" class="wa-mark">
-        Scrivimi su WhatsApp
-      </a>
-      </div>
-      <div class="cta-trust">
-        <span class="cta-trust-item">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Zero anticipo
-        </span>
-        <span class="cta-trust-item">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Rispondo subito
-        </span>
-        <span class="cta-trust-item">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Dominio e hosting inclusi
-        </span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ CHECK-UP — per chi non è pronto adesso ═══════════ -->
-<section id="check-up">
-  <div class="section" style="padding-top:0;">
-
-    <div class="cu-split fade-up" aria-hidden="true"><span>oppure</span></div>
-
-    <div class="cu-box fade-up">
-
-      <form id="cu-form" class="cu-grid" novalidate>
-
-        <div class="cu-visual" aria-hidden="true">
-          <div class="cu-phone">
-            <div class="cu-screen">
-              <div class="cu-hero"></div>
-              <div class="cu-sk"></div>
-              <div class="cu-sk cu-sk--sm"></div>
-              <div class="cu-tiles">
-                <div class="cu-tile"></div>
-                <div class="cu-tile"></div>
-                <div class="cu-tile"></div>
-                <div class="cu-tile"></div>
-              </div>
-              <div class="cu-phone-cta"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="cu-copy">
-          <h2 class="h2">
-            <span class="gradient-text">Non sei pronto adesso?</span><br>
-            Guarda prima com'è fatto.
-          </h2>
-
-          <p class="cu-sub">
-            Ti mando il sito finito di un'impresa di infissi, da aprire dal telefono.
-            Poi ti spiego cosa lo fa funzionare.
-          </p>
-
-          <fieldset class="cu-fieldset">
-            <legend class="cu-legend">Hai già un sito?</legend>
-            <div class="cu-chips">
-              <label class="cu-chip">
-                <input type="radio" name="cu-tipo" value="no" checked>
-                <span>No</span>
-              </label>
-              <label class="cu-chip">
-                <input type="radio" name="cu-tipo" value="vecchio">
-                <span>Sì, ma è vecchio</span>
-              </label>
-              <label class="cu-chip">
-                <input type="radio" name="cu-tipo" value="si">
-                <span>Sì, ma non mi porta preventivi</span>
-              </label>
-            </div>
-          </fieldset>
-
-          <div class="cu-row">
-            <label class="cu-sr" for="cu-email">La tua email</label>
-            <input class="cu-input" id="cu-email" type="email" name="email"
-                   placeholder="La tua email" autocomplete="email"
-                   inputmode="email" required>
-            <button class="btn cu-submit" id="cu-submit" type="submit">
-              <span id="cu-submit-label">Fammi vedere</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="18" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </button>
-          </div>
-
-          <div class="cu-hp" aria-hidden="true">
-            <label for="cu-sito">Non compilare questo campo</label>
-            <input id="cu-sito" type="text" name="sito" tabindex="-1" autocomplete="off">
-          </div>
-
-          <p class="cu-error" id="cu-error" role="alert" hidden></p>
-
-          <p class="cu-note">Quattro email al massimo. Niente newsletter, niente telefonate.</p>
-          <p class="cu-privacy">Inviando accetti di riceverle e la <a href="privacy.html">Privacy Policy</a>. Ti disiscrivi con un clic.</p>
-        </div>
-      </form>
-
-      <div class="cu-done" id="cu-done" hidden>
-        <div class="cu-done-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        </div>
-        <div class="cu-done-title">Fatto. La prima ti arriva tra poco.</div>
-        <p class="cu-done-sub">Se invece hai fretta, scrivimi e partiamo subito.</p>
-        <a href="https://wa.me/393493457558?text=Ciao%20Giacomo%2C%20ho%20un%27impresa%20di%20infissi%20e%20vorrei%20vedere%20gratis%20il%20sito%20che%20mi%20prepari." class="btn btn-wa" target="_blank" rel="noopener">
-        <img src="whatsapp.svg" alt="" width="19" height="19" class="wa-mark">
-        Scrivimi su WhatsApp
-      </a>
-      </div>
-
-    </div>
-  </div>
-</section>
+<main>
+<!-- @@HERO@@ -->
+<section id="hero"></section>
+<!-- @@PROBLEMA@@ -->
+<section id="problema"></section>
+<!-- @@PACCHETTO@@ -->
+<section id="pacchetto"></section>
+<!-- @@PREZZI@@ -->
+<section id="prezzi"></section>
+<!-- @@COME-FUNZIONA@@ -->
+<section id="come-funziona"></section>
+<!-- @@CHI-SONO@@ -->
+<section id="chi-sono"></section>
+<!-- @@CONFRONTO@@ -->
+<section id="confronto"></section>
+<!-- @@FAQ@@ -->
+<section id="faq"></section>
+<!-- @@CONTATTO@@ -->
+<section id="contatto"></section>
+<!-- @@CHECK-UP@@ -->
+<section id="check-up"></section>
+</main>
 
 <!-- ═══════════ FOOTER ═══════════ -->
 <footer>
   <div class="footer-inner">
-    <a href="/" class="footer-logo">giacomo<span>studio</span></a>
+    <a href="/" class="logo">giacomo<span>studio</span></a>
     <div class="footer-links">
       <a href="mailto:giacomo.abbracciaventoo@gmail.com" class="footer-link">giacomo.abbracciaventoo@gmail.com</a>
       <a href="privacy.html" class="footer-link">Privacy Policy</a>
@@ -2924,7 +443,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
 
 <!-- ═══════════ STICKY BOTTOM BAR — mobile ═══════════ -->
 <div id="sticky-wa">
-  <a href="https://wa.me/393493457558?text=Ciao%20Giacomo%2C%20ho%20un%27impresa%20di%20infissi%20e%20vorrei%20vedere%20gratis%20il%20sito%20che%20mi%20prepari." target="_blank" rel="noopener">
+  <a href="https://wa.me/393493457558?text=Ciao%20Giacomo%2C%20ho%20un%27impresa%20di%20infissi%20e%20vorrei%20vedere%20gratis%20il%20sito%20che%20mi%20prepari." data-wa target="_blank" rel="noopener">
     <img src="whatsapp.svg" alt="" width="20" height="20" class="wa-mark">
     Scrivimi · rispondo subito
   </a>
@@ -2932,193 +451,107 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
 
 <!-- ═══════════ JS ═══════════ -->
 <script>
+  var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 60);
-  }, { passive: true });
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.08, rootMargin: '0px 0px -16px 0px' });
-  document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
-  document.querySelectorAll('.fade-row').forEach(el => io.observe(el));
-
-  document.querySelectorAll('.faq-trigger').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const item   = btn.closest('.faq-item');
-      const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item.open').forEach(el => {
-        el.classList.remove('open');
-        el.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
-      });
-      if (!isOpen) { item.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
-    });
-  });
-
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const t = document.querySelector(a.getAttribute('href'));
-      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-    });
-  });
-
-  // Hamburger toggle
-  const hamburger = document.getElementById('nav-hamburger');
-  const drawer = document.getElementById('nav-drawer');
-  if (hamburger) {
-    hamburger.addEventListener('click', () => {
-      const isOpen = nav.classList.toggle('menu-open');
-      hamburger.setAttribute('aria-expanded', isOpen);
-      drawer.setAttribute('aria-hidden', !isOpen);
-    });
-    drawer.querySelectorAll('.nav-drawer-link').forEach(link => {
-      link.addEventListener('click', () => {
-        nav.classList.remove('menu-open');
-        hamburger.setAttribute('aria-expanded', 'false');
-        drawer.setAttribute('aria-hidden', 'true');
-      });
-    });
-    document.addEventListener('click', (e) => {
-      if (nav.classList.contains('menu-open') && !nav.contains(e.target)) {
-        nav.classList.remove('menu-open');
-        hamburger.setAttribute('aria-expanded', 'false');
-        drawer.setAttribute('aria-hidden', 'true');
-      }
-    });
+  // Nav: ombra allo scroll · sticky mobile dopo l'hero
+  var nav = document.getElementById('nav');
+  var sticky = document.getElementById('sticky-wa');
+  function onScroll() {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+    sticky.classList.toggle('show', window.scrollY > 320);
   }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
-  // Active nav link on scroll
-  const navSections = ['pacchetto','prezzi','come-funziona','chi-sono','faq'];
-  const navLinkEls = document.querySelectorAll('.nav-link');
-  const activateNavLink = () => {
-    let current = '';
-    navSections.forEach(id => {
-      const sec = document.getElementById(id);
+  // Ingresso allo scroll: un solo observer. Per animare l'interno di un blocco
+  // usa i selettori discendenti di .is-in (es. .pkg-card.is-in .timeline).
+  var revealIO = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('is-in'); revealIO.unobserve(e.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal, [data-observe]').forEach(function (el) { revealIO.observe(el); });
+
+  // Scroll morbido per le ancore interne
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'start' }); }
+    });
+  });
+
+  // Hamburger
+  var hamburger = document.getElementById('nav-hamburger');
+  var drawer = document.getElementById('nav-drawer');
+  function closeMenu() {
+    nav.classList.remove('menu-open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    drawer.setAttribute('aria-hidden', 'true');
+  }
+  hamburger.addEventListener('click', function () {
+    var open = nav.classList.toggle('menu-open');
+    hamburger.setAttribute('aria-expanded', open);
+    drawer.setAttribute('aria-hidden', !open);
+  });
+  drawer.querySelectorAll('.nav-drawer-link').forEach(function (l) { l.addEventListener('click', closeMenu); });
+  document.addEventListener('click', function (e) {
+    if (nav.classList.contains('menu-open') && !nav.contains(e.target)) closeMenu();
+  });
+
+  // Link attivo nella nav
+  var navSections = ['pacchetto', 'prezzi', 'come-funziona', 'chi-sono', 'faq'];
+  var navLinkEls = document.querySelectorAll('.nav-link');
+  function activateNavLink() {
+    var current = '';
+    navSections.forEach(function (id) {
+      var sec = document.getElementById(id);
       if (sec && window.scrollY >= sec.offsetTop - 120) current = id;
     });
-    navLinkEls.forEach(link => {
+    navLinkEls.forEach(function (link) {
       link.classList.toggle('active', link.getAttribute('href') === '#' + current);
     });
-  };
+  }
   window.addEventListener('scroll', activateNavLink, { passive: true });
   activateNavLink();
 
-  // Timeline reveal — la lista rivela la linea, ogni riga fa partire la sua scena animata
-  const stepsEl = document.querySelector('.steps-list');
-  if (stepsEl) {
-    const timelineIO = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add(e.target === stepsEl ? 'timeline-visible' : 'visible');
-          timelineIO.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-    timelineIO.observe(stepsEl);
-    stepsEl.querySelectorAll('.step-row').forEach(row => timelineIO.observe(row));
-  }
-
-  // Counter animation
-  function animateCounter(el, target, suffix, duration) {
-    duration = duration || 1400;
-    const start = performance.now();
-    const update = (now) => {
-      const p = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.round(eased * target) + suffix;
+  // Contatori [data-count]
+  function animateCounter(el, target, suffix) {
+    if (REDUCED) { el.textContent = target + suffix; return; }
+    var start = performance.now(), dur = 1400;
+    (function update(now) {
+      var p = Math.min((now - start) / dur, 1);
+      el.textContent = Math.round((1 - Math.pow(1 - p, 3)) * target) + suffix;
       if (p < 1) requestAnimationFrame(update);
-    };
-    requestAnimationFrame(update);
+    })(start);
   }
-  const counterIO = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
+  var counterIO = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
       if (!e.isIntersecting) return;
       animateCounter(e.target, +e.target.dataset.count, e.target.dataset.suffix || '');
       counterIO.unobserve(e.target);
     });
   }, { threshold: 0.5 });
-  document.querySelectorAll('[data-count]').forEach(el => counterIO.observe(el));
+  document.querySelectorAll('[data-count]').forEach(function (el) { counterIO.observe(el); });
 
+  // @@SECTIONS-JS@@
 
-  // Check-up form — cattura chi non è pronto a scrivere su WhatsApp.
-  // Evento DISTINTO da quello WhatsApp: il click su wa.me resta la
-  // conversione su cui ottimizzano le campagne, questo è solo diagnostica.
-  const cuForm = document.getElementById('cu-form');
-  if (cuForm) {
-    const cuBtn   = document.getElementById('cu-submit');
-    const cuLabel = document.getElementById('cu-submit-label');
-    const cuEmail = document.getElementById('cu-email');
-    const cuErr   = document.getElementById('cu-error');
-    const cuDone  = document.getElementById('cu-done');
-    const cuHp    = document.getElementById('cu-sito');
-
-    const cuShowDone = () => { cuForm.hidden = true; cuDone.hidden = false; };
-    const cuFail = (msg) => {
-      cuErr.textContent = msg;
-      cuErr.hidden = false;
-      cuBtn.disabled = false; cuEmail.disabled = false;
-      cuLabel.textContent = 'Fammi vedere';
-    };
-
-    cuForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      cuErr.hidden = true;
-
-      // Bot: fingi che sia andata bene e non inviare niente.
-      if (cuHp.value) { cuShowDone(); return; }
-
-      const email = cuEmail.value.trim();
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        cuFail('Controlla l\u2019email, sembra incompleta.');
-        cuEmail.focus();
-        return;
-      }
-
-      const checked = cuForm.querySelector('input[name="cu-tipo"]:checked');
-      const tipo = checked ? checked.value : '';
-
-      cuBtn.disabled = true; cuEmail.disabled = true;
-      cuLabel.textContent = 'Invio\u2026';
-
-      fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ email: email, tipo_business: 'serramenti', ha_sito: tipo, source: 'landing-checkup' })
-      })
-        .then(function (res) {
-          return res.json().catch(function () { return {}; })
-            .then(function (data) { return { ok: res.ok, data: data }; });
-        })
-        .then(function (r) {
-          if (!r.ok) throw new Error(r.data.error || 'Non ha funzionato. Riprova.');
-          cuShowDone();
-          if (typeof gtag !== 'undefined') gtag('event', 'checkup_submit', { tipo_business: 'serramenti', ha_sito: tipo });
-          if (typeof fbq  !== 'undefined') fbq('trackCustom', 'CheckupRequest', { tipo_business: 'serramenti', ha_sito: tipo });
-        })
-        .catch(function (err) {
-          cuFail(err.message || 'Non ha funzionato. Riprova.');
-        });
-    });
+  // Tracciamento WhatsApp — GA4 + Meta Pixel.
+  // Delegato su document: vale anche per i link il cui href cambia (nome impresa).
+  function waLocation(link) {
+    if (link.closest('#sticky-wa')) return 'sticky';
+    if (link.classList.contains('nav-wa')) return 'nav';
+    if (link.classList.contains('price-cta-btn')) return 'pricing';
+    var section = link.closest('section') || link.closest('[id]');
+    return section ? (section.id || 'unknown') : 'other';
   }
-
-  // WhatsApp click tracking — GA4 + Meta Pixel
-  document.querySelectorAll('a[href*="wa.me"]').forEach(function(link) {
-    link.addEventListener('click', function() {
-      var loc = 'other';
-      if (link.closest('#sticky-wa'))          loc = 'sticky';
-      else if (link.classList.contains('nav-wa')) loc = 'nav';
-      else if (link.classList.contains('price-cta-btn')) loc = 'pricing';
-      else {
-        var section = link.closest('section') || link.closest('[id]');
-        if (section) loc = section.id || 'unknown';
-      }
-      if (typeof gtag !== 'undefined') gtag('event', 'whatsapp_click', { button_location: loc });
-      if (typeof fbq !== 'undefined')  fbq('trackCustom', 'WhatsAppClick', { button_location: loc });
-    });
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest && e.target.closest('a[href*="wa.me"]');
+    if (!link) return;
+    var loc = waLocation(link);
+    if (typeof gtag !== 'undefined') gtag('event', 'whatsapp_click', { button_location: loc });
+    if (typeof fbq !== 'undefined')  fbq('trackCustom', 'WhatsAppClick', { button_location: loc });
   });
 </script>
 
