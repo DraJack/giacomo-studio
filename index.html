@@ -299,6 +299,103 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
 
     section:empty { min-height: 100vh; } /* segnaposto: smette di valere quando la sezione ha contenuto */
 
+    /* ══════════════════════════════════════════════════════════════
+       TELEFONO + MINI-SITO (riusato in hero, prima/dopo, pacchetto)
+    ══════════════════════════════════════════════════════════════ */
+    .phone {
+      position: relative; width: 264px; aspect-ratio: 264 / 540; flex: none;
+      padding: 10px; border-radius: 44px; background: #0b0b0c;
+      box-shadow: 0 0 0 1.5px #2a2a2c inset, 0 50px 90px -40px rgba(10,10,10,.45), 0 30px 60px -30px rgba(250,104,0,.35);
+    }
+    .phone::before { /* isola */
+      content: ''; position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
+      width: 78px; height: 22px; border-radius: 20px; background: #0b0b0c; z-index: 3;
+    }
+    .phone-screen {
+      position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 34px;
+      background: #f6f5f2; color: #0e1a2b; font-family: var(--body);
+      padding: 46px 16px 16px; display: flex; flex-direction: column;
+    }
+    .mini-nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 14px; }
+    .mini-brand { min-width: 0; }
+    .mini-logo {
+      display: block; font-family: var(--display); font-weight: 900; font-size: 17px; letter-spacing: -.03em;
+      line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 170px;
+      transition: opacity .2s;
+    }
+    .mini-sub { display: block; font-size: 6.5px; letter-spacing: .34em; font-weight: 700; opacity: .55; margin-top: 3px; }
+    .mini-burger { width: 16px; height: 9px; border-top: 2px solid #0e1a2b; border-bottom: 2px solid #0e1a2b; flex: none; }
+    .mini-win {
+      position: relative; height: 128px; border-radius: 12px; background: #e7e1d6; padding: 7px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 14px;
+    }
+    .mini-win i {
+      position: relative; border-radius: 5px; overflow: hidden;
+      background: linear-gradient(160deg, #a9cdf0 0%, #dcebf8 55%, #f6e4cb 100%);
+    }
+    .mini-win i::after {
+      content: ''; position: absolute; inset: -20% 40% -20% -10%; transform: rotate(18deg);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent);
+    }
+    .mini-win i:first-child::before {
+      content: ''; position: absolute; right: 4px; top: 45%; width: 3px; height: 16px; border-radius: 2px; background: #9b958a; z-index: 1;
+    }
+    .mini-title { font-family: var(--serif); font-weight: 400; font-size: 23px; line-height: 1.02; letter-spacing: -.01em; margin-bottom: 7px; }
+    .mini-text { font-size: 9.5px; line-height: 1.45; color: #5d6675; margin-bottom: 12px; }
+    .mini-btn {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      background: #1fb855; color: #fff; border-radius: 100px; padding: 9px;
+      font-size: 9.5px; font-weight: 800;
+    }
+    .mini-stars { font-size: 9px; margin-top: 9px; color: #5d6675; }
+    .mini-stars-g { color: #f5a623; letter-spacing: 1px; }
+    .mini-chips { display: flex; gap: 5px; margin-top: auto; padding-top: 10px; }
+    .mini-chips span { flex: 1; text-align: center; background: #fff; border-radius: 9px; padding: 7px 0; font-size: 8.5px; font-weight: 700; box-shadow: 0 2px 6px rgba(14,26,43,.06); }
+
+    /* ══════════════════════════════════════════════════════════════
+       HERO
+    ══════════════════════════════════════════════════════════════ */
+    #hero { position: relative; overflow: hidden; }
+    .hero-halo {
+      position: absolute; right: -12%; top: 4%; width: 760px; height: 760px; border-radius: 50%;
+      background: radial-gradient(circle, var(--halo) 0%, rgba(255,230,218,.55) 35%, rgba(255,255,255,0) 68%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative; max-width: 1120px; margin: 0 auto; padding: 150px 24px 110px;
+      display: grid; grid-template-columns: 1.35fr .65fr; align-items: center; gap: 48px;
+    }
+    .hero-badge-text { margin-bottom: 26px; }
+    .hero-h1 { margin-bottom: 26px; }
+    .hero-kicker {
+      display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px;
+      font-size: clamp(17px, 1.9vw, 21px); line-height: 1.45; color: var(--muted); max-width: 520px; margin-bottom: 34px;
+    }
+    .hero-kicker-price { font-family: var(--display); font-weight: 900; color: var(--ink); letter-spacing: -.03em; }
+    .hero-kicker-sep { color: var(--orange); font-weight: 700; }
+    .hero-kicker-claim { color: var(--ink); font-weight: 600; }
+    .hero-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; margin-bottom: 30px; }
+    .hero-trust { display: flex; flex-wrap: wrap; gap: 10px 22px; list-style: none; }
+    .hero-trust li { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 600; color: #333; }
+    .hero-trust svg { width: 16px; height: 16px; color: var(--wa-ink); flex: none; }
+
+    .hero-demo { display: flex; flex-direction: column; align-items: center; gap: 26px; }
+    .hero-demo .phone { transform: rotate(-3deg); animation: float 7s ease-in-out infinite; }
+    @keyframes float { 0%, 100% { transform: rotate(-3deg) translateY(0); } 50% { transform: rotate(-3deg) translateY(-10px); } }
+    .demo-field { width: 100%; max-width: 300px; }
+    .demo-field label {
+      display: flex; align-items: center; gap: 8px; justify-content: center;
+      font-size: 12.5px; font-weight: 700; color: var(--muted); margin-bottom: 9px;
+    }
+    .demo-field label svg { width: 14px; height: 14px; color: var(--orange); }
+    .demo-input {
+      width: 100%; padding: 14px 18px; border-radius: 100px; text-align: center;
+      border: 1.5px solid var(--line); background: #fff; font-weight: 600; font-size: 15px;
+      box-shadow: var(--shadow-sm); transition: border-color .2s, box-shadow .2s;
+    }
+    .demo-input::placeholder { color: #aaa; font-weight: 500; }
+    .demo-input:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 4px rgba(250,104,0,.12); }
+
     /* @@SECTIONS-CSS@@ */
 
     /* ══════════════════════════════════════════════════════════════
@@ -357,8 +454,20 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
       body { padding-bottom: 84px; }
       .footer-inner { flex-direction: column; align-items: flex-start; }
     }
-    @media (max-width: 400px) {
+    @media (max-width: 340px) {
       .nav-wa .nav-wa-label { display: none; }
+    }
+
+    @media (max-width: 860px) {
+      .hero-inner { grid-template-columns: 1fr; padding: 124px 22px 80px; gap: 56px; }
+      .hero-halo { right: -50%; top: 38%; }
+    }
+    @media (max-width: 680px) {
+      .hero-inner { padding: 104px 20px 64px; }
+      .hero-ctas .btn-dark { width: 100%; }
+      .hero-ctas { flex-direction: column; align-items: stretch; text-align: center; }
+      .hero-ctas .btn-link { align-self: center; }
+      .phone { width: 236px; }
     }
 
     /* @@RESPONSIVE-CSS@@ */
@@ -406,8 +515,67 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
 </nav>
 
 <main>
-<!-- @@HERO@@ -->
-<section id="hero"></section>
+<!-- ═══════════ HERO ═══════════ -->
+<section id="hero">
+  <div class="hero-halo" aria-hidden="true"></div>
+  <div class="hero-inner">
+
+    <div class="hero-copy">
+      <div class="kicker hero-badge-text">Per imprese di infissi e serramenti · Puglia</div>
+
+      <h1 class="h1 hero-h1">
+        Il sito per la tua<br>
+        <em class="serif-accent">impresa di infissi.</em>
+      </h1>
+
+      <p class="hero-kicker">
+        <span class="hero-kicker-price">Gratis</span>
+        <span class="hero-kicker-sep">·</span>
+        <span class="hero-kicker-claim">Lo vedi in 48 ore, paghi 150€ solo se ti piace</span>
+      </p>
+
+      <div class="hero-ctas">
+        <a href="https://wa.me/393493457558?text=Ciao%20Giacomo%2C%20ho%20un%27impresa%20di%20infissi%20e%20vorrei%20vedere%20gratis%20il%20sito%20che%20mi%20prepari." class="btn btn-dark" data-wa target="_blank" rel="noopener">
+          <span class="wa-dot"></span>
+          Scrivimi su WhatsApp
+        </a>
+        <a href="#pacchetto" class="btn-link">Prova un modello →</a>
+      </div>
+
+      <ul class="hero-trust">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Zero anticipo</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Rispondo io, Giacomo</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Tutto a distanza</li>
+      </ul>
+    </div>
+
+    <div class="hero-demo">
+      <div class="phone" aria-label="Anteprima di un sito per un'impresa di infissi">
+        <div class="phone-screen">
+          <div class="mini-nav">
+            <div class="mini-brand"><span class="mini-logo">ALBA</span><span class="mini-sub">SERRAMENTI</span></div>
+            <span class="mini-burger"></span>
+          </div>
+          <div class="mini-win" aria-hidden="true"><i></i><i></i></div>
+          <div class="mini-title">Infissi su misura. Preventivo in 24 ore.</div>
+          <div class="mini-text">PVC, alluminio e legno. Sopralluogo gratuito e posa a regola d'arte.</div>
+          <div class="mini-btn">Chiedi un preventivo su WhatsApp</div>
+          <div class="mini-stars"><span class="mini-stars-g">★★★★★</span> 4,9 · 37 recensioni Google</div>
+          <div class="mini-chips"><span>PVC</span><span>Alluminio</span><span>Legno</span></div>
+        </div>
+      </div>
+
+      <div class="demo-field">
+        <label for="demo-name">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          Prova col nome della tua impresa
+        </label>
+        <input id="demo-name" class="demo-input" type="text" maxlength="60" autocomplete="organization" placeholder="Il nome della tua impresa">
+      </div>
+    </div>
+
+  </div>
+</section>
 <!-- @@PROBLEMA@@ -->
 <section id="problema"></section>
 <!-- @@PACCHETTO@@ -->
@@ -534,6 +702,38 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     });
   }, { threshold: 0.5 });
   document.querySelectorAll('[data-count]').forEach(function (el) { counterIO.observe(el); });
+
+  // ── Nome impresa: personalizza il mini-sito e il messaggio WhatsApp ──
+  // Il nome resta nel browser: finisce solo nel testo che l'utente sceglie di mandare.
+  var WA_URL = 'https://wa.me/393493457558?text=';
+  var WA_BASE_HREF = WA_URL + 'Ciao%20Giacomo%2C%20ho%20un%27impresa%20di%20infissi%20e%20vorrei%20vedere%20gratis%20il%20sito%20che%20mi%20prepari.';
+  function cleanName(raw) {
+    return String(raw || '').replace(/\s+/g, ' ').trim().slice(0, 28).trim();
+  }
+  function buildWaText(name) {
+    return name
+      ? "Ciao Giacomo, ho un'impresa di infissi (" + name + ") e vorrei vedere gratis il sito che mi prepari."
+      : "Ciao Giacomo, ho un'impresa di infissi e vorrei vedere gratis il sito che mi prepari.";
+  }
+  window.gsName = '';
+  var demoInput = document.getElementById('demo-name');
+  var nameTracked = false;
+  function applyName(raw) {
+    var name = cleanName(raw);
+    if (name === window.gsName) return;
+    window.gsName = name;
+    document.querySelectorAll('.mini-logo').forEach(function (el) { el.textContent = name ? name.toUpperCase() : 'ALBA'; });
+    document.querySelectorAll('.mini-sub').forEach(function (el) { el.hidden = !!name; });
+    var href = name ? WA_URL + encodeURIComponent(buildWaText(name)) : WA_BASE_HREF;
+    document.querySelectorAll('a[data-wa]').forEach(function (a) { a.setAttribute('href', href); });
+    if (name && !nameTracked) {
+      nameTracked = true;
+      if (typeof gtag !== 'undefined') gtag('event', 'demo_name_typed');
+    }
+    document.dispatchEvent(new CustomEvent('gs:name', { detail: { name: name } }));
+  }
+  demoInput.addEventListener('input', function () { applyName(demoInput.value); });
+  window.addEventListener('pageshow', function () { applyName(demoInput.value); });
 
   // @@SECTIONS-JS@@
 
