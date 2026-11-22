@@ -95,7 +95,7 @@ test('senza IntersectionObserver la pagina si legge', async ({ page }) => {
 
 test('file interni esclusi dal deploy', () => {
   const lines = readFileSync(new URL('../.vercelignore', import.meta.url), 'utf8').split(/\r?\n/).map((l) => l.trim());
-  for (const f of ['CLAUDE.md', 'tests/', 'docs/', '.superpowers/', 'og-template.html']) expect(lines).toContain(f);
+  for (const f of ['CLAUDE.md', 'tests/', 'docs/', '.superpowers/', 'og-template.html', 'brand/']) expect(lines).toContain(f);
 });
 
 test('icona WhatsApp su ogni pulsante WhatsApp', async ({ page }) => {
@@ -124,4 +124,43 @@ test("l'alone pesca sta dietro il telefono", async ({ page }) => {
     const phone = c(await page.locator('#hero .phone').boundingBox());
     expect(Math.abs(halo.x - phone.x), 'larghezza ' + w).toBeLessThan(60);
   }
+});
+
+test('token di contrasto e alt della foto', async ({ page }) => {
+  await gotoHome(page);
+  const tok = await page.evaluate(() => {
+    const s = getComputedStyle(document.documentElement);
+    return ['--soft', '--orange-ink', '--wa-ink', '--bg', '--bg-alt'].map((k) => s.getPropertyValue(k).trim());
+  });
+  expect(tok).toEqual(['#707070', '#b84d00', '#108043', '#fdfcfa', '#f6f4ef']);
+  expect(await page.locator('.pkg-card').first().locator('.pkg-label').evaluate((e) => getComputedStyle(e).color)).toBe('rgb(184, 77, 0)');
+  expect(await page.locator('.pkg-card--green .pkg-label').evaluate((e) => getComputedStyle(e).color)).toBe('rgb(16, 128, 67)');
+  await expect(page.locator('.about-photo img')).toHaveAttribute('alt', 'Giacomo, studente di Ingegneria Informatica e web designer');
+});
+
+for (const path of ['/', '/privacy.html', '/termini.html']) {
+  test(`icone e colore barra su ${path}`, async ({ page, request }) => {
+    await blockExternal(page);
+    await page.goto(path);
+    const hrefs = await page.evaluate(() => ({
+      svg: document.querySelector('link[rel="icon"][type="image/svg+xml"]')?.getAttribute('href'),
+      png: document.querySelector('link[rel="icon"][sizes="32x32"]')?.getAttribute('href'),
+      apple: document.querySelector('link[rel="apple-touch-icon"]')?.getAttribute('href'),
+      theme: document.querySelector('meta[name="theme-color"]')?.getAttribute('content'),
+    }));
+    expect(hrefs).toEqual({ svg: '/logo-mark.svg', png: '/favicon-32.png', apple: '/apple-touch-icon.png', theme: '#fdfcfa' });
+    for (const f of [hrefs.svg, hrefs.png, hrefs.apple]) expect((await request.get(f)).status(), f).toBe(200);
+  });
+}
+
+test('manuale del brand: interno, completo, leggibile dal telefono', async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 780 });
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await blockExternal(page);
+  await page.goto('/brand/');
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
+  expect(await page.locator('section.chapter[id]').count()).toBe(13);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(360);
+  expect(errors).toEqual([]);
 });

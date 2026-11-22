@@ -15,7 +15,7 @@ for (const file of ['privacy.html', 'termini.html']) {
     const text = (f) => { document.querySelectorAll('li').forEach((li) => { if (f === 'privacy.html' && /Check-up|^Vercel Inc\./.test(li.textContent) && !li.querySelector('li')) li.remove(); }); return document.body.innerText; };
     const now = squash(await page.evaluate(text, file));
     await expect(page.locator('link[href*="cdnfonts"]')).toHaveCount(0);
-    expect(await page.evaluate(() => getComputedStyle(document.body).backgroundColor)).toBe('rgb(255, 255, 255)');
+    expect(await page.evaluate(() => getComputedStyle(document.body).backgroundColor)).toBe('rgb(253, 252, 250)');
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(360);
 
     const oldHtml = execFileSync('git', ['show', `${BASE}:${file}`], { cwd: repo, encoding: 'utf8' });
