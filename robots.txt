@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /404
+Disallow: /api/
 
 Sitemap: https://giacomostudio.it/sitemap.xml

@@ -291,6 +291,21 @@ Un listener delegato su `document` (funziona anche per i link il cui `href` camb
 
 Il numero nei link è `393493457558` (**con prefisso 39** — senza, `wa.me` fallisce fuori Italia).
 
+### SEO — risultato su Google (23/11/2026)
+
+- **Titolo**: `Siti web per serramentisti in Puglia: lo vedi gratis | Giacomo Studio`. Parola chiave in testa, marchio in coda.
+  Google taglia oltre **~600px in Arial 20px** (non a caratteri): misura ogni variante, questo titolo fa 589px. Il vecchio (642px) veniva tagliato.
+- **Descrizione**: sotto **~920px in Arial 14px**; la promessa (gratis · 48 ore · 150€ solo se ti piace) deve stare prima del taglio.
+- Titolo e descrizione sono ripetuti nel nodo `WebPage` del JSON-LD: se cambi uno, cambia l'altro.
+- `charset`, `viewport`, `title`, `description`, `robots`, `canonical` stanno **in cima** a `<head>`, prima di GA e Pixel.
+- **JSON-LD**: un `@graph` (`WebSite` → nome del sito mostrato da Google, `WebPage`, `ProfessionalService`, `Person`) + il blocco `FAQPage` separato
+  (i test lo cercano per `@type`). Indirizzo = solo regione + paese: niente via finta, si lavora a distanza.
+  Quando esistono profili veri (scheda Google, Instagram), aggiungili in `sameAs` del nodo `#studio`.
+- Canonical e `og:url` **con la barra finale** (`https://giacomostudio.it/`), come nella sitemap.
+- `sitemap.xml` contiene **solo pagine indicizzabili** (privacy e termini sono `noindex` → fuori). Aggiorna `lastmod` a ogni modifica della home.
+- Dopo ogni modifica a titolo/descrizione: Search Console → Controllo URL → `https://giacomostudio.it/` → **Richiedi indicizzazione**. Senza, Google può mostrare il vecchio testo per settimane.
+- Il footer ripete "Siti web per serramentisti in Puglia": è l'unico punto del corpo con la parola chiave del titolo. Non toglierlo.
+
 ### Form Check-up — seconda scelta, non conversione principale
 
 Sezione `#check-up`, subito dopo `#contatto`, separata da un divisore "oppure". È per chi non è pronto a scrivere su WhatsApp: lascia **nome** (obbligatorio nel modulo) e **numero di cellulare** + "Hai già un sito?", e Giacomo gli scrive a mano su WhatsApp con il link al sito di esempio.
