@@ -10,8 +10,9 @@ for (const file of ['privacy.html', 'termini.html']) {
     await page.setViewportSize({ width: 360, height: 780 });
     await blockExternal(page);
     await page.goto('/' + file);
-    // Privacy: le righe del modulo Check-up sono cambiate (telefono al posto dell'email), il resto no.
-    const text = (f) => { document.querySelectorAll('li').forEach((li) => { if (f === 'privacy.html' && /Check-up/.test(li.textContent) && !li.querySelector('li')) li.remove(); }); return document.body.innerText; };
+    // Privacy: le righe del modulo Check-up sono cambiate (telefono al posto dell'email, Google al posto di Brevo,
+    // anche nella riga di Vercel), il resto no.
+    const text = (f) => { document.querySelectorAll('li').forEach((li) => { if (f === 'privacy.html' && /Check-up|^Vercel Inc\./.test(li.textContent) && !li.querySelector('li')) li.remove(); }); return document.body.innerText; };
     const now = squash(await page.evaluate(text, file));
     await expect(page.locator('link[href*="cdnfonts"]')).toHaveCount(0);
     expect(await page.evaluate(() => getComputedStyle(document.body).backgroundColor)).toBe('rgb(255, 255, 255)');
@@ -35,4 +36,8 @@ test('privacy: il Check-up raccoglie il telefono', async ({ page }) => {
   expect(body).toContain('numero di telefono e risposta alla domanda');
   expect(body).toContain("scriverti su WhatsApp per mandarti l'esempio di sito");
   expect(body).not.toContain('al massimo quattro');
+  // I numeri del Check-up stanno nel foglio Google, non più su Brevo.
+  expect(body).not.toContain('Brevo');
+  expect(body).toContain('Google Ireland Ltd.');
+  expect(body).toContain('inoltro dei dati del modulo "Check-up" a Google');
 });

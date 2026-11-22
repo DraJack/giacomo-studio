@@ -1,4 +1,4 @@
-// Funzione Vercel api/subscribe.js: numero di telefono → contatto Brevo (attributo SMS).
+// Funzione Vercel api/subscribe.js: numero di telefono → app web Apps Script del foglio Google.
 import { test, expect } from '@playwright/test';
 import mod from '../api/subscribe.js';
 
@@ -7,39 +7,52 @@ const handler = typeof mod === 'function' ? mod : mod.default;
 
 test.describe.configure({ mode: 'serial' });
 
-async function call(body) {
+const URL_EXEC = 'https://script.google.com/macros/s/X/exec';
+const OK = { ok: true, status: 200, json: async () => ({ ok: true }) };
+
+async function call(body, { env = { SHEET_WEBHOOK_URL: URL_EXEC, SHEET_TOKEN: 't0k' }, reply = OK, method = 'POST' } = {}) {
   const sent = [];
   const realFetch = globalThis.fetch;
-  process.env.BREVO_API_KEY = 'k';
-  process.env.BREVO_LIST_ID = '7';
-  globalThis.fetch = async (url, opts) => { sent.push({ url, body: JSON.parse(opts.body), key: opts.headers['api-key'] }); return { ok: true, status: 201, json: async () => ({}) }; };
+  const realEnv = { SHEET_WEBHOOK_URL: process.env.SHEET_WEBHOOK_URL, SHEET_TOKEN: process.env.SHEET_TOKEN };
+  for (const k of ['SHEET_WEBHOOK_URL', 'SHEET_TOKEN']) { if (env[k] === undefined) delete process.env[k]; else process.env[k] = env[k]; }
+  globalThis.fetch = async (url, opts) => {
+    sent.push({ url, opts, body: JSON.parse(opts.body) });
+    if (typeof reply === 'function') return reply();
+    return reply;
+  };
   const res = { code: 0, data: null, status(c) { this.code = c; return this; }, json(d) { this.data = d; return this; } };
-  try { await handler({ method: 'POST', body }, res); } finally { globalThis.fetch = realFetch; }
+  try { await handler({ method, body }, res); } finally {
+    globalThis.fetch = realFetch;
+    for (const k of Object.keys(realEnv)) { if (realEnv[k] === undefined) delete process.env[k]; else process.env[k] = realEnv[k]; }
+  }
   return { res, sent };
 }
 
-test('numero valido → Brevo con SMS, senza email', async ({}, info) => {
-  test.skip(info.project.name !== 'desktop', 'una volta sola');
+test.beforeEach(({}, info) => { test.skip(info.project.name !== 'desktop', 'una volta sola'); });
+
+test('numero valido → Apps Script con token e numero normalizzato', async () => {
   const { res, sent } = await call({ telefono: '+39 340-123.4567', tipo_business: 'serramenti', ha_sito: 'vecchio', source: 'landing-checkup' });
   expect(res.code).toBe(200);
+  expect(res.data).toEqual({ ok: true });
   expect(sent).toHaveLength(1);
-  expect(sent[0].url).toBe('https://api.brevo.com/v3/contacts');
-  expect(sent[0].body).toEqual({
-    attributes: { SMS: '+393401234567', TIPO_BUSINESS: 'serramenti', HA_SITO: 'vecchio', SOURCE: 'landing-checkup' },
-    listIds: [7],
-    updateEnabled: true,
-  });
+  expect(sent[0].url).toBe(URL_EXEC);
+  expect(sent[0].opts.method).toBe('POST');
+  expect(sent[0].opts.redirect).toBe('follow');
+  expect(sent[0].opts.headers['content-type']).toBe('application/json');
+  expect(sent[0].body).toEqual({ token: 't0k', telefono: '+393401234567', ha_sito: 'vecchio', source: 'landing-checkup' });
+  const all = JSON.stringify(sent).toLowerCase();
+  for (const w of ['brevo', 'sms', 'api-key']) expect(all).not.toContain(w);
 });
 
-test('0039 e fisso', async ({}, info) => {
-  test.skip(info.project.name !== 'desktop', 'una volta sola');
+test('0039 e fisso', async () => {
   const { sent } = await call({ telefono: '0039 080 1234567' });
-  expect(sent[0].body.attributes.SMS).toBe('+390801234567');
+  expect(sent[0].body.telefono).toBe('+390801234567');
+  expect(sent[0].body.ha_sito).toBe('');
+  expect(sent[0].body.source).toBe('');
 });
 
 for (const bad of ['abc', '', '12345', '+44 7700 900123', undefined]) {
-  test(`numero sbagliato ${String(bad)} → 400`, async ({}, info) => {
-    test.skip(info.project.name !== 'desktop', 'una volta sola');
+  test(`numero sbagliato ${String(bad)} → 400`, async () => {
     const { res, sent } = await call({ telefono: bad });
     expect(res.code).toBe(400);
     expect(res.data.error).toBe('Controlla il numero, sembra incompleto.');
@@ -47,11 +60,32 @@ for (const bad of ['abc', '', '12345', '+44 7700 900123', undefined]) {
   });
 }
 
-test('numero già presente su Brevo → conferma lo stesso', async ({}, info) => {
-  test.skip(info.project.name !== 'desktop', 'una volta sola');
-  const realFetch = globalThis.fetch;
-  globalThis.fetch = async () => ({ ok: false, status: 400, json: async () => ({ code: 'duplicate_parameter', message: 'SMS is already associated with another Contact' }) });
-  const res = { code: 0, data: null, status(c) { this.code = c; return this; }, json(d) { this.data = d; return this; } };
-  try { await handler({ method: 'POST', body: { telefono: '3401234567' } }, res); } finally { globalThis.fetch = realFetch; }
-  expect(res.code).toBe(200);
+for (const missing of ['SHEET_WEBHOOK_URL', 'SHEET_TOKEN']) {
+  test(`manca ${missing} → 500`, async () => {
+    const env = { SHEET_WEBHOOK_URL: URL_EXEC, SHEET_TOKEN: 't0k', [missing]: undefined };
+    const { res, sent } = await call({ telefono: '3401234567' }, { env });
+    expect(res.code).toBe(500);
+    expect(res.data.error).toBe('Configurazione server mancante.');
+    expect(sent).toEqual([]);
+  });
+}
+
+const failures = {
+  'Apps Script dice ok:false': { ok: true, status: 200, json: async () => ({ ok: false }) },
+  'Apps Script 500': { ok: false, status: 500, json: async () => ({}) },
+  'risposta HTML (il JSON non si legge)': { ok: true, status: 200, json: async () => { throw new SyntaxError('Unexpected token <'); } },
+  'fetch lancia': () => { throw new TypeError('fetch failed'); },
+};
+for (const [name, reply] of Object.entries(failures)) {
+  test(`${name} → 502`, async () => {
+    const { res } = await call({ telefono: '3401234567' }, { reply });
+    expect(res.code).toBe(502);
+    expect(res.data.error).toBe('Invio non riuscito. Riprova.');
+  });
+}
+
+test('GET → 405', async () => {
+  const { res, sent } = await call(undefined, { method: 'GET' });
+  expect(res.code).toBe(405);
+  expect(sent).toEqual([]);
 });

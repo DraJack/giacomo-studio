@@ -37,10 +37,11 @@ test('link al sito di esempio', async ({ page }) => {
   const a = page.locator('#hero .demo-link');
   await expect(a).toHaveAttribute('href', '/esempio/');
   await expect(a).toHaveAttribute('target', '_blank');
-  // Stile "barra indirizzo": lucchetto, indirizzo, freccia nel cerchio; per i lettori di schermo un'etichetta chiara
+  // Pillola cliccabile: icona, invito chiaro (niente indirizzo), freccia nel cerchio
   await expect(a).toHaveAttribute('aria-label', 'Apri il sito di esempio (nuova scheda)');
-  await expect(a).toHaveText(/giacomostudio\.it\s*\/esempio/);
-  await expect(a.locator('.demo-link-lock svg')).toHaveCount(1);
+  await expect(a).toHaveText('Guarda un sito di esempio');
+  await expect(a).not.toContainText('giacomostudio.it');
+  await expect(a.locator('.demo-link-icon svg')).toHaveCount(1);
   await expect(a.locator('.demo-link-go svg')).toHaveCount(1);
   expect(await a.evaluate((e) => getComputedStyle(e).borderRadius)).toBe('100px');
   expect(await a.evaluate((e) => getComputedStyle(e).textDecorationLine)).toBe('none');
@@ -87,6 +88,20 @@ test('senza JS si vede la demo nel telefono', async ({ browser }) => {
   await page.goto('/');
   await expect.poll(() => page.locator('#hero .phone img').evaluate((i) => i.naturalWidth)).toBeGreaterThan(0);
   await ctx.close();
+});
+
+test('gli schermi restano dentro la cornice (Safari)', async ({ page }) => {
+  await gotoHome(page);
+  // Safari ignora height:100% dentro un box ad aspect-ratio: lo schermo va posizionato con inset
+  const s = await page.$$eval('.phone-screen', (els) => els.map((e) => {
+    const c = getComputedStyle(e);
+    return { pos: c.position, top: c.top, bottom: c.bottom, clip: c.clipPath };
+  }));
+  expect(s.length).toBeGreaterThan(3);
+  for (const x of s) {
+    expect(x).toMatchObject({ pos: 'absolute', top: '10px', bottom: '10px' });
+    expect(x.clip).toMatch(/inset\(0px round 34px\)/);
+  }
 });
 
 test('su telefono lo swipe sul telefono scorre la pagina', async ({ page, isMobile }) => {
