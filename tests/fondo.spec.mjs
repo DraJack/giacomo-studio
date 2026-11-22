@@ -5,8 +5,7 @@ test('testi invariati', async ({ page }) => {
   await gotoHome(page);
   await expectOldTextsIn(expect, page, 'main', ['.about-name', '.about-bio', '.about-stat-label',
     '.compare-feature', '.compare-val-me', '.compare-val', '.cmc-title', '.cmc-val', '.faq-q', '.faq-a',
-    '.faq-contact-title', '#contatto .h2', '.cta-sub', '.cta-trust-item', '.cu-sub', '.cu-legend', '.cu-chip span',
-    '.cu-note', '.cu-privacy', '.cu-done-title']);
+    '.faq-contact-title', '#contatto .h2', '.cta-sub', '.cta-trust-item', '.cu-legend', '.cu-chip span']);
 });
 
 test('FAQ = dati Google', async ({ page }) => {
@@ -50,33 +49,56 @@ async function mockSubscribe(page, status, body) {
   return calls;
 }
 
+test("check-up chiede il cellulare, non l'email", async ({ page }) => {
+  await gotoHome(page);
+  await expect(page.locator('#cu-email')).toHaveCount(0);
+  const tel = page.locator('#cu-tel');
+  await expect(tel).toHaveAttribute('type', 'tel');
+  await expect(tel).toHaveAttribute('autocomplete', 'tel');
+  await expect(page.locator('.cu-sub')).toContainText('Lasciami il numero');
+  await expect(page.locator('.cu-done-title')).toHaveText('Fatto. Ti scrivo su WhatsApp a breve.');
+});
+
 test('check-up invio', async ({ page }) => {
   await gotoHome(page);
   const calls = await mockSubscribe(page, 200, {});
   await page.locator('#check-up').scrollIntoViewIfNeeded();
   await page.locator('.cu-chip', { hasText: 'Sì, ma è vecchio' }).click();
-  await page.locator('#cu-email').fill('test@example.com');
+  await page.locator('#cu-tel').fill('340 123 4567');
   await page.locator('#cu-submit').click();
   await expect(page.locator('#cu-done')).toBeVisible();
-  expect(calls).toEqual([{ email: 'test@example.com', tipo_business: 'serramenti', ha_sito: 'vecchio', source: 'landing-checkup' }]);
+  expect(calls).toEqual([{ telefono: '+393401234567', tipo_business: 'serramenti', ha_sito: 'vecchio', source: 'landing-checkup' }]);
   expect(await gaEvents(page, 'checkup_submit')).toEqual([{ tipo_business: 'serramenti', ha_sito: 'vecchio' }]);
   expect(await pixelEvents(page, 'CheckupRequest')).toEqual([{ tipo_business: 'serramenti', ha_sito: 'vecchio' }]);
 });
 
-test('check-up email sbagliata', async ({ page }) => {
-  await gotoHome(page);
-  const calls = await mockSubscribe(page, 200, {});
-  await page.locator('#cu-email').fill('test@');
-  await page.locator('#cu-submit').click();
-  await expect(page.locator('#cu-error')).toHaveText('Controlla l’email, sembra incompleta.');
-  expect(calls).toEqual([]);
-});
+for (const [raw, norm] of [['+39 340-123.4567', '+393401234567'], ['0039 080 1234567', '+390801234567'], ['(080) 123456', '+39080123456']]) {
+  test(`check-up numero ${raw}`, async ({ page }) => {
+    await gotoHome(page);
+    const calls = await mockSubscribe(page, 200, {});
+    await page.locator('#cu-tel').fill(raw);
+    await page.locator('#cu-submit').click();
+    await expect(page.locator('#cu-done')).toBeVisible();
+    expect(calls[0].telefono).toBe(norm);
+  });
+}
+
+for (const bad of ['12ab', '12345', '+39 12', '340 123 4567 8901 2']) {
+  test(`check-up numero sbagliato ${bad}`, async ({ page }) => {
+    await gotoHome(page);
+    const calls = await mockSubscribe(page, 200, {});
+    await page.locator('#cu-tel').fill(bad);
+    await page.locator('#cu-submit').click();
+    await expect(page.locator('#cu-error')).toHaveText('Controlla il numero, sembra incompleto.');
+    expect(calls).toEqual([]);
+  });
+}
 
 test('check-up honeypot', async ({ page }) => {
   await gotoHome(page);
   const calls = await mockSubscribe(page, 200, {});
   await page.locator('#cu-sito').evaluate((e) => { e.value = 'bot'; });
-  await page.locator('#cu-email').fill('test@example.com');
+  await page.locator('#cu-tel').fill('340 123 4567');
   await page.locator('#cu-submit').click();
   await expect(page.locator('#cu-done')).toBeVisible();
   expect(calls).toEqual([]);
@@ -85,10 +107,11 @@ test('check-up honeypot', async ({ page }) => {
 test('check-up errore server', async ({ page }) => {
   await gotoHome(page);
   await mockSubscribe(page, 500, { error: 'x' });
-  await page.locator('#cu-email').fill('test@example.com');
+  await page.locator('#cu-tel').fill('340 123 4567');
   await page.locator('#cu-submit').click();
   await expect(page.locator('#cu-error')).toHaveText('x');
   await expect(page.locator('#cu-submit')).toBeEnabled();
+  await expect(page.locator('#cu-tel')).toBeEnabled();
   await expect(page.locator('#cu-submit-label')).toHaveText('Fammi vedere');
 });
 

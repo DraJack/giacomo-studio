@@ -1666,8 +1666,8 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
           </h2>
 
           <p class="cu-sub">
-            Ti mando il sito finito di un'impresa di infissi, da aprire dal telefono.
-            Poi ti spiego cosa lo fa funzionare.
+            Lasciami il numero: ti scrivo su WhatsApp con il sito d'esempio
+            e due righe su come funziona.
           </p>
 
           <fieldset class="cu-fieldset">
@@ -1689,10 +1689,10 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
           </fieldset>
 
           <div class="cu-row">
-            <label class="cu-sr" for="cu-email">La tua email</label>
-            <input class="cu-input" id="cu-email" type="email" name="email"
-                   placeholder="La tua email" autocomplete="email"
-                   inputmode="email" required>
+            <label class="cu-sr" for="cu-tel">Il tuo numero di cellulare</label>
+            <input class="cu-input" id="cu-tel" type="tel" name="telefono"
+                   placeholder="Il tuo numero di cellulare" autocomplete="tel"
+                   inputmode="tel" required>
             <button class="btn cu-submit" id="cu-submit" type="submit">
               <span id="cu-submit-label">Fammi vedere</span>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="18" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -1706,8 +1706,8 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
 
           <p class="cu-error" id="cu-error" role="alert" hidden></p>
 
-          <p class="cu-note">Quattro email al massimo. Niente newsletter, niente telefonate.</p>
-          <p class="cu-privacy">Inviando accetti di riceverle e la <a href="privacy.html">Privacy Policy</a>. Ti disiscrivi con un clic.</p>
+          <p class="cu-note">Ti scrivo una volta sola. Niente pubblicità, niente chiamate a sorpresa.</p>
+          <p class="cu-privacy">Inviando accetti la <a href="privacy.html">Privacy Policy</a>.</p>
         </div>
       </form>
 
@@ -1715,7 +1715,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
         <div class="cu-done-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
-        <div class="cu-done-title">Fatto. La prima ti arriva tra poco.</div>
+        <div class="cu-done-title">Fatto. Ti scrivo su WhatsApp a breve.</div>
         <p class="cu-done-sub">Se invece hai fretta, scrivimi e partiamo subito.</p>
         <a href="https://wa.me/393493457558?text=Ciao%20Giacomo%2C%20ho%20un%27impresa%20di%20infissi%20e%20vorrei%20vedere%20gratis%20il%20sito%20che%20mi%20prepari." class="btn btn-dark" data-wa target="_blank" rel="noopener">
         <img src="whatsapp.svg" alt="" width="20" height="20" class="wa-mark">
@@ -1994,7 +1994,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
   if (cuForm) {
     const cuBtn   = document.getElementById('cu-submit');
     const cuLabel = document.getElementById('cu-submit-label');
-    const cuEmail = document.getElementById('cu-email');
+    const cuTel   = document.getElementById('cu-tel');
     const cuErr   = document.getElementById('cu-error');
     const cuDone  = document.getElementById('cu-done');
     const cuHp    = document.getElementById('cu-sito');
@@ -2003,8 +2003,16 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     const cuFail = (msg) => {
       cuErr.textContent = msg;
       cuErr.hidden = false;
-      cuBtn.disabled = false; cuEmail.disabled = false;
+      cuBtn.disabled = false; cuTel.disabled = false;
       cuLabel.textContent = 'Fammi vedere';
+    };
+    // Stessa regola di normPhone() in api/subscribe.js: numeri italiani, +39 davanti.
+    const normPhone = (raw) => {
+      let s = String(raw || '').replace(/[\s.\-()\/]/g, '');
+      if (s.startsWith('0039')) s = '+39' + s.slice(4);
+      if (s.startsWith('+39')) s = s.slice(3);
+      else if (s.startsWith('+')) return null;
+      return /^\d{6,11}$/.test(s) ? '+39' + s : null;
     };
 
     cuForm.addEventListener('submit', function (e) {
@@ -2014,23 +2022,23 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
       // Bot: fingi che sia andata bene e non inviare niente.
       if (cuHp.value) { cuShowDone(); return; }
 
-      const email = cuEmail.value.trim();
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        cuFail('Controlla l\u2019email, sembra incompleta.');
-        cuEmail.focus();
+      const telefono = normPhone(cuTel.value);
+      if (!telefono) {
+        cuFail('Controlla il numero, sembra incompleto.');
+        cuTel.focus();
         return;
       }
 
       const checked = cuForm.querySelector('input[name="cu-tipo"]:checked');
       const tipo = checked ? checked.value : '';
 
-      cuBtn.disabled = true; cuEmail.disabled = true;
+      cuBtn.disabled = true; cuTel.disabled = true;
       cuLabel.textContent = 'Invio\u2026';
 
       fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ email: email, tipo_business: 'serramenti', ha_sito: tipo, source: 'landing-checkup' })
+        body: JSON.stringify({ telefono: telefono, tipo_business: 'serramenti', ha_sito: tipo, source: 'landing-checkup' })
       })
         .then(function (res) {
           return res.json().catch(function () { return {}; })

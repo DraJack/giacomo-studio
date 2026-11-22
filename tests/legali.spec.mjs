@@ -10,7 +10,9 @@ for (const file of ['privacy.html', 'termini.html']) {
     await page.setViewportSize({ width: 360, height: 780 });
     await blockExternal(page);
     await page.goto('/' + file);
-    const now = squash(await page.evaluate(() => document.body.innerText));
+    // Privacy: le righe del modulo Check-up sono cambiate (telefono al posto dell'email), il resto no.
+    const text = (f) => { document.querySelectorAll('li').forEach((li) => { if (f === 'privacy.html' && /Check-up/.test(li.textContent) && !li.querySelector('li')) li.remove(); }); return document.body.innerText; };
+    const now = squash(await page.evaluate(text, file));
     await expect(page.locator('link[href*="cdnfonts"]')).toHaveCount(0);
     expect(await page.evaluate(() => getComputedStyle(document.body).backgroundColor)).toBe('rgb(255, 255, 255)');
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(360);
@@ -20,8 +22,17 @@ for (const file of ['privacy.html', 'termini.html']) {
     const old = await ctx.newPage();
     await old.route('**/*', (r) => (r.request().url().endsWith('/' + file) ? r.fulfill({ contentType: 'text/html', body: oldHtml }) : r.abort()));
     await old.goto('http://localhost:4173/' + file);
-    const before = squash(await old.evaluate(() => document.body.innerText));
+    const before = squash(await old.evaluate(text, file));
     await ctx.close();
     expect(now).toBe(before);
   });
 }
+
+test('privacy: il Check-up raccoglie il telefono', async ({ page }) => {
+  await blockExternal(page);
+  await page.goto('/privacy.html');
+  const body = await page.locator('body').innerText();
+  expect(body).toContain('numero di telefono e risposta alla domanda');
+  expect(body).toContain("scriverti su WhatsApp per mandarti l'esempio di sito");
+  expect(body).not.toContain('al massimo quattro');
+});

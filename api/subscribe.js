@@ -1,12 +1,27 @@
+// Modulo "Non sei pronto?": salva il numero di telefono su Brevo (attributo SMS).
+// Giacomo poi scrive a mano su WhatsApp: nessuna email automatica.
+
+const ERR_TEL = 'Controlla il numero, sembra incompleto.';
+
+// Stessa regola di normPhone() in index.html: numeri italiani, +39 davanti.
+export function normPhone(raw) {
+  let s = String(raw ?? '').replace(/[\s.\-()\/]/g, '');
+  if (s.startsWith('0039')) s = '+39' + s.slice(4);
+  if (s.startsWith('+39')) s = s.slice(3);
+  else if (s.startsWith('+')) return null;
+  return /^\d{6,11}$/.test(s) ? '+39' + s : null;
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { email, tipo_business, ha_sito, source } = req.body || {};
+  const { telefono, tipo_business, ha_sito, source } = req.body || {};
 
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-    return res.status(400).json({ error: 'Email non valida.' });
+  const sms = normPhone(telefono);
+  if (!sms) {
+    return res.status(400).json({ error: ERR_TEL });
   }
 
   const apiKey = process.env.BREVO_API_KEY;
@@ -17,19 +32,14 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Configurazione server mancante.' });
   }
 
-  const payload = {
-    email: email.trim(),
-    listIds: [listId],
-    updateEnabled: true,
-  };
+  // Brevo accetta un contatto senza email se ha l'attributo SMS.
+  // TIPO_BUSINESS, HA_SITO e SOURCE vanno creati in Brevo (Contatti > Impostazioni > Attributi).
+  const attributes = { SMS: sms };
+  if (tipo_business) attributes.TIPO_BUSINESS = tipo_business;
+  if (ha_sito)       attributes.HA_SITO       = ha_sito;
+  if (source)        attributes.SOURCE        = source;
 
-  // Include quiz attributes if provided
-  // Requires TIPO_BUSINESS and HA_SITO custom attributes in Brevo (Contacts > Settings > Attributes)
-  const attrs = {};
-  if (tipo_business) attrs.TIPO_BUSINESS = tipo_business;
-  if (ha_sito)       attrs.HA_SITO       = ha_sito;
-  if (source)        attrs.SOURCE        = source;
-  if (Object.keys(attrs).length) payload.attributes = attrs;
+  const payload = { attributes, listIds: [listId], updateEnabled: true };
 
   try {
     const brevoRes = await fetch('https://api.brevo.com/v3/contacts', {
@@ -48,7 +58,7 @@ export default async function handler(req, res) {
 
     const errBody = await brevoRes.json().catch(() => ({}));
     console.error('Brevo error:', brevoRes.status, errBody);
-    return res.status(502).json({ error: 'Iscrizione non riuscita. Riprova.' });
+    return res.status(502).json({ error: 'Invio non riuscito. Riprova.' });
 
   } catch (err) {
     console.error('Fetch error:', err);
