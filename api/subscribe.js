@@ -57,6 +57,10 @@ export default async function handler(req, res) {
     }
 
     const errBody = await brevoRes.json().catch(() => ({}));
+    // Numero già in lista (ha già compilato il modulo): per chi scrive è comunque andata bene.
+    if (brevoRes.status === 400 && errBody.code === 'duplicate_parameter') {
+      return res.status(200).json({ ok: true });
+    }
     console.error('Brevo error:', brevoRes.status, errBody);
     return res.status(502).json({ error: 'Invio non riuscito. Riprova.' });
 

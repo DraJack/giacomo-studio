@@ -352,6 +352,9 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .phone-screen--shot::-webkit-scrollbar { display: none; }
     .phone-screen--shot:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
     .phone-shot { display: block; width: 100%; height: auto; }
+    .phone-mid { position: absolute; left: 0; top: 50%; width: 1px; height: 1px; pointer-events: none; }
+    /* Su touch lo swipe deve scorrere la pagina: il telefono scorre solo da solo (JS) */
+    @media (hover: none) { .phone-screen--shot { overflow-y: hidden; } }
     .demo-link {
       display: inline-flex; align-items: center; gap: 7px; padding-bottom: 3px;
       font-size: 14.5px; font-weight: 700; color: var(--ink); border-bottom: 1.5px solid currentColor;
@@ -962,6 +965,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     <div class="hero-demo">
       <div class="phone">
         <span class="phone-tag">Esempio</span>
+        <span class="phone-mid" data-observe aria-hidden="true"></span>
         <div class="phone-screen phone-screen--shot" tabindex="0" aria-label="Home del sito di esempio, scorrevole">
           <img class="phone-shot" src="img/esempio-mobile.webp" width="585" height="5100" fetchpriority="high"
                alt="La home del sito di esempio Alba Serramenti vista da telefono">
@@ -1069,7 +1073,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
         </div>
         <div class="pkg-visual" aria-hidden="true">
           <div class="browser">
-            <div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">albaserramenti.it</span></div>
+            <div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">giacomostudio.it/esempio</span></div>
             <img class="browser-shot" src="img/esempio-desktop.webp" width="1000" height="625" loading="lazy" alt="">
           </div>
         </div>
@@ -1233,7 +1237,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
         <label class="calc-q" for="calc-range">Quanto vale in media un tuo lavoro?</label>
         <div class="calc-value" id="calc-value">5.000€</div>
         <input class="calc-range" id="calc-range" type="range" min="500" max="20000" step="500" value="5000" aria-valuetext="5.000€">
-        <div class="calc-scale"><span>1.000€</span><span>20.000€</span></div>
+        <div class="calc-scale"><span>500€</span><span>20.000€</span></div>
         <div class="calc-result">
           <p>Un solo cliente in più ripaga il sito</p>
           <div class="calc-big"><span id="calc-times">33</span><em class="serif-accent">volte.</em></div>
@@ -1874,13 +1878,16 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
         if (k < 1) requestAnimationFrame(step); else if (done) done();
       })(performance.now());
     };
-    setTimeout(function () {
-      if (heroStopped) return;
-      var max = heroScreen.scrollHeight - heroScreen.clientHeight;
-      heroGlide(Math.min(900, max), 3500, function () {
-        setTimeout(function () { if (!heroStopped) heroGlide(0, 1800); }, 900);
-      });
-    }, 1200);
+    // Parte quando metà telefono è in vista (sentinella .phone-mid, osservata da revealIO).
+    document.querySelector('#hero .phone-mid').addEventListener('gs:in', function () {
+      setTimeout(function () {
+        if (heroStopped) return;
+        var max = heroScreen.scrollHeight - heroScreen.clientHeight;
+        heroGlide(Math.min(900, max), 3500, function () {
+          setTimeout(function () { if (!heroStopped) heroGlide(0, 1800); }, 900);
+        });
+      }, 600);
+    });
   }
 
   // ── Prima / dopo: trascinamento (mouse e dito) + tastiera via input range ──

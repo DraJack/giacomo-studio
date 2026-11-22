@@ -46,3 +46,12 @@ for (const bad of ['abc', '', '12345', '+44 7700 900123', undefined]) {
     expect(sent).toEqual([]);
   });
 }
+
+test('numero già presente su Brevo → conferma lo stesso', async ({}, info) => {
+  test.skip(info.project.name !== 'desktop', 'una volta sola');
+  const realFetch = globalThis.fetch;
+  globalThis.fetch = async () => ({ ok: false, status: 400, json: async () => ({ code: 'duplicate_parameter', message: 'SMS is already associated with another Contact' }) });
+  const res = { code: 0, data: null, status(c) { this.code = c; return this; }, json(d) { this.data = d; return this; } };
+  try { await handler({ method: 'POST', body: { telefono: '3401234567' } }, res); } finally { globalThis.fetch = realFetch; }
+  expect(res.code).toBe(200);
+});

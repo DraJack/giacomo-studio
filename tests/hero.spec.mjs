@@ -66,6 +66,7 @@ test('riduci movimento: il telefono resta fermo', async ({ page }) => {
 test('il telefono scorre da solo e si ferma al tocco', async ({ page }) => {
   await gotoHome(page);
   const screen = page.locator('#hero .phone-screen');
+  await screen.evaluate((e) => e.scrollIntoView({ block: 'center' })); // su telefono è sotto la piega
   await expect.poll(() => screen.evaluate((e) => e.scrollTop), { timeout: 4000 }).toBeGreaterThan(0);
   await screen.dispatchEvent('pointerdown');
   const a = await screen.evaluate((e) => e.scrollTop);
@@ -80,4 +81,20 @@ test('senza JS si vede la demo nel telefono', async ({ browser }) => {
   await page.goto('/');
   await expect.poll(() => page.locator('#hero .phone img').evaluate((i) => i.naturalWidth)).toBeGreaterThan(0);
   await ctx.close();
+});
+
+test('su telefono lo swipe sul telefono scorre la pagina', async ({ page, isMobile }) => {
+  test.skip(!isMobile, 'solo telefono');
+  await gotoHome(page);
+  expect(await page.locator('#hero .phone-screen').evaluate((e) => getComputedStyle(e).overflowY)).toBe('hidden');
+});
+
+test('lo scroll automatico parte quando il telefono si vede', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 420 });
+  await gotoHome(page);
+  const screen = page.locator('#hero .phone-screen');
+  await page.waitForTimeout(2500);
+  expect(await screen.evaluate((e) => e.scrollTop)).toBe(0);
+  await screen.evaluate((e) => e.scrollIntoView({ block: 'center' })); // il telefono fluttua: niente attese di stabilità
+  await expect.poll(() => screen.evaluate((e) => e.scrollTop), { timeout: 4000 }).toBeGreaterThan(0);
 });

@@ -51,3 +51,25 @@ test('niente scroll orizzontale a 360px', async ({ page }) => {
   await scrollThrough(page);
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(360);
 });
+
+test('nessun dominio vero: canonical e browser finto', async ({ page, request }) => {
+  const html = await (await request.get('/esempio/')).text();
+  expect(html).not.toContain('albaserramenti.it');
+  const home = await (await request.get('/')).text();
+  expect(home).not.toContain('albaserramenti.it');
+  await gotoEsempio(page);
+  const canon = page.locator('link[rel="canonical"]');
+  if (await canon.count()) await expect(canon).toHaveAttribute('href', 'https://giacomostudio.it/esempio/');
+});
+
+test('WhatsApp dalla demo: Giacomo capisce da dove arriva', async ({ page }) => {
+  await gotoEsempio(page);
+  const hrefs = await page.$$eval('a[href*="wa.me"]:not(#qsend)', (as) => as.map((a) => a.getAttribute('href')));
+  expect(hrefs.length).toBeGreaterThan(0);
+  for (const h of hrefs) expect(decodeURIComponent(h.split('?text=')[1] || '')).toContain('sito di esempio');
+});
+
+test('il vecchio sito finto non usa domini plausibili', async ({ request }) => {
+  const html = await (await request.get('/tests/fixtures/prima-sito.html')).text();
+  expect(html).not.toMatch(/@[a-z]+\.it/);
+});

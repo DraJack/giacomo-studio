@@ -49,3 +49,8 @@ test('timeline come funziona', async ({ page }) => {
   await expect(page.locator('#come-funziona .step-row')).toHaveCount(3);
   for (const row of await page.locator('#come-funziona .step-row').all()) await expect(row).toBeVisible();
 });
+
+test('la scala del calcolatore parte da 500€', async ({ page }) => {
+  await gotoHome(page);
+  await expect(page.locator('.calc-scale span').first()).toHaveText('500€');
+});
