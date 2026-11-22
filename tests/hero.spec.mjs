@@ -98,3 +98,23 @@ test('lo scroll automatico parte quando il telefono si vede', async ({ page }) =
   await screen.evaluate((e) => e.scrollIntoView({ block: 'center' })); // il telefono fluttua: niente attese di stabilità
   await expect.poll(() => screen.evaluate((e) => e.scrollTop), { timeout: 4000 }).toBeGreaterThan(0);
 });
+
+test('a 375px "Gratis" resta sulla riga della frase', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await gotoHome(page);
+  const top = (sel) => page.locator(sel).evaluate((e) => e.getClientRects()[0].top);
+  expect(Math.abs((await top('.hero-kicker-price')) - (await top('.hero-kicker-claim')))).toBeLessThan(8);
+});
+
+test('a 375px "Puglia" non va a capo da sola', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await gotoHome(page);
+  // "serramenti", "·" e "Puglia" devono stare sulla stessa riga
+  const tops = await page.locator('.hero-badge-text').evaluate((e) => {
+    const node = e.firstChild, txt = node.textContent;
+    const top = (word) => { const i = txt.indexOf(word); const r = document.createRange(); r.setStart(node, i); r.setEnd(node, i + word.length); return r.getClientRects()[0].top; };
+    return [top('serramenti'), top('·'), top('Puglia')];
+  });
+  expect(Math.abs(tops[0] - tops[2])).toBeLessThan(4);
+  expect(Math.abs(tops[1] - tops[2])).toBeLessThan(4);
+});

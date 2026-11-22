@@ -24,7 +24,7 @@ test('font nuovi e niente Clash Display', async ({ page }) => {
   await gotoHome(page);
   await expect(page.locator('link[href*="cdnfonts"]')).toHaveCount(0);
   await expect(page.locator('link[href*="Inter+Tight"]')).toHaveCount(1);
-  expect(await page.evaluate(() => getComputedStyle(document.body).backgroundColor)).toBe('rgb(251, 250, 247)'); // avorio
+  expect(await page.evaluate(() => getComputedStyle(document.body).backgroundColor)).toBe('rgb(253, 252, 250)'); // quasi bianco caldo
 });
 
 test('head invariato', async ({ page, browser }) => {
@@ -112,5 +112,16 @@ test("sfondo: griglia nell'hero e nel riquadro finale, barra intonata", async ({
   expect(await page.locator('#contatto .cta-box').evaluate((e) => getComputedStyle(e).backgroundImage)).toContain('linear-gradient');
   await page.evaluate(() => window.scrollTo(0, 900));
   await expect(page.locator('#nav')).toHaveClass(/scrolled/);
-  await expect.poll(() => page.locator('#nav').evaluate((e) => getComputedStyle(e).backgroundColor)).toBe('rgba(251, 250, 247, 0.86)');
+  await expect.poll(() => page.locator('#nav').evaluate((e) => getComputedStyle(e).backgroundColor)).toBe('rgba(253, 252, 250, 0.86)');
+});
+
+test("l'alone pesca sta dietro il telefono", async ({ page }) => {
+  for (const w of [375, 1280, 2500]) {
+    await page.setViewportSize({ width: w, height: 900 });
+    await gotoHome(page);
+    const c = (r) => ({ x: r.x + r.width / 2, y: r.y + r.height / 2 });
+    const halo = c(await page.locator('.hero-halo').boundingBox());
+    const phone = c(await page.locator('#hero .phone').boundingBox());
+    expect(Math.abs(halo.x - phone.x), 'larghezza ' + w).toBeLessThan(60);
+  }
 });

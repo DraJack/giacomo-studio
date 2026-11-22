@@ -166,8 +166,8 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
   <style>
     /* ── TOKEN ── */
     :root {
-      --bg:     #fbfaf7; /* avorio: le card bianche staccano */
-      --bg-alt: #f3efe7;
+      --bg:     #fdfcfa; /* quasi bianco, appena caldo: le card bianche staccano */
+      --bg-alt: #f6f4ef;
       --ink:    #0a0a0a;
       --muted:  #555555;
       --soft:   #8a8a8a;
@@ -253,7 +253,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
       transition: background .25s, box-shadow .25s, backdrop-filter .25s;
     }
     #nav.scrolled, #nav.menu-open {
-      background: rgba(251,250,247,.86);
+      background: rgba(253,252,250,.86);
       backdrop-filter: saturate(1.6) blur(16px); -webkit-backdrop-filter: saturate(1.6) blur(16px);
       box-shadow: 0 1px 0 var(--line), 0 10px 30px -24px rgba(0,0,0,.3);
     }
@@ -329,7 +329,9 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
               mask-image: radial-gradient(ellipse 75% 65% at 50% 42%, #000 25%, transparent 78%);
     }
     .hero-halo {
-      position: absolute; right: -12%; top: 4%; width: 760px; height: 760px; border-radius: 50%;
+      /* dentro .hero-demo: resta dietro il telefono a qualsiasi larghezza */
+      position: absolute; left: 50%; top: 46%; z-index: -1; transform: translate(-50%, -50%);
+      width: 760px; height: 760px; border-radius: 50%;
       background: radial-gradient(circle, var(--halo) 0%, rgba(255,230,218,.55) 35%, rgba(255,255,255,0) 68%);
       pointer-events: none;
     }
@@ -340,18 +342,18 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .hero-badge-text { margin-bottom: 26px; }
     .hero-h1 { margin-bottom: 26px; }
     .hero-kicker {
-      display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px;
+      /* testo in riga (non flex): la frase va a capo dopo "Gratis ·", non prima */
       font-size: clamp(17px, 1.9vw, 21px); line-height: 1.45; color: var(--muted); max-width: 520px; margin-bottom: 34px;
     }
     .hero-kicker-price { font-family: var(--display); font-weight: 900; color: var(--ink); letter-spacing: -.03em; }
-    .hero-kicker-sep { color: var(--orange); font-weight: 700; }
+    .hero-kicker-sep { color: var(--orange); font-weight: 700; margin: 0 8px; }
     .hero-kicker-claim { color: var(--ink); font-weight: 600; }
     .hero-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; margin-bottom: 30px; }
     .hero-trust { display: flex; flex-wrap: wrap; gap: 10px 22px; list-style: none; }
     .hero-trust li { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 600; color: #333; }
     .hero-trust li::before, .cta-trust-item::before { content: ''; flex: none; width: 10px; height: 5.5px; border: solid var(--wa-ink); border-width: 0 0 2.4px 2.4px; transform: translateY(-2px) rotate(-45deg); }
 
-    .hero-demo { display: flex; flex-direction: column; align-items: center; gap: 26px; }
+    .hero-demo { position: relative; display: flex; flex-direction: column; align-items: center; gap: 26px; }
     .hero-demo .phone { transform: rotate(-3deg); animation: float 7s ease-in-out infinite; }
     @keyframes float { 0%, 100% { transform: rotate(-3deg) translateY(0); } 50% { transform: rotate(-3deg) translateY(-10px); } }
     /* Schermo con lo screenshot della demo: scorre col dito o con la rotella */
@@ -828,7 +830,6 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
 
     @media (max-width: 860px) {
       .hero-inner { grid-template-columns: 1fr; padding: 124px 22px 80px; gap: 56px; }
-      .hero-halo { right: -50%; top: 38%; }
     }
     @media (max-width: 680px) {
       .hero-inner { padding: 104px 20px 64px; }
@@ -941,11 +942,10 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
 <main>
 <!-- ═══════════ HERO ═══════════ -->
 <section id="hero">
-  <div class="hero-halo" aria-hidden="true"></div>
   <div class="hero-inner">
 
     <div class="hero-copy">
-      <div class="kicker hero-badge-text">Per imprese di infissi e serramenti · Puglia</div>
+      <div class="kicker hero-badge-text">Per imprese di infissi e serramenti&nbsp;·&nbsp;Puglia</div>
 
       <h1 class="h1 hero-h1">
         Il sito per la tua<br>
@@ -973,6 +973,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     </div>
 
     <div class="hero-demo">
+      <div class="hero-halo" aria-hidden="true"></div>
       <div class="phone">
         <span class="phone-tag">Esempio</span>
         <span class="phone-mid" data-observe aria-hidden="true"></span>
