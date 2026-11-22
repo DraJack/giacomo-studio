@@ -304,9 +304,14 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
       width: 78px; height: 22px; border-radius: 20px; background: #0b0b0c; z-index: 3;
     }
     .phone-screen {
-      position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 34px;
+      /* inset, non height:100%: Safari non risolve le percentuali dentro un box ad aspect-ratio
+         e lo schermo prendeva l'altezza dello screenshot, sbordando dalla cornice */
+      position: absolute; inset: 10px; overflow: hidden; border-radius: 34px;
       background: #f6f5f2; color: #0e1a2b; font-family: var(--body);
       padding: 46px 16px 16px; display: flex; flex-direction: column;
+      /* Safari può non ritagliare gli angoli con overflow+radius se il telefono è ruotato/animato
+         o se dentro c'è un clip-path (prima/dopo): il clip-path arrotondato ritaglia sempre */
+      -webkit-clip-path: inset(0 round 34px); clip-path: inset(0 round 34px);
     }
     .phone-tag {
       position: absolute; top: -13px; left: 50%; transform: translateX(-50%); z-index: 4;
@@ -360,22 +365,22 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .phone-screen--shot { display: block; padding: 34px 0 0; overflow-y: auto; scrollbar-width: none; }
     .cu-visual .phone-screen--shot { overflow: hidden; }
     .phone-screen--shot::-webkit-scrollbar { display: none; }
-    .phone-screen--shot:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+    .phone-screen--shot:focus-visible { outline: none; }
+    .phone:has(.phone-screen--shot:focus-visible) { outline: 3px solid var(--orange); outline-offset: 3px; }
     .phone-shot { display: block; width: 100%; height: auto; }
     .phone-mid { position: absolute; left: 0; top: 50%; width: 1px; height: 1px; pointer-events: none; }
     /* Su touch lo swipe deve scorrere la pagina: il telefono scorre solo da solo (JS) */
     @media (hover: none) { .phone-screen--shot { overflow-y: hidden; } }
-    /* Link al sito di esempio come una barra indirizzo: dice "sito vero, online" senza scriverlo */
+    /* Link al sito di esempio: pillola bianca con freccia, si capisce che si clicca */
     .demo-link {
-      display: inline-flex; align-items: center; gap: 10px; padding: 8px 8px 8px 14px;
+      display: inline-flex; align-items: center; gap: 10px; padding: 8px 8px 8px 16px;
       border: 1px solid var(--line); border-radius: 100px; background: #fff; text-decoration: none;
-      font-size: 13.5px; font-weight: 600; color: var(--ink);
+      font-size: 14.5px; font-weight: 700; color: var(--ink);
       box-shadow: 0 8px 24px -10px rgba(10,10,10,.25); transition: transform .2s var(--ease), box-shadow .2s;
     }
     .demo-link:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -12px rgba(10,10,10,.32); }
-    .demo-link-lock { display: inline-flex; color: var(--wa-ink); }
-    .demo-link-lock svg { width: 13px; height: 13px; }
-    .demo-link-path { color: var(--soft); font-weight: 500; }
+    .demo-link-icon { display: inline-flex; color: var(--orange); }
+    .demo-link-icon svg { width: 17px; height: 17px; }
     .demo-link-go { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--ink); color: #fff; }
     .demo-link-go svg { width: 14px; height: 14px; }
 
@@ -990,8 +995,8 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
       </div>
 
       <a class="demo-link" href="/esempio/" target="_blank" rel="noopener" aria-label="Apri il sito di esempio (nuova scheda)">
-        <span class="demo-link-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
-        <span>giacomostudio.it<span class="demo-link-path">/esempio</span></span>
+        <span class="demo-link-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2.5"/><line x1="11" y1="18" x2="13" y2="18"/></svg></span>
+        <span>Guarda un sito di esempio</span>
         <span class="demo-link-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
       </a>
     </div>
