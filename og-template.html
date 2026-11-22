@@ -4,60 +4,58 @@
   <meta charset="UTF-8">
   <meta name="robots" content="noindex, nofollow">
   <title>OG image template — Giacomo Studio</title>
-  <!-- Sorgente di og-image.jpg (1200x630). Modifica qui, poi ri-screenshotta a 1200x630. -->
+  <!-- Sorgente di og-image.jpg (1200x630). Modifica qui, poi: cd tests && node og.mjs -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
-  <link href="https://fonts.cdnfonts.com/css/clash-display" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@800;900&family=Instrument+Serif:ital@1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{ --grad: linear-gradient(90deg,#ff2c32 0%,#fa6800 100%); }
-    body{ width:1200px; height:630px; overflow:hidden; background:#050505;
-      font-family:'Inter',sans-serif; color:#fff; position:relative;
-      background-image: radial-gradient(ellipse 100% 60% at 50% 0%, #111 0%, #060606 50%, #000 100%); }
-    .orb{ position:absolute; top:-260px; left:50%; transform:translateX(-50%);
-      width:1100px; height:620px; opacity:.45; border-radius:50%; filter:blur(6px);
-      background: radial-gradient(55% 94% at 48.7% 6.5%, #fa6800 0%, #c00000 46%, #0f0f0f 100%); }
-    .grid{ position:absolute; inset:0;
-      background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),
-                       linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);
-      background-size:80px 80px; }
-    .grid::after{ content:''; position:absolute; inset:0;
-      background:linear-gradient(to bottom,transparent 30%,#050505 100%); }
-    .wrap{ position:relative; z-index:2; height:100%;
-      display:flex; flex-direction:column; justify-content:center; align-items:center;
-      text-align:center; padding:0 70px; }
-    .logo{ font-family:'Clash Display',sans-serif; font-size:26px; font-weight:700;
-      letter-spacing:-.02em; position:absolute; top:44px; left:50%; transform:translateX(-50%); }
-    .logo span{ background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-    .badge{ display:inline-flex; align-items:center; gap:9px; margin-bottom:26px;
-      padding:8px 18px; border-radius:100px;
-      background:rgba(255,165,0,.07); border:1px solid rgba(255,165,0,.30); }
-    .badge i{ width:7px;height:7px;border-radius:50%;background:#fa6800;box-shadow:0 0 7px rgba(250,104,0,.8); }
-    .badge span{ font-size:14px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
-      color:rgba(255,165,0,.88); }
-    h1{ font-family:'Clash Display',sans-serif; font-size:86px; font-weight:700;
-      line-height:.95; letter-spacing:-.04em; margin-bottom:24px; }
-    h1 em{ font-style:normal; background:var(--grad);
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-    .kicker{ display:flex;align-items:center;justify-content:center;gap:12px;
-      font-size:30px; font-weight:500; color:rgba(255,255,255,.48); letter-spacing:-.01em; margin-bottom:18px;}
-    .kicker b{ font-family:'Clash Display',sans-serif; font-size:36px; font-weight:700; letter-spacing:-.02em;
-      background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-    .kicker i{ font-style:normal; color:rgba(255,255,255,.20); }
-    .aud{ font-size:19px; color:rgba(255,255,255,.34); letter-spacing:-.01em; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --grad: linear-gradient(90deg, #ff2c32 0%, #fa6800 100%); --ink: #0a0a0a; }
+    body { width: 1200px; height: 630px; overflow: hidden; background: #fff; font-family: 'Manrope', sans-serif; color: var(--ink); position: relative; }
+    .halo { position: absolute; right: -120px; top: -40px; width: 760px; height: 760px; border-radius: 50%;
+      background: radial-gradient(circle, #ffe6da 0%, rgba(255,230,218,.55) 35%, rgba(255,255,255,0) 68%); }
+    .logo { position: absolute; top: 54px; left: 72px; font-family: 'Inter Tight', sans-serif; font-weight: 800; font-size: 30px; letter-spacing: -.045em; }
+    .logo span, .serif { background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .copy { position: absolute; left: 72px; top: 150px; width: 740px; }
+    .kicker { display: flex; align-items: center; gap: 12px; font-size: 18px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #555; margin-bottom: 26px; }
+    .kicker::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--grad); }
+    h1 { font-family: 'Inter Tight', sans-serif; font-weight: 900; font-size: 92px; line-height: .92; letter-spacing: -.055em; margin-bottom: 30px; }
+    .serif { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; letter-spacing: -.02em; font-size: 1.1em; padding-right: .08em; }
+    .sub { font-size: 27px; line-height: 1.35; color: #333; font-weight: 500; }
+    .sub b { color: var(--ink); font-weight: 800; }
+    .phone { position: absolute; right: 92px; top: 78px; width: 270px; height: 552px; padding: 10px; border-radius: 46px; background: #0b0b0c;
+      transform: rotate(-4deg); box-shadow: 0 50px 90px -40px rgba(10,10,10,.45), 0 30px 60px -30px rgba(250,104,0,.4); }
+    .phone::before { content: ''; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); width: 80px; height: 22px; border-radius: 20px; background: #0b0b0c; z-index: 2; }
+    .screen { width: 100%; height: 100%; border-radius: 36px; background: #f6f5f2; padding: 48px 16px 16px; color: #0e1a2b; display: flex; flex-direction: column; }
+    .brand { font-family: 'Inter Tight', sans-serif; font-weight: 900; font-size: 18px; letter-spacing: -.03em; }
+    .brand small { display: block; font-family: 'Manrope'; font-size: 7px; letter-spacing: .34em; font-weight: 700; opacity: .55; margin: 3px 0 14px; }
+    .win { height: 130px; border-radius: 12px; background: #e7e1d6; padding: 7px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 14px; }
+    .win i { border-radius: 5px; background: linear-gradient(160deg, #a9cdf0 0%, #dcebf8 55%, #f6e4cb 100%); }
+    .t { font-family: 'Instrument Serif', serif; font-size: 24px; line-height: 1.02; margin-bottom: 8px; }
+    .x { font-size: 10px; color: #5d6675; margin-bottom: 12px; line-height: 1.45; }
+    .btn { background: #1fb855; color: #fff; border-radius: 100px; padding: 10px; text-align: center; font-size: 10px; font-weight: 800; }
+    .stars { font-size: 9.5px; color: #5d6675; margin-top: 9px; } .stars span { color: #f5a623; }
+    .chips { display: flex; gap: 5px; margin-top: auto; } .chips span { flex: 1; background: #fff; border-radius: 9px; padding: 7px 0; font-size: 9px; font-weight: 700; text-align: center; }
   </style>
 </head>
 <body>
-  <div class="orb"></div>
-  <div class="grid"></div>
-  <div class="wrap">
-    <div class="logo">giacomo<span>studio</span></div>
-    <div class="badge"><i></i><span>Zero anticipo · paghi solo se ti piace</span></div>
-    <h1>Il sito per la tua<br><em>impresa di infissi.</em></h1>
-    <div class="kicker"><b>Gratis</b><i>·</i><span>Lo vedi in 48 ore, paghi 150€ solo se ti piace</span></div>
-    <div class="aud">Per imprese di infissi e serramenti in Puglia</div>
+  <div class="halo"></div>
+  <div class="logo">giacomo<span>studio</span></div>
+  <div class="copy">
+    <div class="kicker">Imprese di infissi · Puglia</div>
+    <h1>Il sito per la tua<br><span class="serif">impresa di infissi.</span></h1>
+    <p class="sub">Lo vedi gratis in 48 ore.<br><b>Paghi 150€ solo se ti piace.</b></p>
+  </div>
+  <div class="phone">
+    <div class="screen">
+      <div class="brand">ALBA<small>SERRAMENTI</small></div>
+      <div class="win"><i></i><i></i></div>
+      <div class="t">Infissi su misura. Preventivo in 24 ore.</div>
+      <div class="x">PVC, alluminio e legno. Sopralluogo gratuito e posa a regola d'arte.</div>
+      <div class="btn">Chiedi un preventivo su WhatsApp</div>
+      <div class="stars"><span>★★★★★</span> 4,9 · 37 recensioni Google</div>
+      <div class="chips"><span>PVC</span><span>Alluminio</span><span>Legno</span></div>
+    </div>
   </div>
 </body>
 </html>

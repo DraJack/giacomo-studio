@@ -148,51 +148,61 @@ Il sito serve a: (a) entrare in casa del cliente con attrito quasi zero, (b) dim
 
 ## 7. Design system
 
+Stile chiaro "Mix 1" (redesign del 22/11/2026): fondo bianco, titoli neri molto pesanti, un dettaglio
+elegante in corsivo con il gradient del brand. Spec: `docs/superpowers/specs/2026-11-22-redesign-giacomostudio-design.md` (locale, non nel repo).
+
 ### Token — `:root` in `index.html`
 
 ```css
---red:    #ff2c32;   /* accento primario */
---orange: #fa6800;   /* accento secondario */
---green:  #25d366;   /* WhatsApp / garanzia / conferme */
---bg:     #050505;   /* fondo pagina */
---card:   #0c0c0c;   /* fondo card */
---border: rgba(255,255,255,0.07);
---text:   rgba(255,255,255,0.50);   /* testo secondario */
+--bg:     #ffffff;   /* fondo pagina */
+--bg-alt: #f7f6f3;   /* sezioni alterne, riquadri (grigio caldo) */
+--ink:    #0a0a0a;   /* testo, pulsante principale */
+--muted:  #555555;   /* testo secondario */
+--soft:   #8a8a8a;   /* note, didascalie */
+--line:   rgba(0,0,0,.08);
+--red:    #ff2c32;  --orange: #fa6800;
 --grad:   linear-gradient(90deg, #ff2c32 0%, #fa6800 100%);
+--wa:     #25d366;   /* WhatsApp / garanzia / conferme */
+--wa-ink: #128c4a;   /* verde leggibile su fondo chiaro (testi, ✓) */
+--halo:   #ffe6da;   /* alone caldo dietro i telefoni */
 ```
 
 **Il verde ha un significato preciso: garanzia, WhatsApp, "sì".** Non usarlo come colore decorativo.
-Il rosso/arancio è il brand. La card garanzia (`.pkg-card--green`) ridefinisce i token localmente invece di duplicare CSS — **usa questo pattern** se serve un blocco a colore diverso.
+La card garanzia (`.pkg-card--green`) ridefinisce `--accent` / `--accent-soft` localmente: **usa questo pattern** se serve un blocco a colore diverso.
 
-### Tipografia
+**Un solo blocco nero**: `#contatto .cta-box`. Tutto il resto è bianco o `--bg-alt` (un test lo verifica).
 
-- **Display**: `Clash Display` (via fonts.cdnfonts.com) — H1, H2, numeri, titoli card, logo.
-- **Body**: `Inter` 400/500/600/700 (Google Fonts) — tutto il resto.
-- Scala: `.h2 { clamp(30px, 5vw, 56px) }`, `.hero-h1 { clamp(52px, 11vw, 108px) }`.
-- Il display ha sempre `letter-spacing` negativo (-0.02 / -0.04em). È la firma visiva.
+### Tipografia (solo Google Fonts)
 
-### Spaziatura e forme
+- **Titoli**: `Inter Tight` 800/900, `line-height` ~.92, `letter-spacing: -.05em`. Classi `.h1`, `.h2`, `.h3`.
+- **Corsivo elegante**: `<em class="serif-accent">` = `Instrument Serif` corsivo + gradient. Per la seconda parte dei titoli chiave
+  (hero, H2 di sezione, CTA finale), al posto del vecchio "frase bianca + frase in gradient". Con parsimonia.
+- **Testo**: `Manrope` 400–700.
+- `.kicker` = etichetta maiuscola piccola con pallino gradient sopra i titoli.
 
-- Sezioni: `.section { padding: 96px 24px; max-width: 1080px; margin: 0 auto }` (76px 30px sotto 680px)
-- Radius: 12–14px (elementi piccoli), 20–28px (card e sezioni), 100px (pill e bottoni)
-- Breakpoint: **860px** (grid a 2 colonne → 1), **740px** (nav → hamburger), **680px** (mobile vero), **400px** (small)
+### Componenti
+
+- Pulsanti: `.btn.btn-dark` (principale, nero con `.wa-dot` verde), `.btn.btn-wa` (verde: solo CTA finale), `.btn-link` (secondario sottolineato).
+  Il gradient sui pulsanti si usa **solo** nel submit del Check-up.
+- `.section` (contenitore 1120px) dentro `<section id="…">`; `class="section--alt"` sulla `<section>` per il fondo grigio caldo.
+  `.section-head` = intestazione centrata (kicker + h2 + `.lead`).
+- `.phone` > `.phone-screen` = telefono con mini-sito Alba (`.mini-logo`, `.mini-sub`, `.mini-win`, `.mini-title`, `.mini-btn`…),
+  riusato in hero, prima/dopo, preventivo guidato e check-up. Ogni `.mini-logo` segue il nome scritto nell'hero.
+- Radius: 14–24px (riquadri), 26–40px (card e blocchi), 100px (pill e bottoni). Breakpoint: 860 / 740 / 680 / 340px.
 
 ### Animazioni
 
-Il sistema esiste già, **riusalo invece di aggiungere codice**:
-
 | Utility | Effetto |
 |---|---|
-| `.fade-up` (+ `.d1` `.d2` `.d3`) | opacity 0 + translateY(28px) → visibile, con delay scaglionato |
-| `.fade-row` | variante corta per righe di tabella, stagger automatico via `:nth-child` |
-| `.timeline-visible` | rivela la timeline degli step |
+| `.reveal` (+ `.d1` `.d2` `.d3`) | ingresso: opacity 0 + translateY(20px) → visibile. Nascosto **solo** con `html.js` |
+| `[data-observe]` | osservato senza animazione di ingresso (riceve solo `.is-in`) |
+| `.is-in` | classe aggiunta dall'observer; per animare l'interno usa i discendenti (`.pkg-card.is-in .timeline`) |
+| evento `gs:in` | emesso sull'elemento quando riceve `.is-in` (usato dalla ricerca Google simulata) |
+| `--fill` 0→1 | riempimento di `.timeline` (pacchetto) e `.steps` (come funziona) |
 | `[data-count]` | contatore animato |
 
-Un unico `IntersectionObserver` aggiunge `.visible` a `.fade-up` / `.fade-row`. **Per animare l'interno di un blocco, aggancia i selettori discendenti a `.visible`** (es. `.pkg-card.visible .pkg-scan { animation: … }`) — non creare nuovi observer.
-
-Keyframes disponibili: `pulse`, `float`, `shimmer`, `badge-glow`, `pkg-scan`, `pkg-blink`.
-
-⚠️ Ogni nuova animazione va disattivata nel blocco `@media (prefers-reduced-motion: reduce)` in fondo al CSS.
+Un unico `IntersectionObserver` (`revealIO`). Non crearne altri senza motivo.
+⚠️ Ogni nuova animazione va disattivata nel blocco `@media (prefers-reduced-motion: reduce)` in fondo al CSS, mostrando lo stato finale.
 
 ---
 
@@ -201,7 +211,7 @@ Keyframes disponibili: `pulse`, `float`, `shimmer`, `badge-glow`, `pkg-scan`, `p
 ### Struttura
 
 ```
-index.html      ~2000 righe — TUTTO qui: CSS inline in <style>, JS inline in fondo
+index.html      ~2200 righe — TUTTO qui: CSS inline in <style>, JS inline in fondo
 privacy.html    pagina legale, <style> proprio — copre anche il form Check-up (Brevo, consenso, disiscrizione)
 termini.html    pagina legale, <style> proprio — contiene prezzo e tempi di consegna
 whatsapp.svg    logo ufficiale WhatsApp (cerchio verde + glifo bianco)
@@ -213,21 +223,39 @@ giacomo-brand-designer-developer-freelance.webp   foto sezione "Chi sono"
 robots.txt, sitemap.xml
 
 api/            api/subscribe.js — funzione Vercel che iscrive l'email del form Check-up alla lista Brevo
+tests/          test Playwright + server statico (escluso dal deploy con .vercelignore)
 web-mockup/     DEMO CLIENTE scollegata (ristorante Shoshin) — non fa parte del sito
 ```
 
-**Nessun build step. Nessun package.json. Nessuna dipendenza.** Si apre il file, si modifica, si committa, Vercel pubblica.
+**Nessun build step, nessuna dipendenza nel sito.** Si apre il file, si modifica, si committa, Vercel pubblica.
+L'unico `package.json` è in `tests/` (Playwright) e non finisce online: `.vercelignore` esclude `tests/`, `docs/`, `.superpowers/`, `web-mockup/`, `INFRASTRUTTURA.md`.
+
+### Test — lanciali prima di ogni commit
+
+```bash
+cd tests && npm install        # la prima volta
+npx playwright test             # tutta la suite, telefono (375px) e computer (1280px)
+node shot.mjs <cartella> "#hero" 375,1280   # screenshot di una sezione
+node og.mjs                     # rigenera og-image.jpg da og-template.html
+```
+
+I test controllano: testi identici al sito di riferimento (`tests/fixtures/old-index.html`), FAQ = JSON-LD,
+ogni link WhatsApp tracciato con il `button_location` giusto, form Check-up, interazioni, nessuno scroll
+orizzontale a 360px, pagina leggibile senza JS, "riduci movimento", peso non superiore alla versione precedente.
+Se cambi un testo **apposta**, aggiorna anche `tests/fixtures/old-index.html` (o il test fallisce, ed è giusto così).
 
 ### JS in pagina (tutto inline, fine di `index.html`)
 
-anno nel footer · `#nav.scrolled` allo scroll · IntersectionObserver reveal · accordion FAQ (uno aperto per volta) · smooth scroll · hamburger + drawer · scrollspy nav · reveal timeline · contatori · **form Check-up** · **tracking WhatsApp**.
+anno nel footer · `#nav.scrolled` + sticky dopo 320px · observer reveal · smooth scroll · hamburger + drawer · scrollspy nav · contatori · **nome impresa** (`#demo-name`) · prima/dopo · preventivo guidato (`quoteMessage`) · ricerca Google simulata · calcolatore (`timesRepaid`) · accordion FAQ · **form Check-up** · **tracking WhatsApp**.
+
+**Nome impresa.** Il campo `#demo-name` nell'hero chiama `cleanName` (max 28 caratteri), aggiorna ogni `.mini-logo`, riscrive l'`href` di **ogni `a[data-wa]`** con `buildWaText(nome)` ed emette l'evento `gs:name` (`detail.name`; ultimo valore in `window.gsName`). Con il campo vuoto i link tornano esattamente al testo base. Il nome **non** va a GA4/Pixel: si invia solo `demo_name_typed` senza parametri, una volta per visita. **Ogni nuovo link WhatsApp deve avere l'attributo `data-wa`** (un test lo verifica).
 
 ### Tracking — NON ROMPERE
 
 - **GA4**: `G-GGG2M3LL6Q`
 - **Meta Pixel**: `2914769975530947`
 
-Uno script delegato in fondo alla pagina intercetta **ogni** `a[href*="wa.me"]` e invia `whatsapp_click` (GA4) + `WhatsAppClick` (Pixel) con il parametro `button_location`, dedotto da:
+Un listener delegato su `document` (funziona anche per i link il cui `href` cambia) intercetta **ogni** `a[href*="wa.me"]` e invia `whatsapp_click` (GA4) + `WhatsAppClick` (Pixel) con il parametro `button_location`, dedotto da:
 
 - `#sticky-wa` → `sticky`
 - `.nav-wa` → `nav`
@@ -246,7 +274,7 @@ Sezione `#check-up`, subito dopo `#contatto`, separata da un divisore "oppure". 
 - Su Vercel servono le env `BREVO_API_KEY` e `BREVO_LIST_ID`. Senza, l'endpoint risponde 500 e l'utente vede l'errore. In Brevo vanno creati gli attributi `TIPO_BUSINESS` e `SOURCE`.
 - Al successo invia `checkup_submit` (GA4) + `CheckupRequest` (Pixel, custom). **Evento distinto** da quello WhatsApp: le campagne ottimizzano su `WhatsAppClick`, non su questo.
 - Honeypot `#cu-sito`: se compilato, mostra la conferma senza inviare nulla.
-- Il submit è gradient, **mai verde**. Il blocco è volutamente più sobrio della `.cta-box`: non deve competere con WhatsApp.
+- Il submit è gradient, **mai verde**. Il blocco è volutamente più sobrio della `.cta-box` (bianco su fondo `--bg-alt`): non deve competere con WhatsApp.
 - Il copy promette "quattro email al massimo, niente newsletter, niente telefonate". Qualsiasi sequenza Brevo deve stare dentro questo limite, e ogni email deve avere il link di disiscrizione (la privacy lo promette).
 
 ---
@@ -281,24 +309,26 @@ Il valore è ripetuto in **~30 punti**. Cambiarlo in un posto solo lascia il sit
 - [ ] `<meta name="description">`
 - [ ] `og:title`, `og:description`
 - [ ] `twitter:title`, `twitter:description`
-- [ ] JSON-LD `ProfessionalService` → `description` + array `offers` (due `Offer`: 150 e 50 EUR)
+- [ ] JSON-LD `ProfessionalService` → `description` + array `offers`
 - [ ] JSON-LD `FAQPage` → tutte le risposte che citano prezzo o giorni
 
 **`index.html` — `<body>`**
 - [ ] hero: kicker prezzo + H1
-- [ ] `#pacchetto`: pill delle 4 card + checklist
+- [ ] `#pacchetto`: pill delle 5 card + checklist + didascalia scudo "Non ti piace? 0€."
 - [ ] `#prezzi`: `.price-number`, `.price-orig`, riga add-on, riga totale, label CTA
 - [ ] `#come-funziona`: le tre `.step-time-pill` + il testo dello step 3
 - [ ] `#chi-sono`: `data-count` della stat giorni
 - [ ] `#confronto`: **due copie** — tabella desktop **e** card mobile
 - [ ] `#faq`: 7 risposte
 - [ ] `#contatto`: H2 + trust item
-- [ ] **tutti i link `wa.me`**: il testo precompilato cita il prezzo
+- [ ] **tutti i link `wa.me`**: il testo precompilato cita il prezzo (e `buildWaText` / `WA_BASE_HREF` nel JS)
+- [ ] calcolatore: `timesRepaid` divide per 150
+- [ ] `tests/fixtures/old-index.html`: aggiorna i testi di riferimento, o i test di "testi invariati" falliscono
 
 **Altri file**
 - [ ] `termini.html` — prezzo, add-on, giorni di consegna, clausola ritardo
 - [ ] `sitemap.xml` — `lastmod`
-- [ ] `og-image.jpg` — il prezzo è **impresso nell'immagine**. Non ritoccarla a mano: aggiorna `og-template.html` e ri-catturala a 1200×630 (Playwright, `deviceScaleFactor: 1`, `type: 'jpeg'`, `quality: 90`, con ~1.5s di attesa perché Clash Display finisca di caricare). Se salti questo passaggio, le anteprime WhatsApp e Google continuano a mostrare il prezzo vecchio.
+- [ ] `og-image.jpg` — il prezzo è **impresso nell'immagine**. Non ritoccarla a mano: aggiorna `og-template.html` e rigenerala con `cd tests && node og.mjs` (1200×630, JPEG q90). Se salti questo passaggio, le anteprime WhatsApp e Google continuano a mostrare il prezzo vecchio.
 
 **Verifica finale** (deve dare zero risultati):
 ```bash

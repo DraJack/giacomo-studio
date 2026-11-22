@@ -378,7 +378,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .hero-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; margin-bottom: 30px; }
     .hero-trust { display: flex; flex-wrap: wrap; gap: 10px 22px; list-style: none; }
     .hero-trust li { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 600; color: #333; }
-    .hero-trust svg { width: 16px; height: 16px; color: var(--wa-ink); flex: none; }
+    .hero-trust li::before, .cta-trust-item::before { content: ''; flex: none; width: 10px; height: 5.5px; border: solid var(--wa-ink); border-width: 0 0 2.4px 2.4px; transform: translateY(-2px) rotate(-45deg); }
 
     .hero-demo { display: flex; flex-direction: column; align-items: center; gap: 26px; }
     .hero-demo .phone { transform: rotate(-3deg); animation: float 7s ease-in-out infinite; }
@@ -482,7 +482,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .checklist { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 26px; }
     .checklist li { display: flex; align-items: flex-start; gap: 11px; font-size: 14.5px; font-weight: 600; line-height: 1.4; }
     .check-icon { flex: none; width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); margin-top: 0; }
-    .check-icon svg { width: 11px; height: 11px; }
+    .check-icon::before { content: ''; width: 9px; height: 5px; border: solid currentColor; border-width: 0 0 2.2px 2.2px; border-radius: 1px; transform: translateY(-1px) rotate(-45deg); }
     .pkg-pill {
       display: inline-flex; padding: 8px 15px; border-radius: 100px; border: 1.5px solid var(--ink);
       font-size: 13px; font-weight: 800; letter-spacing: -.01em;
@@ -600,7 +600,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     /* ══════════════════════════════════════════════════════════════
        PREZZO + CALCOLATORE
     ══════════════════════════════════════════════════════════════ */
-    .price-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 24px; align-items: stretch; max-width: 980px; margin: 0 auto; }
+    .price-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 24px; align-items: stretch; max-width: 1000px; margin: 0 auto; }
     .price-card, .calc-card { border-radius: 32px; background: #fff; box-shadow: var(--shadow); padding: 40px; }
     .price-card { border: 1px solid var(--line); }
     .price-label { font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
@@ -646,7 +646,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     /* ══════════════════════════════════════════════════════════════
        COME FUNZIONA
     ══════════════════════════════════════════════════════════════ */
-    .steps { --fill: 0; position: relative; max-width: 980px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+    .steps { --fill: 0; position: relative; max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
     .steps.is-in { --fill: 1; }
     .steps-track { position: absolute; left: 23px; top: 24px; bottom: 24px; width: 3px; border-radius: 3px; background: #ebe8e2; overflow: hidden; }
     .steps-track span { display: block; height: 100%; background: var(--grad); transform-origin: top; transform: scaleY(var(--fill)); transition: transform 2.2s var(--ease) .2s; }
@@ -718,7 +718,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     /* ══════════════════════════════════════════════════════════════
        CONFRONTO
     ══════════════════════════════════════════════════════════════ */
-    .compare-wrap { max-width: 980px; margin: 0 auto; }
+    .compare-wrap { max-width: 1000px; margin: 0 auto; }
     .compare-table { border-radius: 28px; background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow-sm); overflow: hidden; }
     .compare-row { display: grid; grid-template-columns: 1fr 1.15fr 1fr 1fr; border-top: 1px solid var(--line); }
     .compare-row:first-child { border-top: 0; }
@@ -798,14 +798,14 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .cta-buttons .btn { padding: 19px 38px; font-size: 17px; }
     .cta-trust { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px 26px; }
     .cta-trust-item { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: rgba(255,255,255,.7); }
-    .cta-trust-item svg { color: var(--wa); }
+    .cta-trust-item::before { border-color: var(--wa); }
 
     /* ══════════════════════════════════════════════════════════════
        CHECK-UP — seconda scelta, più sobria di WhatsApp
     ══════════════════════════════════════════════════════════════ */
-    .cu-split { display: flex; align-items: center; gap: 18px; max-width: 980px; margin: 0 auto 40px; color: var(--soft); font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .cu-split { display: flex; align-items: center; gap: 18px; max-width: 1000px; margin: 0 auto 40px; color: var(--soft); font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
     .cu-split::before, .cu-split::after { content: ''; flex: 1; height: 1px; background: rgba(0,0,0,.12); }
-    .cu-box { max-width: 980px; margin: 0 auto; border-radius: 32px; background: #fff; border: 1px solid var(--line); padding: 48px; }
+    .cu-box { max-width: 1000px; margin: 0 auto; border-radius: 32px; background: #fff; border: 1px solid var(--line); padding: 48px; }
     .cu-grid { display: grid; grid-template-columns: auto 1fr; gap: 56px; align-items: center; }
     .cu-visual .phone { width: 220px; transform: rotate(-3deg); }
     .cu-copy .h2 { font-size: clamp(30px, 4vw, 44px); margin-bottom: 16px; }
@@ -836,7 +836,6 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .cu-done-title { font-family: var(--display); font-weight: 900; font-size: 28px; letter-spacing: -.04em; margin-bottom: 8px; }
     .cu-done-sub { color: var(--muted); margin-bottom: 22px; }
 
-    /* @@SECTIONS-CSS@@ */
 
     /* ══════════════════════════════════════════════════════════════
        FOOTER + STICKY
@@ -966,7 +965,6 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
       .about-stat-num { font-size: 36px; }
     }
 
-    /* @@RESPONSIVE-CSS@@ */
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
@@ -1041,9 +1039,9 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
       </div>
 
       <ul class="hero-trust">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Zero anticipo</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Rispondo io, Giacomo</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Tutto a distanza</li>
+        <li>Zero anticipo</li>
+        <li>Rispondo io, Giacomo</li>
+        <li>Tutto a distanza</li>
       </ul>
     </div>
 
@@ -1177,10 +1175,10 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
           <h3 class="pkg-title">Prodotti, lavori, contatti.<br><em class="serif-accent">Tutto in un sito solo.</em></h3>
           <p class="pkg-desc">Pensato per chi ti cerca dal telefono mentre decide a chi chiedere il preventivo. Veloce, chiaro, con il tuo nome in grande.</p>
           <ul class="checklist">
-            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Home, prodotti (PVC, alluminio, legno, persiane, porte)</li>
-            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Lavori realizzati con le foto dei tuoi cantieri</li>
-            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Contatti, mappa, orari e zone in cui lavori</li>
-            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Dominio e hosting del primo anno inclusi</li>
+            <li><span class="check-icon" aria-hidden="true"></span>Home, prodotti (PVC, alluminio, legno, persiane, porte)</li>
+            <li><span class="check-icon" aria-hidden="true"></span>Lavori realizzati con le foto dei tuoi cantieri</li>
+            <li><span class="check-icon" aria-hidden="true"></span>Contatti, mappa, orari e zone in cui lavori</li>
+            <li><span class="check-icon" aria-hidden="true"></span>Dominio e hosting del primo anno inclusi</li>
           </ul>
           <span class="pkg-pill">150€ · tutto incluso</span>
         </div>
@@ -1206,9 +1204,9 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
           <h3 class="pkg-title">Quattro tocchi.<br><em class="serif-accent">Preventivo su WhatsApp.</em></h3>
           <p class="pkg-desc">Il cliente sceglie cosa gli serve, il materiale, quanti pezzi e il comune. Si apre WhatsApp con il messaggio già scritto: tu rispondi quando esci dal cantiere.</p>
           <ul class="checklist">
-            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Finestre, porte, persiane, zanzariere</li>
-            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>PVC, alluminio, legno-alluminio</li>
-            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Quantità e comune già nel messaggio</li>
+            <li><span class="check-icon" aria-hidden="true"></span>Finestre, porte, persiane, zanzariere</li>
+            <li><span class="check-icon" aria-hidden="true"></span>PVC, alluminio, legno-alluminio</li>
+            <li><span class="check-icon" aria-hidden="true"></span>Quantità e comune già nel messaggio</li>
           </ul>
           <span class="pkg-pill">Incluso</span>
         </div>
@@ -1234,9 +1232,9 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
           <h3 class="pkg-title">Ti cercano su Google.<br><em class="serif-accent">Fatti trovare.</em></h3>
           <p class="pkg-desc">Sistemo la tua scheda Google e preparo il sito per farti trovare da chi cerca infissi nella tua zona. Il primo posto non lo promette nessuno onesto. Farti trovare sì.</p>
           <ul class="checklist">
-            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Scheda Google sistemata: foto, orari, servizi</li>
-            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Sito pronto per le ricerche nel tuo comune</li>
-            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Recensioni Google in evidenza</li>
+            <li><span class="check-icon" aria-hidden="true"></span>Scheda Google sistemata: foto, orari, servizi</li>
+            <li><span class="check-icon" aria-hidden="true"></span>Sito pronto per le ricerche nel tuo comune</li>
+            <li><span class="check-icon" aria-hidden="true"></span>Recensioni Google in evidenza</li>
           </ul>
           <span class="pkg-pill">Incluso</span>
         </div>
@@ -1270,9 +1268,9 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
           <h3 class="pkg-title">Lo vedi in 48 ore.<br><em class="serif-accent">Non in 3 mesi.</em></h3>
           <p class="pkg-desc">Lavoro io direttamente: nessuna agenzia, nessun passaggio di consegne, nessuna coda. Tu non devi fare praticamente niente.</p>
           <ul class="checklist">
-            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Oggi — mi scrivi, cinque minuti di chat</li>
-            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Entro 24 ore — costruisco tutto</li>
-            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Entro 48 ore — lo vedi finito e decidi tu</li>
+            <li><span class="check-icon" aria-hidden="true"></span>Oggi — mi scrivi, cinque minuti di chat</li>
+            <li><span class="check-icon" aria-hidden="true"></span>Entro 24 ore — costruisco tutto</li>
+            <li><span class="check-icon" aria-hidden="true"></span>Entro 48 ore — lo vedi finito e decidi tu</li>
           </ul>
           <span class="pkg-pill">48 ore</span>
         </div>
@@ -1295,9 +1293,9 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
           <h3 class="pkg-title">Lo vedi prima.<br><em class="serif-accent">Paghi solo se ti piace.</em></h3>
           <p class="pkg-desc">Nessun anticipo. Preparo il sito con il nome della tua impresa, te lo mostro finito, e paghi i 150€ solo se decidi di metterlo online. Se non ti convince, non paghi niente.</p>
           <ul class="checklist">
-            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Zero anticipi, zero carta di credito bloccata</li>
-            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Modifiche finché non sei soddisfatto</li>
-            <li><span class="check-icon"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 6 4.5 9 10.5 3"/></svg></span>Se non ti piace, ci salutiamo. Fine.</li>
+            <li><span class="check-icon" aria-hidden="true"></span>Zero anticipi, zero carta di credito bloccata</li>
+            <li><span class="check-icon" aria-hidden="true"></span>Modifiche finché non sei soddisfatto</li>
+            <li><span class="check-icon" aria-hidden="true"></span>Se non ti piace, ci salutiamo. Fine.</li>
           </ul>
           <span class="pkg-pill">Zero rischio garantito</span>
         </div>
@@ -1760,9 +1758,9 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
         </a>
       </div>
       <div class="cta-trust">
-        <span class="cta-trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Zero anticipo</span>
-        <span class="cta-trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Rispondo subito</span>
-        <span class="cta-trust-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Dominio e hosting inclusi</span>
+        <span class="cta-trust-item">Zero anticipo</span>
+        <span class="cta-trust-item">Rispondo subito</span>
+        <span class="cta-trust-item">Dominio e hosting inclusi</span>
       </div>
     </div>
   </div>
@@ -2174,7 +2172,6 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     });
   }
 
-  // @@SECTIONS-JS@@
 
   // Tracciamento WhatsApp — GA4 + Meta Pixel.
   // Delegato su document: vale anche per i link il cui href cambia (nome impresa).
