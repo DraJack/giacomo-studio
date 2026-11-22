@@ -37,7 +37,13 @@ test('link al sito di esempio', async ({ page }) => {
   const a = page.locator('#hero .demo-link');
   await expect(a).toHaveAttribute('href', '/esempio/');
   await expect(a).toHaveAttribute('target', '_blank');
-  await expect(a).toContainText('Apri il sito di esempio');
+  // Stile "barra indirizzo": lucchetto, indirizzo, freccia nel cerchio; per i lettori di schermo un'etichetta chiara
+  await expect(a).toHaveAttribute('aria-label', 'Apri il sito di esempio (nuova scheda)');
+  await expect(a).toHaveText(/giacomostudio\.it\s*\/esempio/);
+  await expect(a.locator('.demo-link-lock svg')).toHaveCount(1);
+  await expect(a.locator('.demo-link-go svg')).toHaveCount(1);
+  expect(await a.evaluate((e) => getComputedStyle(e).borderRadius)).toBe('100px');
+  expect(await a.evaluate((e) => getComputedStyle(e).textDecorationLine)).toBe('none');
 });
 
 test('WhatsApp usa il link base, senza window.open', async ({ page }) => {

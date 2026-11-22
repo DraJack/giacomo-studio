@@ -365,13 +365,19 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .phone-mid { position: absolute; left: 0; top: 50%; width: 1px; height: 1px; pointer-events: none; }
     /* Su touch lo swipe deve scorrere la pagina: il telefono scorre solo da solo (JS) */
     @media (hover: none) { .phone-screen--shot { overflow-y: hidden; } }
+    /* Link al sito di esempio come una barra indirizzo: dice "sito vero, online" senza scriverlo */
     .demo-link {
-      display: inline-flex; align-items: center; gap: 7px; padding-bottom: 3px;
-      font-size: 14.5px; font-weight: 700; color: var(--ink); border-bottom: 1.5px solid currentColor;
-      transition: color .2s;
+      display: inline-flex; align-items: center; gap: 10px; padding: 8px 8px 8px 14px;
+      border: 1px solid var(--line); border-radius: 100px; background: #fff; text-decoration: none;
+      font-size: 13.5px; font-weight: 600; color: var(--ink);
+      box-shadow: 0 8px 24px -10px rgba(10,10,10,.25); transition: transform .2s var(--ease), box-shadow .2s;
     }
-    .demo-link svg { width: 15px; height: 15px; }
-    .demo-link:hover { color: var(--orange); }
+    .demo-link:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -12px rgba(10,10,10,.32); }
+    .demo-link-lock { display: inline-flex; color: var(--wa-ink); }
+    .demo-link-lock svg { width: 13px; height: 13px; }
+    .demo-link-path { color: var(--soft); font-weight: 500; }
+    .demo-link-go { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--ink); color: #fff; }
+    .demo-link-go svg { width: 14px; height: 14px; }
 
     /* ── PROBLEMA + PRIMA/DOPO ── */
     .pain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -983,9 +989,10 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
         </div>
       </div>
 
-      <a class="demo-link" href="/esempio/" target="_blank" rel="noopener">
-        Apri il sito di esempio
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+      <a class="demo-link" href="/esempio/" target="_blank" rel="noopener" aria-label="Apri il sito di esempio (nuova scheda)">
+        <span class="demo-link-lock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+        <span>giacomostudio.it<span class="demo-link-path">/esempio</span></span>
+        <span class="demo-link-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
       </a>
     </div>
 
