@@ -24,7 +24,7 @@ test('font nuovi e niente Clash Display', async ({ page }) => {
   await gotoHome(page);
   await expect(page.locator('link[href*="cdnfonts"]')).toHaveCount(0);
   await expect(page.locator('link[href*="Inter+Tight"]')).toHaveCount(1);
-  expect(await page.evaluate(() => getComputedStyle(document.body).backgroundColor)).toBe('rgb(255, 255, 255)');
+  expect(await page.evaluate(() => getComputedStyle(document.body).backgroundColor)).toBe('rgb(251, 250, 247)'); // avorio
 });
 
 test('head invariato', async ({ page, browser }) => {
@@ -103,4 +103,14 @@ test('icona WhatsApp su ogni pulsante WhatsApp', async ({ page }) => {
   await expect(page.locator('.wa-dot')).toHaveCount(0);
   const missing = await page.$$eval('a[data-wa]', (as) => as.filter((a) => !a.querySelector('img.wa-mark[src="whatsapp.svg"]')).map((a) => a.textContent.trim()));
   expect(missing).toEqual([]);
+});
+
+test("sfondo: griglia nell'hero e nel riquadro finale, barra intonata", async ({ page }) => {
+  await gotoHome(page);
+  const heroGrid = await page.evaluate(() => getComputedStyle(document.querySelector('#hero'), '::before').backgroundImage);
+  expect(heroGrid).toContain('linear-gradient');
+  expect(await page.locator('#contatto .cta-box').evaluate((e) => getComputedStyle(e).backgroundImage)).toContain('linear-gradient');
+  await page.evaluate(() => window.scrollTo(0, 900));
+  await expect(page.locator('#nav')).toHaveClass(/scrolled/);
+  await expect.poll(() => page.locator('#nav').evaluate((e) => getComputedStyle(e).backgroundColor)).toBe('rgba(251, 250, 247, 0.86)');
 });

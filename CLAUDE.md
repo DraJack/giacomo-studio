@@ -148,14 +148,14 @@ Il sito serve a: (a) entrare in casa del cliente con attrito quasi zero, (b) dim
 
 ## 7. Design system
 
-Stile chiaro "Mix 1" (redesign del 22/11/2026): fondo bianco, titoli neri molto pesanti, un dettaglio
+Stile chiaro "Mix 1" (redesign del 22/11/2026): fondo avorio (#fbfaf7) con card bianche, griglia leggera nell'hero e nel blocco nero finale, titoli neri molto pesanti, un dettaglio
 elegante in corsivo con il gradient del brand. Spec: `docs/superpowers/specs/2026-11-22-redesign-giacomostudio-design.md` (locale, non nel repo).
 
 ### Token — `:root` in `index.html`
 
 ```css
---bg:     #ffffff;   /* fondo pagina */
---bg-alt: #f7f6f3;   /* sezioni alterne, riquadri (grigio caldo) */
+--bg:     #fbfaf7;   /* fondo pagina (avorio: le card #fff staccano) */
+--bg-alt: #f3efe7;   /* sezioni alterne, riquadri (grigio caldo) */
 --ink:    #0a0a0a;   /* testo, pulsante principale */
 --muted:  #555555;   /* testo secondario */
 --soft:   #8a8a8a;   /* note, didascalie */
@@ -170,7 +170,7 @@ elegante in corsivo con il gradient del brand. Spec: `docs/superpowers/specs/202
 **Il verde ha un significato preciso: garanzia, WhatsApp, "sì".** Non usarlo come colore decorativo.
 La card garanzia (`.pkg-card--green`) ridefinisce `--accent` / `--accent-soft` localmente: **usa questo pattern** se serve un blocco a colore diverso.
 
-**Un solo blocco nero**: `#contatto .cta-box`. Tutto il resto è bianco o `--bg-alt` (un test lo verifica).
+**Un solo blocco nero**: `#contatto .cta-box`. Tutto il resto è avorio, bianco o `--bg-alt` (un test lo verifica).
 
 ### Tipografia (solo Google Fonts)
 
