@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { telefono, ha_sito, source } = req.body || {};
+  const { nome, telefono, ha_sito, source } = req.body || {};
 
   const tel = normPhone(telefono);
   if (!tel) {
@@ -34,7 +34,9 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: ERR_CONF });
   }
 
-  const payload = { token, telefono: tel, ha_sito: String(ha_sito ?? ''), source: String(source ?? '') };
+  // Il nome lo chiede il modulo; qui resta facoltativo (una pagina vecchia in cache non lo manda).
+  const nomePulito = String(nome ?? '').trim().replace(/\s+/g, ' ').slice(0, 60);
+  const payload = { token, telefono: tel, nome: nomePulito, ha_sito: String(ha_sito ?? ''), source: String(source ?? '') };
 
   try {
     // Apps Script risponde 302 verso googleusercontent.com: il redirect va seguito per leggere il JSON.

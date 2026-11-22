@@ -31,7 +31,7 @@ async function call(body, { env = { SHEET_WEBHOOK_URL: URL_EXEC, SHEET_TOKEN: 't
 test.beforeEach(({}, info) => { test.skip(info.project.name !== 'desktop', 'una volta sola'); });
 
 test('numero valido → Apps Script con token e numero normalizzato', async () => {
-  const { res, sent } = await call({ telefono: '+39 340-123.4567', tipo_business: 'serramenti', ha_sito: 'vecchio', source: 'landing-checkup' });
+  const { res, sent } = await call({ nome: '  Mario   Rossi ', telefono: '+39 340-123.4567', tipo_business: 'serramenti', ha_sito: 'vecchio', source: 'landing-checkup' });
   expect(res.code).toBe(200);
   expect(res.data).toEqual({ ok: true });
   expect(sent).toHaveLength(1);
@@ -39,14 +39,20 @@ test('numero valido → Apps Script con token e numero normalizzato', async () =
   expect(sent[0].opts.method).toBe('POST');
   expect(sent[0].opts.redirect).toBe('follow');
   expect(sent[0].opts.headers['content-type']).toBe('application/json');
-  expect(sent[0].body).toEqual({ token: 't0k', telefono: '+393401234567', ha_sito: 'vecchio', source: 'landing-checkup' });
+  expect(sent[0].body).toEqual({ token: 't0k', telefono: '+393401234567', nome: 'Mario Rossi', ha_sito: 'vecchio', source: 'landing-checkup' });
   const all = JSON.stringify(sent).toLowerCase();
   for (const w of ['brevo', 'sms', 'api-key']) expect(all).not.toContain(w);
+});
+
+test('nome lunghissimo → tagliato a 60 caratteri', async () => {
+  const { sent } = await call({ nome: 'x'.repeat(500), telefono: '3401234567' });
+  expect(sent[0].body.nome).toHaveLength(60);
 });
 
 test('0039 e fisso', async () => {
   const { sent } = await call({ telefono: '0039 080 1234567' });
   expect(sent[0].body.telefono).toBe('+390801234567');
+  expect(sent[0].body.nome).toBe(''); // pagina vecchia in cache: il nome può mancare
   expect(sent[0].body.ha_sito).toBe('');
   expect(sent[0].body.source).toBe('');
 });

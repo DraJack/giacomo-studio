@@ -64,10 +64,11 @@ test('check-up invio', async ({ page }) => {
   const calls = await mockSubscribe(page, 200, {});
   await page.locator('#check-up').scrollIntoViewIfNeeded();
   await page.locator('.cu-chip', { hasText: 'Sì, ma è vecchio' }).click();
+  await page.locator('#cu-nome').fill('  Mario   Rossi ');
   await page.locator('#cu-tel').fill('340 123 4567');
   await page.locator('#cu-submit').click();
   await expect(page.locator('#cu-done')).toBeVisible();
-  expect(calls).toEqual([{ telefono: '+393401234567', tipo_business: 'serramenti', ha_sito: 'vecchio', source: 'landing-checkup' }]);
+  expect(calls).toEqual([{ nome: 'Mario Rossi', telefono: '+393401234567', tipo_business: 'serramenti', ha_sito: 'vecchio', source: 'landing-checkup' }]);
   expect(await gaEvents(page, 'checkup_submit')).toEqual([{ tipo_business: 'serramenti', ha_sito: 'vecchio' }]);
   expect(await pixelEvents(page, 'CheckupRequest')).toEqual([{ tipo_business: 'serramenti', ha_sito: 'vecchio' }]);
 });
@@ -76,6 +77,7 @@ for (const [raw, norm] of [['+39 340-123.4567', '+393401234567'], ['0039 080 123
   test(`check-up numero ${raw}`, async ({ page }) => {
     await gotoHome(page);
     const calls = await mockSubscribe(page, 200, {});
+    await page.locator('#cu-nome').fill('Mario');
     await page.locator('#cu-tel').fill(raw);
     await page.locator('#cu-submit').click();
     await expect(page.locator('#cu-done')).toBeVisible();
@@ -87,6 +89,7 @@ for (const bad of ['12ab', '12345', '+39 12', '340 123 4567 8901 2']) {
   test(`check-up numero sbagliato ${bad}`, async ({ page }) => {
     await gotoHome(page);
     const calls = await mockSubscribe(page, 200, {});
+    await page.locator('#cu-nome').fill('Mario');
     await page.locator('#cu-tel').fill(bad);
     await page.locator('#cu-submit').click();
     await expect(page.locator('#cu-error')).toHaveText('Controlla il numero, sembra incompleto.');
@@ -94,10 +97,24 @@ for (const bad of ['12ab', '12345', '+39 12', '340 123 4567 8901 2']) {
   });
 }
 
+test('check-up senza nome → errore, niente invio', async ({ page }) => {
+  await gotoHome(page);
+  const calls = await mockSubscribe(page, 200, {});
+  const nome = page.locator('#cu-nome');
+  await expect(nome).toHaveAttribute('autocomplete', 'given-name');
+  await nome.fill('   ');
+  await page.locator('#cu-tel').fill('340 123 4567');
+  await page.locator('#cu-submit').click();
+  await expect(page.locator('#cu-error')).toHaveText('Scrivi il tuo nome.');
+  await expect(nome).toBeFocused();
+  expect(calls).toEqual([]);
+});
+
 test('check-up honeypot', async ({ page }) => {
   await gotoHome(page);
   const calls = await mockSubscribe(page, 200, {});
   await page.locator('#cu-sito').evaluate((e) => { e.value = 'bot'; });
+  await page.locator('#cu-nome').fill('Mario');
   await page.locator('#cu-tel').fill('340 123 4567');
   await page.locator('#cu-submit').click();
   await expect(page.locator('#cu-done')).toBeVisible();
@@ -107,11 +124,13 @@ test('check-up honeypot', async ({ page }) => {
 test('check-up errore server', async ({ page }) => {
   await gotoHome(page);
   await mockSubscribe(page, 500, { error: 'x' });
+  await page.locator('#cu-nome').fill('Mario');
   await page.locator('#cu-tel').fill('340 123 4567');
   await page.locator('#cu-submit').click();
   await expect(page.locator('#cu-error')).toHaveText('x');
   await expect(page.locator('#cu-submit')).toBeEnabled();
   await expect(page.locator('#cu-tel')).toBeEnabled();
+  await expect(page.locator('#cu-nome')).toBeEnabled();
   await expect(page.locator('#cu-submit-label')).toHaveText('Fammi vedere');
 });
 
