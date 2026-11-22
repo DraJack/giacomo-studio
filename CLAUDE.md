@@ -27,13 +27,11 @@ Non è un'agenzia. È **una persona sola** che fa tutto: strategia, design, codi
 
 ## 2. Target
 
-**Titolari di attività locali in Puglia.**
+**Imprese di infissi e serramenti in Puglia** (dal 21/11/2026; prima: ristoranti, B&B, servizi).
 
-Nell'ordine di priorità:
-
-1. **Ristorazione** — ristoranti, pizzerie, trattorie, bar, pub
-2. **Ospitalità** — B&B, case vacanza, agriturismi
-3. **Servizi alla persona** — palestre, centri estetici, parrucchieri
+Perché questa nicchia: un lavoro vale migliaia di euro, vivono di richieste di preventivo,
+rispondono su WhatsApp. Giacomo lavora **solo a distanza** (WhatsApp e telefono, niente incontri).
+Design della strategia: `docs/superpowers/specs/2026-11-21-primo-cliente-serramentisti-puglia-design.md`.
 
 ### Come sono fatti
 
@@ -59,7 +57,7 @@ L'area di lavoro si allargherà. Se il copy si incastra su "Taranto" o "Bari", o
 
 Conseguenze pratiche su ogni modifica:
 
-- **Message match.** La promessa dell'annuncio (locale + 150€ + 3 giorni + non paghi prima) deve essere leggibile nell'hero **senza scrollare**. Se cambia l'hero, cambia l'annuncio, e viceversa.
+- **Message match.** La promessa dell'annuncio (impresa di infissi + gratis da vedere + 48 ore + 150€ solo se ti piace) deve essere leggibile nell'hero **senza scrollare**. Se cambia l'hero, cambia l'annuncio, e viceversa.
 - **Il traffico è freddo.** Nessuno conosce Giacomo. Le obiezioni vanno gestite nell'ordine: *"non mi serve" → "non mi fido" → "costa troppo" → "è complicato"*. È l'ordine delle sezioni.
 - **Un tap dalla conversione.** Da qualsiasi punto della pagina il CTA WhatsApp deve essere raggiungibile: nav in alto, sticky bar in basso su mobile, CTA nelle sezioni.
 - **Velocità.** File singolo, zero librerie, zero framework. Non aggiungere dipendenze: ogni 100ms in più costa conversioni pagate.
@@ -71,23 +69,27 @@ Conseguenze pratiche su ogni modifica:
 
 | Voce | Valore |
 |---|---|
-| **Pacchetto base** | **150€** (prezzo barrato di riferimento: **390€**) |
-| **Add-on unico** | **Menu digitale + QR — +50€** |
-| **Tutto insieme** | 200€ |
-| **Consegna** | **3 giorni lavorativi** |
+| **Pacchetto unico** | **150€** (prezzo barrato di riferimento: **390€**) |
+| **Anteprima** | **Gratis, entro 48 ore** — si prepara il sito prima di qualsiasi pagamento |
+| **Incluso** (oltre al sito) | Preventivo guidato → WhatsApp, scheda Google sistemata, SEO locale |
+| **Add-on** | Nessuno (il menu digitale è stato tolto con la nicchia ristoranti) |
 | **Anticipo** | **Zero.** Nessun acconto, nessuna carta bloccata |
 | **Pagamento** | Solo dopo approvazione, solo se il cliente decide di pubblicare |
 | **Revisioni** | **Illimitate**, finché non è soddisfatto (nel perimetro concordato) |
-| **Incluso** | Dominio + hosting primo anno, SEO base, Google Analytics, form contatto, pulsante WhatsApp, collegamento social, recensioni Google |
+| **Incluso** | Dominio + hosting primo anno, SEO base, Google Analytics, pulsante WhatsApp, recensioni Google |
 | **Tempo di risposta** | Immediato — in pagina si scrive "rispondo subito" |
 | **Scarsità** | **Nessuna.** Niente "solo 5 posti", niente countdown, niente "offerta lancio" |
 
-### Cosa c'è nel pacchetto (le 4 card della sezione `#pacchetto`)
+### Cosa c'è nel pacchetto (le 5 card della sezione `#pacchetto`)
 
-1. **Sito completo** — Home, chi siamo, galleria, contatti + mappa, menu, prenotazioni. `150€ · tutto incluso`
-2. **Menu digitale + QR** — pagina menu mobile-first + QR pronto per la stampa. `+50€ · add-on`
-3. **Online in 3 giorni** — timeline giorno 1 / giorni 1–2 / giorno 3. `3 giorni lavorativi`
-4. **Garanzia** — lo vedi prima, paghi solo se ti piace. `Zero rischio garantito` *(card verde)*
+1. **Sito completo** — prodotti, lavori realizzati, contatti + mappa. `150€ · tutto incluso`
+2. **Preventivi su WhatsApp** — preventivo guidato in 4 tocchi. `Incluso` *(visual `.pkg-quote`)*
+3. **Google** — scheda Google + SEO locale; mai promettere il primo posto. `Incluso` *(visual `.pkg-serp`)*
+4. **Lo vedi in 48 ore** — timeline oggi / 24 ore / 48 ore. `48 ore`
+5. **Garanzia** — lo vedi prima, paghi solo se ti piace. `Zero rischio garantito` *(card verde)*
+
+Il messaggio deve combaciare con gli annunci Meta in `Documents/meta ads/serramentisti-puglia/`
+(gratis da vedere · 48 ore · 150€ solo se ti piace).
 
 ### Sulla scarsità — decisione presa
 
@@ -300,7 +302,7 @@ Il valore è ripetuto in **~30 punti**. Cambiarlo in un posto solo lascia il sit
 
 **Verifica finale** (deve dare zero risultati):
 ```bash
-grep -rnE "249|980|570|197|5 giorni|Giorno 5|5 posti|offerta lancio" index.html termini.html privacy.html
+grep -rnE "249|980|570|197|5 giorni|3 giorni|Giorno 5|5 posti|offerta lancio|add-on|Menu digitale" index.html termini.html privacy.html
 grep -rniE "taranto|bari|lecce|brindisi|foggia" index.html termini.html
 ```
 
