@@ -769,6 +769,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     .cu-chip input:focus-visible + span { outline: 2px solid var(--orange); outline-offset: 2px; }
     .cu-row { display: flex; gap: 10px; margin-bottom: 12px; }
     .cu-input { flex: 1; min-width: 0; padding: 15px 20px; border-radius: 100px; border: 1.5px solid rgba(0,0,0,.14); background: #fff; font-size: 15px; font-weight: 600; }
+    .cu-input--nome { display: block; width: 100%; margin-bottom: 10px; }
     .cu-input:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 4px rgba(250,104,0,.12); }
     .cu-submit { background: var(--grad); color: #fff; }
     .cu-submit:disabled { opacity: .6; cursor: wait; transform: none; }
@@ -1702,7 +1703,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
             <div class="cu-chips">
               <label class="cu-chip">
                 <input type="radio" name="cu-tipo" value="no" checked>
-                <span>No</span>
+                <span>No, e ne voglio uno</span>
               </label>
               <label class="cu-chip">
                 <input type="radio" name="cu-tipo" value="vecchio">
@@ -1714,6 +1715,10 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
               </label>
             </div>
           </fieldset>
+
+          <label class="cu-sr" for="cu-nome">Il tuo nome</label>
+          <input class="cu-input cu-input--nome" id="cu-nome" type="text" name="nome"
+                 placeholder="Il tuo nome" autocomplete="given-name" maxlength="60" required>
 
           <div class="cu-row">
             <label class="cu-sr" for="cu-tel">Il tuo numero di cellulare</label>
@@ -2025,6 +2030,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     const cuBtn   = document.getElementById('cu-submit');
     const cuLabel = document.getElementById('cu-submit-label');
     const cuTel   = document.getElementById('cu-tel');
+    const cuNome  = document.getElementById('cu-nome');
     const cuErr   = document.getElementById('cu-error');
     const cuDone  = document.getElementById('cu-done');
     const cuHp    = document.getElementById('cu-sito');
@@ -2033,7 +2039,7 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
     const cuFail = (msg) => {
       cuErr.textContent = msg;
       cuErr.hidden = false;
-      cuBtn.disabled = false; cuTel.disabled = false;
+      cuBtn.disabled = false; cuTel.disabled = false; cuNome.disabled = false;
       cuLabel.textContent = 'Fammi vedere';
     };
     // Stessa regola di normPhone() in api/subscribe.js: numeri italiani, +39 davanti.
@@ -2052,6 +2058,13 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
       // Bot: fingi che sia andata bene e non inviare niente.
       if (cuHp.value) { cuShowDone(); return; }
 
+      const nome = cuNome.value.trim().replace(/\s+/g, ' ').slice(0, 60);
+      if (!nome) {
+        cuFail('Scrivi il tuo nome.');
+        cuNome.focus();
+        return;
+      }
+
       const telefono = normPhone(cuTel.value);
       if (!telefono) {
         cuFail('Controlla il numero, sembra incompleto.');
@@ -2062,13 +2075,13 @@ src="https://www.facebook.com/tr?id=2914769975530947&ev=PageView&noscript=1"
       const checked = cuForm.querySelector('input[name="cu-tipo"]:checked');
       const tipo = checked ? checked.value : '';
 
-      cuBtn.disabled = true; cuTel.disabled = true;
+      cuBtn.disabled = true; cuTel.disabled = true; cuNome.disabled = true;
       cuLabel.textContent = 'Invio\u2026';
 
       fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ telefono: telefono, tipo_business: 'serramenti', ha_sito: tipo, source: 'landing-checkup' })
+        body: JSON.stringify({ nome: nome, telefono: telefono, tipo_business: 'serramenti', ha_sito: tipo, source: 'landing-checkup' })
       })
         .then(function (res) {
           return res.json().catch(function () { return {}; })
