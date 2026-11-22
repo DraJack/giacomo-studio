@@ -115,14 +115,16 @@ function eData(v) {
 }
 
 function promemoria() {
-  var fine = new Date();
-  fine.setHours(23, 59, 59, 999);
+  // Si confrontano giorni di calendario ('yyyyMMdd'): la data della cella letta nel fuso del foglio,
+  // oggi in Europe/Rome. Così non conta il fuso del progetto Apps Script.
+  var oggi = Utilities.formatDate(new Date(), FUSO, 'yyyyMMdd');
+  var fusoFoglio = SpreadsheetApp.getActiveSpreadsheet().getSpreadsheetTimeZone();
 
   var lista = foglio().getDataRange().getValues().slice(1).filter(function (r) {
     var stato = r[5];
     if (CHIUSI.indexOf(stato) !== -1) return false;
     if (stato === 'Nuovo') return true;
-    return eData(r[6]) && r[6].getTime() <= fine.getTime();
+    return eData(r[6]) && Utilities.formatDate(r[6], fusoFoglio, 'yyyyMMdd') <= oggi;
   });
   if (!lista.length) return;
 

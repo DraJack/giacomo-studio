@@ -8,7 +8,10 @@ const CODE = readFileSync(new URL('../apps-script/Code.gs', import.meta.url), 'u
 test.beforeEach(({}, info) => { test.skip(info.project.name !== 'desktop', 'una volta sola'); });
 
 // Crea un contesto con il foglio `rows` (riga 1 = intestazioni) e registra cosa fa lo script.
-function load({ rows = [['Data']], token = 't0k' } = {}) {
+// Giorno di calendario 'yyyyMMdd' di un istante in un fuso, come Utilities.formatDate.
+const ymd = (d, tz) => new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(d).replace(/-/g, '');
+
+function load({ rows = [['Data']], token = 't0k', sheetTz = 'Europe/Rome' } = {}) {
   const log = { appended: [], mails: [], formats: {}, validations: {}, triggers: [], deleted: [], frozen: 0, headers: null };
   const range = (a1) => {
     const r = {
@@ -27,7 +30,7 @@ function load({ rows = [['Data']], token = 't0k' } = {}) {
     getRange(a, b, c, d) { return range(typeof a === 'string' ? a : `R${a}C${b}:${c}x${d}`); },
     setFrozenRows(n) { log.frozen = n; },
   };
-  const ss = { getSheetByName: (n) => (n === 'Contatti' ? sheet : null), getSheets: () => [sheet], getUrl: () => 'https://docs.google.com/spreadsheets/d/F' };
+  const ss = { getSheetByName: (n) => (n === 'Contatti' ? sheet : null), getSheets: () => [sheet], getUrl: () => 'https://docs.google.com/spreadsheets/d/F', getSpreadsheetTimeZone: () => sheetTz };
   const validation = () => {
     const v = { list: null, date: false };
     const b = { requireValueInList(l) { v.list = l; return b; }, requireDate() { v.date = true; return b; }, setAllowInvalid() { return b; }, build: () => v };
@@ -43,7 +46,7 @@ function load({ rows = [['Data']], token = 't0k' } = {}) {
       MimeType: { JSON: 'json' },
       createTextOutput: (s) => ({ text: s, setMimeType() { return this; } }),
     },
-    Utilities: { formatDate: (d, tz, f) => `${tz}|${f}` },
+    Utilities: { formatDate: (d, tz, f) => (f === 'yyyyMMdd' ? ymd(d, tz) : `${tz}|${f}`) },
     ScriptApp: {
       getProjectTriggers: () => [{ getHandlerFunction: () => 'promemoria' }, { getHandlerFunction: () => 'altro' }],
       deleteTrigger(t) { log.deleted.push(t.getHandlerFunction()); },
@@ -146,6 +149,23 @@ test('promemoria: un Nuovo e uno scaduto, uno di oggi, un Cliente scaduto → em
   expect(body).toContain('+392 · Mario · Da ricontattare');
   expect(body).toContain('+394');
   expect(body).not.toContain('+393');
+});
+
+// "Oggi" non deve dipendere dal fuso del progetto Apps Script: si confrontano giorni di calendario,
+// la data della cella nel fuso del foglio e oggi in Europe/Rome.
+test('promemoria: confronta i giorni con Utilities.formatDate nel fuso del foglio', () => {
+  const lontano = new Date(Date.UTC(2099, 0, 1));
+  const { ctx, log } = load({ rows: [['Data'], riga('+395', 'Da ricontattare', lontano)], sheetTz: 'Foglio/TZ' });
+  const real = ctx.Utilities.formatDate;
+  const seen = [];
+  ctx.Utilities.formatDate = (d, tz, f) => {
+    seen.push(tz);
+    if (f === 'yyyyMMdd' && tz === 'Foglio/TZ' && d.getTime() === lontano.getTime()) return '20000101';
+    return real(d, tz === 'Foglio/TZ' ? 'UTC' : tz, f);
+  };
+  ctx.promemoria();
+  expect(log.mails).toHaveLength(1);
+  expect(seen).toContain('Europe/Rome');
 });
 
 test('prepara imposta intestazioni, formati, tendina e un solo trigger alle 8', () => {
