@@ -3,7 +3,7 @@ import { gotoHome, blockWaNavigation, gaEvents, pixelEvents, expectOldTextsIn, s
 
 test('testi invariati', async ({ page }) => {
   await gotoHome(page);
-  await expectOldTextsIn(expect, page, 'main', ['.about-name', '.about-bio', '.about-stat-label',
+  await expectOldTextsIn(expect, page, 'main', ['.about-name', '.about-stat-label',
     '.compare-feature', '.compare-val-me', '.compare-val', '.cmc-title', '.cmc-val', '.faq-q', '.faq-a',
     '.faq-contact-title', '#contatto .h2', '.cta-sub', '.cta-trust-item', '.cu-legend', '.cu-chip span']);
 });
@@ -151,4 +151,14 @@ test('su telefono la foto mostra la faccia', async ({ page, isMobile }) => {
   expect(await img.evaluate((i) => getComputedStyle(i).objectPosition)).toBe('50% 0%');
   const box = await page.locator('.about-photo').boundingBox();
   expect(Math.abs(box.width / box.height - 4 / 5)).toBeLessThan(0.02);
+});
+
+test('chi sono: nuovo testo e ruolo in rosso brand', async ({ page }) => {
+  await gotoHome(page);
+  const bio = page.locator('.about-bio');
+  await expect(bio).toContainText("Lavoro con imprese di infissi e serramenti in Puglia. Gente che monta finestre a regola d'arte, ma online non si vede.");
+  await expect(bio).toContainText('Non faccio siti vetrina da guardare: faccio siti che portano richieste di preventivo, dritte sul tuo WhatsApp.');
+  await expect(bio).toContainText('Tu pensi al cantiere, al resto penso io: testi, foto, sito e scheda Google. Non devi imparare niente e non devi perdere tempo.');
+  await expect(bio).not.toContainText('Ma prima il sito');
+  expect(await page.locator('.about-role').evaluate((e) => getComputedStyle(e).color)).toBe('rgb(255, 44, 50)');
 });
